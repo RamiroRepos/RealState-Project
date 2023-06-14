@@ -1,4 +1,4 @@
-namespace RealState_WEB.Models
+namespace RealState_API.Models
 {
     public class ErrorViewModel
     {
