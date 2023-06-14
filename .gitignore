@@ -475,3 +475,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+RealState-WEB/.vs/RealState-WEB/v17/.suo
+*.vsidx
