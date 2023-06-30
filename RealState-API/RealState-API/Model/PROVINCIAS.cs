@@ -2,11 +2,10 @@
 
 namespace RealState_API.Model
 {
-    public class PROPIEDAD_TIPOS
+    public class PROVINCIAS
     {
         [Key]
         public long ID { get; set; }
         public string NOMBRE { get; set; }
-        public string DESCRIPCION { get; set; }
     }
 }

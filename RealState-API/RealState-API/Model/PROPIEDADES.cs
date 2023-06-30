@@ -6,17 +6,26 @@ namespace RealState_API.Model
     public class PROPIEDADES
     {
         [Key]
-        public long Id { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public decimal Precio { get; set; }
-        public bool Estado { get; set; }
-        public long Id_Tipo_Fk { get; set; }
-        public long Id_Usuario_Fk { get; set; }
-        public long Id_Detalle_Fk { get; set; }
-        public long Id_Direccion_Fk { get; set; }
+        public long ID { get; set; }
+        public string NOMBRE { get; set; }
+        public string DESCRIPCION { get; set; }
+        public decimal PRECIO { get; set; }
+        public bool ESTADO { get; set; }
+        public long ID_TIPO_FK { get; set; }
+        public long ID_USUARIO_FK { get; set; }
+        public long ID_DETALLE_FK { get; set; }
+        public long ID_DIRECCION_FK { get; set; }
 
-        [ForeignKey("Id_Tipo_Fk")]
+        [ForeignKey("ID_TIPO_FK")]
         public PROPIEDAD_TIPOS PropiedadTipo { get; set; }
+
+        [ForeignKey("ID_USUARIO_FK")]
+        public USUARIOS Usuario { get; set; }
+
+        [ForeignKey("ID_DETALLE_FK")]
+        public PROPIEDAD_DETALLES Detalle { get; set; }
+
+        [ForeignKey("ID_DIRECCION_FK")]
+        public PROPIEDAD_DIRECCIONES Direccion { get; set; }
     }
 }
