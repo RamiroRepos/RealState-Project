@@ -29,7 +29,7 @@ namespace RealState_API.Controllers
                 .Include(p => p.usuario.direccion)
                 .Include(p => p.detalle)
                 .Include(p => p.direccion)
-                .Include(p => p.direccion.PAIS)
+                .Include(p => p.direccion.pais)
                 .Include(p => p.direccion.provincia)
                 .ToList();
 
@@ -41,15 +41,6 @@ namespace RealState_API.Controllers
             }
 
             return propiedades;
-        }
-
-        [Route("Imagenes")]
-        [HttpGet]
-        public ActionResult<List<PROPIEDAD_IMAGENES>> ObtenerImagenes(long idPropiedad)
-        {
-            var imagenes = _context.PROPIEDAD_IMAGENES
-                .Where(i => i.id_propiedad_fk == idPropiedad).ToList();
-            return imagenes;
         }
 
         // Obtener un propiedad
@@ -64,14 +55,19 @@ namespace RealState_API.Controllers
                 .Include(p => p.usuario.direccion)
                 .Include(p => p.detalle)
                 .Include(p => p.direccion)
-                .Include(p => p.direccion.PAIS)
+                .Include(p => p.direccion.pais)
                 .Include(p => p.direccion.provincia)
                 .FirstOrDefault(p => p.id == id);
+
 
             if (propiedad == null)
             {
                 return NotFound();
             }
+
+            // Obtener las imágenes de la propiedad y las asigna a la propiedad Imagenes
+            propiedad.imagenes = _context.PROPIEDAD_IMAGENES
+                .Where(pi => pi.id_propiedad_fk == propiedad.id).ToList();
 
             return propiedad;
         }
@@ -79,12 +75,14 @@ namespace RealState_API.Controllers
         //Actualizar una propiedad
         [Route("ActualizarPropiedad")]
         [HttpPut]
-        public ActionResult ActualizarPropiedad(long id, PROPIEDADES propiedad) // OJO hay que ver si se una el mismo ID que traiga el objeto propiedad y quitar ese "long id"
+        public ActionResult ActualizarPropiedad(long id, PROPIEDADES propiedadNueva) // OJO hay que ver si se una el mismo ID que traiga el objeto propiedad y quitar ese "long id"
         {
             var propiedadExistente = _context.PROPIEDADES.Include(p => p.propiedadTipo)
                                                          .Include(p => p.usuario)
                                                          .Include(p => p.detalle)
                                                          .Include(p => p.direccion)
+                                                         .Include(p => p.direccion.pais)
+                                                         .Include(p => p.direccion.provincia)
                                                          .FirstOrDefault(p => p.id == id);
 
             if (propiedadExistente == null)
@@ -92,28 +90,74 @@ namespace RealState_API.Controllers
                 return NotFound();
             }
 
+            // Obtener las imágenes de la propiedad y las asigna a la propiedad Imagenes
+            propiedadExistente.imagenes = _context.PROPIEDAD_IMAGENES
+                .Where(pi => pi.id_propiedad_fk == propiedadNueva.id).ToList();
+
             // Actualizar los valores de la propiedad existente con los nuevos valores
-            propiedadExistente.nombre = propiedad.nombre;
-            propiedadExistente.descripcion = propiedad.descripcion;
-            propiedadExistente.precio = propiedad.precio;
-            propiedadExistente.estado = propiedad.estado;
+            propiedadExistente.nombre = propiedadNueva.nombre;
+            propiedadExistente.descripcion = propiedadNueva.descripcion;
+            propiedadExistente.precio = propiedadNueva.precio;
+            propiedadExistente.estado = propiedadNueva.estado;
+
+            // Actualizar el tipo de propiedad
+            propiedadExistente.id_tipo_fk = propiedadNueva.id_tipo_fk;
 
             // Actualizar los valores de la tabla detalle
-            propiedadExistente.detalle.cantidad_bannos = propiedad.detalle.cantidad_bannos;
-            propiedadExistente.detalle.cantidad_cuartos = propiedad.detalle.cantidad_cuartos;
-            propiedadExistente.detalle.cantidad_parqueo = propiedad.detalle.cantidad_parqueo;
-            propiedadExistente.detalle.cantidad_metros2 = propiedad.detalle.cantidad_metros2;
+            propiedadExistente.detalle.cantidad_bannos = propiedadNueva.detalle.cantidad_bannos;
+            propiedadExistente.detalle.cantidad_cuartos = propiedadNueva.detalle.cantidad_cuartos;
+            propiedadExistente.detalle.cantidad_parqueo = propiedadNueva.detalle.cantidad_parqueo;
+            propiedadExistente.detalle.cantidad_metros2 = propiedadNueva.detalle.cantidad_metros2;
 
             // Actualizar los valores de la tabla direccion
-            propiedadExistente.direccion.direccion_exacta = propiedad.direccion.direccion_exacta;
-            propiedadExistente.direccion.gmaps_link = propiedad.direccion.gmaps_link;
-            propiedadExistente.direccion.canton = propiedad.direccion.canton;
-            propiedadExistente.direccion.distrito = propiedad.direccion.distrito;
+            propiedadExistente.direccion.direccion_exacta = propiedadNueva.direccion.direccion_exacta;
+            propiedadExistente.direccion.gmaps_link = propiedadNueva.direccion.gmaps_link;
+            propiedadExistente.direccion.canton = propiedadNueva.direccion.canton;
+            propiedadExistente.direccion.distrito = propiedadNueva.direccion.distrito;
+            propiedadExistente.direccion.id_pais_fk = propiedadNueva.direccion.id_pais_fk;
+            propiedadExistente.direccion.id_provincia_fk = propiedadNueva.direccion.id_provincia_fk;
 
             //OJO falta la parte de imagenes
 
-            // Guardar los cambios en la base de datos
-            _context.SaveChanges();
+            int cantImgExistentes = propiedadExistente.imagenes.Count;
+            int cantImgNuevas = propiedadNueva.imagenes.Count;
+
+            // Se actualizan y agregan imagenes
+            int i = 0;
+            while (i < cantImgNuevas || i < cantImgExistentes)
+            {
+                if (i < cantImgNuevas)
+                {
+                    PROPIEDAD_IMAGENES imagenExistente = null;
+                    if (i < cantImgExistentes)
+                    {
+                        imagenExistente = _context.PROPIEDAD_IMAGENES.FirstOrDefault(im => im.id == propiedadExistente.imagenes[i].id);
+                    }
+                    if (imagenExistente != null)
+                    {
+                        // Actualizar los campos necesarios
+                        imagenExistente.imagen = propiedadNueva.imagenes[i].imagen;
+                    }
+                    else
+                    {
+                        // Crear una nueva imagen
+                        var nuevaImagen = new PROPIEDAD_IMAGENES
+                        {
+                            imagen = propiedadNueva.imagenes[i].imagen,
+                            id_propiedad_fk = propiedadNueva.id // Asigna el ID de la propiedad correspondiente
+                        };
+                        // Agregar la nueva imagen al contexto
+                        _context.PROPIEDAD_IMAGENES.Add(nuevaImagen);
+                    }
+                }
+                else if (i >= cantImgNuevas && i < cantImgExistentes)
+                {
+                    // Eliminar imágenes existentes que sobran
+                    PROPIEDAD_IMAGENES imagenExistente = propiedadExistente.imagenes[i];
+                    _context.PROPIEDAD_IMAGENES.Remove(imagenExistente);
+                }
+                i++;
+            }
 
             // Guardar los cambios en la base de datos
             _context.SaveChanges();
@@ -164,7 +208,7 @@ namespace RealState_API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error al crear la propiedad: {ex.Message}");
+                return BadRequest($"Error al crear la propiedadNueva: {ex.Message}");
             }
         }
 
