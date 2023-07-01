@@ -15,10 +15,10 @@ namespace RealState_API.Model
         public string distrito { get; set; }
 
         [ForeignKey("id_pais_fk")]
-        public PAISES pais { get; set; }
+        public PAISES? pais { get; set; }
 
         [ForeignKey("id_provincia_fk")]
-        public PROVINCIAS provincia { get; set; }
+        public PROVINCIAS? provincia { get; set; }
     }
 
 }

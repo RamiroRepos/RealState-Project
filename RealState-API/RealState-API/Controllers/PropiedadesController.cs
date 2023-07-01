@@ -198,6 +198,7 @@ namespace RealState_API.Controllers
         {
             try
             {
+                //propiedad.propiedadTipo = _context.PROPIEDAD_TIPOS.FirstOrDefault(pt => pt.id == propiedad.id_tipo_fk);
                 // Agregar la nueva propiedad al contexto
                 _context.PROPIEDADES.Add(propiedad);
 
