@@ -1,8 +1,250 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<RealState_WEB.Model.PROPIEDADES>
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="intro intro-carousel swiper position-relative">
+
+    <div class="swiper-wrapper">
+
+        @foreach (var item in Model.Take(3))
+        {
+
+            <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(../@item.imagenes[1].imagen)">
+                <div class="overlay overlay-a"></div>
+                <div class="intro-content display-table">
+                    <div class="table-cell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="intro-body">
+                                        <p class="intro-title-top">
+                                            @item.direccion.pais.nombre, @item.direccion.provincia.nombre
+                                            <br>
+                                        </p>
+                                        <h1 class="intro-title mb-4 ">
+                                            <span class="color-b">@item.nombre</span>
+                                            <br> @item.descripcion
+                                        </h1>
+                                        <p class="intro-subtitle intro-price">
+                                            <a asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-asp-route="@item.id">Ver detalles</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="swiper-pagination"></div>
 </div>
+
+<main id="main">
+    <section class="section-services section-t8">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-wrap d-flex justify-content-between">
+                        <div class="title-box">
+                            <h2 class="title-a">Servicios</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card-box-c foo">
+                        <div class="card-header-c d-flex">
+                            <div class="card-box-ico">
+                                <span class="bi bi-cart"></span>
+                                <div class="card-title-c align-self-center">
+                                    <h2 class="align-content-center">Venta de Propiedades</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body-c">
+                            <p class="content-c">
+                                Bienvenido a nuestro sitio web de venta de propiedades. Si estás buscando tu próxima casa, apartamento, terreno o propiedad comercial, estás en el lugar adecuado. Ofrecemos una amplia variedad de propiedades en diferentes ubicaciones y rangos de precios para satisfacer las necesidades y presupuestos de nuestros clientes. Nuestro equipo de agentes inmobiliarios altamente capacitados y experimentados está listo para ayudarte en cada paso del proceso de compra, desde la búsqueda y la selección de propiedades hasta la negociación y la gestión del cierre. Nos comprometemos a brindarte una experiencia de compra de propiedades fácil, transparente y satisfactoria. Explora nuestra selección de propiedades en línea y contáctanos hoy para comenzar a encontrar tu propiedad ideal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-box-c foo">
+                        <div class="card-header-c d-flex">
+                            <div class="card-box-ico">
+                                <span class="bi bi-calendar4-week"></span>
+                                <div class="card-title-c align-self-center">
+                                    <h2 class="align-content-center">Gestión de cierre</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body-c">
+                            <p class="content-c">
+                                Este servicio ofrece a los clientes ayuda en la gestión de los detalles finales de la compra de propiedades, incluyendo la gestión de los documentos necesarios para el cierre, la programación de inspecciones y la coordinación de la entrega de llaves. Los agentes inmobiliarios expertos en el sitio web trabajan estrechamente con los clientes para asegurarse de que todo esté en orden para el cierre y que el proceso sea lo más fluido posible. Este servicio ayuda a garantizar que el cliente tenga una experiencia de compra de propiedades sin problemas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-box-c foo">
+                        <div class="card-header-c d-flex">
+                            <div class="card-box-ico">
+                                <span class="bi bi-card-checklist"></span>
+                                <div class="card-title-c align-self-center">
+                                    <h2 class="align-content-center">Asesoramiento</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body-c">
+                            <p class="content-c">
+                                Este servicio ofrece a los clientes asesoramiento en las negociaciones para asegurarse de que obtengan el mejor precio posible en su compra de propiedades. Los agentes inmobiliarios expertos en el sitio web tienen experiencia en la negociación de contratos de propiedades y pueden proporcionar orientación y asesoramiento sobre cómo abordar las negociaciones y garantizar que el cliente obtenga el mejor trato posible.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-property section-t8">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-wrap d-flex justify-content-between">
+                        <div class="title-box">
+                            <h2 class="title-a">Propiedades</h2>
+                        </div>
+                        <div class="title-link">
+                            <a asp-controller="Propiedades" asp-action="Propiedades">
+                            Todas las propiedades
+                            <span class="bi bi-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="property-carousel" class="swiper">
+                <div class="swiper-wrapper">
+                    @foreach (var item in Model.Take(5))
+                    {
+                        <div class="carousel-item-b swiper-slide">
+                            <div class="card-box-a card-shadow">
+                                <div class="img-box-a">
+                                    @if (item.imagenes != null && item.imagenes.Count > 0 && !string.IsNullOrEmpty(item.imagenes[0].imagen))
+                                    {
+                                        <img src="@item.imagenes[0].imagen" alt="" class="img-a img-fluid" style="height: 300px; object-fit: scale-down;">
+                                    }
+                                    else
+                                    {
+                                        <img src="/img/Propiedades/noImage.png" alt="SinImagen" class="img-a img-fluid" />
+                                    }
+                                </div>
+                                <div class="card-overlay">
+                                    <div class="card-overlay-a-content">
+                                        <div class="card-header-a">
+                                            <h2 class="card-title-a">
+                                                <a href="property-single.html">
+                                                    @item.direccion.pais.nombre
+                                                    <br /> @item.direccion.provincia.nombre
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="card-body-a">
+                                            <div class="price-box d-flex">
+                                                <span class="price-a">
+                                                    @{
+                                                        if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                        {
+                                                            <span>Precio | ₡@item.precio.ToString("#,##0.00")</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Precio | ₡ </span> <span>Ingresar</span>
+                                                        }
+                                                    }
+                                                </span>
+                                            </div>
+                                            <a asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-asp-route="@item.id">
+                                                Ver detalles
+                                                Click aqui para ver
+                                                <span class="bi bi-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                        <div class="card-footer-a">
+                                            <ul class="card-info d-flex justify-content-around">
+                                                <li>
+                                                    <h4 class="card-info-title">Metros</h4>
+                                                    <span>
+                                                        @{
+                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            {
+                                                                @item.detalle.cantidad_metros2
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Ingresar</span>
+                                                            }
+                                                        }
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <h4 class="card-info-title">Cuartos</h4>
+                                                    <span>
+                                                        @{
+                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            {
+                                                                @item.detalle.cantidad_cuartos
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Ingresar</span>
+                                                            }
+                                                        }
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <h4 class="card-info-title">Baños</h4>
+                                                    <span>
+                                                        @{
+                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            {
+                                                                @item.detalle.cantidad_bannos
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Ingresar</span>
+                                                            }
+                                                        }
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <h4 class="card-info-title">Parqueos</h4>
+                                                    <span>
+                                                        @{
+                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            {
+                                                                @item.detalle.cantidad_parqueo
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Ingresar</span>
+                                                            }
+                                                        }
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="propery-carousel-pagination carousel-pagination"></div>
+        </div>
+    </section>
+</main>

@@ -6,14 +6,14 @@ namespace RealState_API.Model
     public class BITACORAS
     {
         [Key]
-        public long ID { get; set; }
-        public DateTime FECHA_HORA { get; set; }
-        public string ORIGEN { get; set; }
-        public string MENSAJE_ERROR { get; set; }
-        public long? ID_USUARIO_FK { get; set; }
+        public long id { get; set; }
+        public DateTime fecha_hora { get; set; }
+        public string origen { get; set; }
+        public string mensaje_error { get; set; }
+        public long? id_usuario_fk { get; set; }
 
-        [ForeignKey("ID_USUARIO_FK")]
-        public USUARIOS Usuario { get; set; }
+        [ForeignKey("id_usuario_fk")]
+        public USUARIOS usuario { get; set; }
     }
 
 }

@@ -3,47 +3,188 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RealState_WEB</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - REAL STATE</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RealState_WEB.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RealState-WEB.styles.css" asp-append-version="true" />
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+
+    <!-- Vendor CSS Files -->
+    <link rel="stylesheet" href="~/vendor/animate.css/animate.min.css"/>
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/vendor/bootstrap-icons/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="~/vendor/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="~/css/stylesAdmin.css" />
+
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet" />
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RealState_WEB</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <!-- ======= Header/Navbar ======= -->
+    <nav class="navbar navbar-default navbar-reduce navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a class="navbar-brand text-brand" asp-controller="Home" asp-action="Index">Real <span class="color-b"> State</span></a>
+
+            <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item">
+                        <a asp-controller="Home" asp-action="Index" class="nav-link active">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-controller="Propiedades" asp-action="Propiedades" class="nav-link ">Propiedades</a>
+                    </li>
+                    <!--Dropdown para las opciones de administrador-->
+                    @{
+                        long IdRol = 2;
+                        if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                        {
+                            //IdRol = long.Parse(HttpContext.Current.Session["IdRol"].ToString()); if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                        }
+                    }
+                    @if (IdRol == 1)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-action="Usuarios" asp-route="ConsultarUsuarios">Usuarios</a>
+                                <a class="dropdown-item" asp-action="Propiedades" asp-route="Propiedades">Usuarios</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    }
+                    <!--Dropdown para las opciones de Usuario-->
+                    @if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="MiPerfil">Mi Perfil</a>
+                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="MisCitas">Mis Citas </a>
+                            </div>
                         </li>
-                    </ul>
-                </div>
+                    }
+                    <li class="nav-item">
+                        @{
+                            if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                            {
+                                <a class="nav-link" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesión</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion">Ingresar</a>
+                            }
+                        }
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <section class="section-footer">
         <div class="container">
-            &copy; 2023 - RealState_WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">Agencia de bienes raíces</h3>
+                        </div>
+                        <div class="w-footer-a">
+                            <ul class="list-unstyled">
+                                <li class="color-a">
+                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Hillary Madriz
+                                    <span class="color-text-a"><a href="mailto:hmadriz10439@ufide.ac.cr"><i class="bi bi-envelope"></i> hmadriz10439@ufide.ac.cr</a></span>
+                                </li>
+                                <li class="color-a">
+                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Michael Quirós Villalobos
+                                    <span class="color-text-a"><a href="mailto:mquiros10138@ufide.ac.cr"><i class="bi bi-envelope"></i> mquiros10138@ufide.ac.cr</a></span>
+                                </li>
+                                <li class="color-a">
+                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Wimmer Madrigal pongalo completo
+                                    <span class="color-text-a"><a href="mailto:wmadrigal70471@ufide.ac.cr"><i class="bi bi-envelope"></i> mrojas10720@ufide.ac.cr</a></span>
+                                </li>
+                                <li class="color-a">
+                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Luis Carlos Cascante Calderón
+                                    <span class="color-text-a"><a href="mailto:lcascante50329@ufide.ac.cr"><i class="bi bi-envelope"></i> lcascante50329@ufide.ac.cr</a></span>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="nav-footer">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a asp-controller="Home" asp-action="Index">Inicio</a>
+                                <a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a asp-controller="Propiedades" asp-action="Propiedades">Propiedades</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="copyright-footer">
+                        <p class="copyright color-text-a">
+                            &copy; Copyright
+                            <span class="color-a">RealEstate</span> Todos los derechos reservados.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <!-- Vendor JS Files -->
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="~/js/data-table-1.js"></script>
+    <script src="~/js/data-table-2.js"></script>
+    <script src="~/js/data-table-3.js"></script>
+    <script src="~/js/jquery.dataTables.js"></script>
+    <script src="~/js/dataTables.select.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tablas').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
 </body>
 </html>

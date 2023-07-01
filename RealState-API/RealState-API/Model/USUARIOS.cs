@@ -6,21 +6,21 @@ namespace RealState_API.Model
     public class USUARIOS
     {
         [Key]
-        public long ID { get; set; }
-        public string NOMBRE { get; set; }
-        public string APELLIDOS { get; set; }
-        public string EMAIL { get; set; }
-        public string TELEFONO { get; set; }
-        public string CONTRASENNA { get; set; }
-        public bool ESTADO { get; set; }
-        public long ID_ROL_FK { get; set; }
-        public long ID_DIRECCION_FK { get; set; }
+        public long id { get; set; }
+        public string nombre { get; set; }
+        public string apellidos { get; set; }
+        public string email { get; set; }
+        public string telefono { get; set; }
+        public string contrasenna { get; set; }
+        public bool estado { get; set; }
+        public long id_rol_fk { get; set; }
+        public long id_direccion_fk { get; set; }
 
-        [ForeignKey("ID_ROL_FK")]
-        public USUARIO_ROLES ROL { get; set; }
+        [ForeignKey("id_rol_fk")]
+        public USUARIO_ROLES rol { get; set; }
 
-        [ForeignKey("ID_DIRECCION_FK")]
-        public USUARIO_DIRECCIONES DIRECCION { get; set; }
+        [ForeignKey("id_direccion_fk")]
+        public USUARIO_DIRECCIONES direccion { get; set; }
     }
 
 }

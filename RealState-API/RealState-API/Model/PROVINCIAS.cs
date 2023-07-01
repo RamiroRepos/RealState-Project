@@ -5,7 +5,7 @@ namespace RealState_API.Model
     public class PROVINCIAS
     {
         [Key]
-        public long ID { get; set; }
-        public string NOMBRE { get; set; }
+        public long id { get; set; }
+        public string nombre { get; set; }
     }
 }

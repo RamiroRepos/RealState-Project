@@ -1,0 +1,148 @@
+﻿@model IEnumerable<RealState_WEB.Model.PROPIEDADES>
+@{
+    ViewBag.Title = "Propiedades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Propiedades</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Propiedades
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="property-grid grid">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card-box-a card-shadow">
+                        <div class="img-box-a">
+                            @if (item.imagenes != null && item.imagenes.Count > 0 && !string.IsNullOrEmpty(item.imagenes[0].imagen))
+                            {
+                                <img src="@item.imagenes[0].imagen" alt="" class="img-a img-fluid" style="height: 300px; object-fit: scale-down;">
+                            }
+                            else
+                            {
+                                <img src="/img/Propiedades/noImage.png" alt="SinImagen" class="img-a img-fluid" />
+                            }
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-overlay-a-content">
+                                <div class="card-header-a">
+                                    <h2 class="card-title-a">
+                                        <a asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-route-ID="@item.id">
+                                            @item.direccion.pais.nombre
+                                            <br /> @item.direccion.provincia.nombre
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="card-body-a">
+                                    <div class="price-box d-flex">
+                                        <span class="price-a">
+
+                                            @{
+                                                if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                {
+                                                    <span>Precio | ₡@item.precio.ToString("#,##0.00")</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Precio | ₡ </span> <span>Ingresar</span>
+                                                }
+                                            }
+                                        </span>
+                                    </div>
+                                    <a asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-route-ID="@item.id">
+                                        Click aqui para ver
+                                        <span class="bi bi-chevron-right"></span>
+                                    </a>
+                                </div>
+                                <div class="card-footer-a">
+                                    <ul class="card-info d-flex justify-content-around">
+                                        <li>
+                                            <h4 class="card-info-title">Metros</h4>
+                                            <span>
+                                                @{
+                                                    if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                    {
+                                                        @item.detalle.cantidad_metros2
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Ingresar</span>
+                                                    }
+                                                }
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <h4 class="card-info-title">Cuartos</h4>
+                                            <span>
+                                                @{
+                                                    if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                    {
+                                                        @item.detalle.cantidad_cuartos
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Ingresar</span>
+                                                    }
+                                                }
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <h4 class="card-info-title">Baños</h4>
+                                            <span>
+                                                @{
+                                                    if (true)
+                                                    {
+                                                        @item.detalle.cantidad_bannos
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Ingresar</span>
+                                                    }
+                                                }
+                                            </span>
+
+                                        </li>
+                                        <li>
+                                            <h4 class="card-info-title">Parqueos</h4>
+                                            @{
+                                                if (true)
+                                                {
+                                                    <span>@item.detalle.cantidad_parqueo</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Ingresar</span>
+                                                }
+                                            }
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

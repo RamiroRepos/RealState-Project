@@ -17,30 +17,56 @@ namespace RealState_API.Controllers
 
         ////////////////////////////// Acciones de Propiedades //////////////////////////////
 
-        // Obtener todas las propiedades
-        [Route("GetPropiedades")]
+        //// Obtener todas las propiedades
+        [Route("Propiedades")]
         [HttpGet]
-        public ActionResult<List<PROPIEDADES>> GetPropiedades()
+        public ActionResult<List<PROPIEDADES>> Propiedades()
         {
-            return _context.PROPIEDADES
-                .Include(p => p.PropiedadTipo)
-                .Include(p => p.Usuario)
-                .Include(p => p.Detalle)
-                .Include(p => p.Direccion)
+            var propiedades = _context.PROPIEDADES
+                .Include(p => p.propiedadTipo)
+                .Include(p => p.usuario)
+                .Include(p => p.usuario.rol)
+                .Include(p => p.usuario.direccion)
+                .Include(p => p.detalle)
+                .Include(p => p.direccion)
+                .Include(p => p.direccion.PAIS)
+                .Include(p => p.direccion.provincia)
                 .ToList();
+
+            // Obtener las imágenes para cada propiedad y asignarlas a la propiedad Imagenes
+            foreach (var propiedad in propiedades)
+            {
+                propiedad.imagenes = _context.PROPIEDAD_IMAGENES
+                    .Where(pi => pi.id_propiedad_fk == propiedad.id).ToList();
+            }
+
+            return propiedades;
+        }
+
+        [Route("Imagenes")]
+        [HttpGet]
+        public ActionResult<List<PROPIEDAD_IMAGENES>> ObtenerImagenes(long idPropiedad)
+        {
+            var imagenes = _context.PROPIEDAD_IMAGENES
+                .Where(i => i.id_propiedad_fk == idPropiedad).ToList();
+            return imagenes;
         }
 
         // Obtener un propiedad
-        [Route("GetPropiedad/{id}")]
+        [Route("Propiedad/{id}")]
         [HttpGet]
-        public ActionResult<PROPIEDADES> GetPropiedad(long id)
+        public ActionResult<PROPIEDADES> Propiedad(long id)
         {
             var propiedad = _context.PROPIEDADES
-                .Include(p => p.PropiedadTipo)
-                .Include(p => p.Usuario)
-                .Include(p => p.Detalle)
-                .Include(p => p.Direccion)
-                .FirstOrDefault(p => p.ID == id);
+                .Include(p => p.propiedadTipo)
+                .Include(p => p.usuario)
+                .Include(p => p.usuario.rol)
+                .Include(p => p.usuario.direccion)
+                .Include(p => p.detalle)
+                .Include(p => p.direccion)
+                .Include(p => p.direccion.PAIS)
+                .Include(p => p.direccion.provincia)
+                .FirstOrDefault(p => p.id == id);
 
             if (propiedad == null)
             {
@@ -51,15 +77,15 @@ namespace RealState_API.Controllers
         }
 
         //Actualizar una propiedad
-        [Route("UpdatePropiedad")]
+        [Route("ActualizarPropiedad")]
         [HttpPut]
-        public ActionResult UpdatePropiedad(long id, PROPIEDADES propiedad) // OJO hay que ver si se una el mismo ID que traiga el objeto propiedad y quitar ese "long id"
+        public ActionResult ActualizarPropiedad(long id, PROPIEDADES propiedad) // OJO hay que ver si se una el mismo ID que traiga el objeto propiedad y quitar ese "long id"
         {
-            var propiedadExistente = _context.PROPIEDADES.Include(p => p.PropiedadTipo)
-                                                         .Include(p => p.Usuario)
-                                                         .Include(p => p.Detalle)
-                                                         .Include(p => p.Direccion)
-                                                         .FirstOrDefault(p => p.ID == id);
+            var propiedadExistente = _context.PROPIEDADES.Include(p => p.propiedadTipo)
+                                                         .Include(p => p.usuario)
+                                                         .Include(p => p.detalle)
+                                                         .Include(p => p.direccion)
+                                                         .FirstOrDefault(p => p.id == id);
 
             if (propiedadExistente == null)
             {
@@ -67,22 +93,22 @@ namespace RealState_API.Controllers
             }
 
             // Actualizar los valores de la propiedad existente con los nuevos valores
-            propiedadExistente.NOMBRE = propiedad.NOMBRE;
-            propiedadExistente.DESCRIPCION = propiedad.DESCRIPCION;
-            propiedadExistente.PRECIO = propiedad.PRECIO;
-            propiedadExistente.ESTADO = propiedad.ESTADO;
+            propiedadExistente.nombre = propiedad.nombre;
+            propiedadExistente.descripcion = propiedad.descripcion;
+            propiedadExistente.precio = propiedad.precio;
+            propiedadExistente.estado = propiedad.estado;
 
-            // Actualizar los valores de la tabla Detalle
-            propiedadExistente.Detalle.CANTIDAD_BANNOS = propiedad.Detalle.CANTIDAD_BANNOS;
-            propiedadExistente.Detalle.CANTIDAD_CUARTOS = propiedad.Detalle.CANTIDAD_CUARTOS;
-            propiedadExistente.Detalle.CANTIDAD_PARQUEO = propiedad.Detalle.CANTIDAD_PARQUEO;
-            propiedadExistente.Detalle.CANTIDAD_METROS2 = propiedad.Detalle.CANTIDAD_METROS2;
+            // Actualizar los valores de la tabla detalle
+            propiedadExistente.detalle.cantidad_bannos = propiedad.detalle.cantidad_bannos;
+            propiedadExistente.detalle.cantidad_cuartos = propiedad.detalle.cantidad_cuartos;
+            propiedadExistente.detalle.cantidad_parqueo = propiedad.detalle.cantidad_parqueo;
+            propiedadExistente.detalle.cantidad_metros2 = propiedad.detalle.cantidad_metros2;
 
-            // Actualizar los valores de la tabla Direccion
-            propiedadExistente.Direccion.DIRECCION_EXACTA = propiedad.Direccion.DIRECCION_EXACTA;
-            propiedadExistente.Direccion.GMAPS_LINK = propiedad.Direccion.GMAPS_LINK;
-            propiedadExistente.Direccion.CANTON = propiedad.Direccion.CANTON;
-            propiedadExistente.Direccion.DISTRITO = propiedad.Direccion.DISTRITO;
+            // Actualizar los valores de la tabla direccion
+            propiedadExistente.direccion.direccion_exacta = propiedad.direccion.direccion_exacta;
+            propiedadExistente.direccion.gmaps_link = propiedad.direccion.gmaps_link;
+            propiedadExistente.direccion.canton = propiedad.direccion.canton;
+            propiedadExistente.direccion.distrito = propiedad.direccion.distrito;
 
             //OJO falta la parte de imagenes
 
@@ -96,11 +122,11 @@ namespace RealState_API.Controllers
         }
 
         //Actualizar el estado de alguna propiedad
-        [Route("UpdatePropiedadEstado")]
+        [Route("ActualizarPropiedadEstado")]
         [HttpPut]
-        public ActionResult UpdatePropiedadEstado(long id)
+        public ActionResult ActualizarPropiedadEstado(long id)
         {
-            var propiedadExistente = _context.PROPIEDADES.FirstOrDefault(p => p.ID == id);
+            var propiedadExistente = _context.PROPIEDADES.FirstOrDefault(p => p.id == id);
 
             if (propiedadExistente == null)
             {
@@ -108,13 +134,13 @@ namespace RealState_API.Controllers
             }
 
             // Actualizar el estado de la propiedad
-            if (propiedadExistente.ESTADO)
+            if (propiedadExistente.estado)
             {
-                propiedadExistente.ESTADO = false;
+                propiedadExistente.estado = false;
             }
             else
             {
-                propiedadExistente.ESTADO = true;
+                propiedadExistente.estado = true;
             }
             // Guardar los cambios en la base de datos
             _context.SaveChanges();
@@ -122,7 +148,7 @@ namespace RealState_API.Controllers
             return Ok(propiedadExistente);
         }
 
-        [Route("CreatePropiedad")]
+        [Route("NuevaPropiedad")]
         [HttpPost]
         public ActionResult<PROPIEDADES> CreatePropiedad(PROPIEDADES propiedad) //OJO falta lo de imagenes
         {
@@ -142,9 +168,9 @@ namespace RealState_API.Controllers
             }
         }
 
-        //Acciones de Tipos de Propiedades
+        ////////////////////////////// Acciones de Tipos de Propiedades //////////////////////////////
 
-        [Route("GetPropiedadTipos")]
+        [Route("PropiedadTipos")]
         [HttpGet]
         public ActionResult<List<PROPIEDAD_TIPOS>> GetPropiedadTipos()
         {

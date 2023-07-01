@@ -7,4 +7,102 @@
     <RootNamespace>RealState_WEB</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\vendor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\vendor\animate.css\animate.compat.css" />
+    <None Include="wwwroot\vendor\animate.css\animate.css" />
+    <None Include="wwwroot\vendor\animate.css\animate.min.css" />
+    <None Include="wwwroot\vendor\animate\animate.css" />
+    <None Include="wwwroot\vendor\animate\animate.min.css" />
+    <None Include="wwwroot\vendor\bootstrap-icons\bootstrap-icons.css" />
+    <None Include="wwwroot\vendor\bootstrap-icons\fonts\bootstrap-icons.woff" />
+    <None Include="wwwroot\vendor\bootstrap-icons\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.rtl.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.rtl.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.rtl.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.rtl.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.rtl.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.rtl.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.rtl.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.rtl.min.css" />
+    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.esm.js" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\vendor\contactform\contactform.js" />
+    <None Include="wwwroot\vendor\contactform\Readme.txt" />
+    <None Include="wwwroot\vendor\easing\easing.js" />
+    <None Include="wwwroot\vendor\easing\easing.min.js" />
+    <None Include="wwwroot\vendor\font-awesome\css\font-awesome.css" />
+    <None Include="wwwroot\vendor\font-awesome\css\font-awesome.min.css" />
+    <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\vendor\ionicons\css\ionicons.css" />
+    <None Include="wwwroot\vendor\ionicons\css\ionicons.min.css" />
+    <None Include="wwwroot\vendor\ionicons\fonts\ionicons.eot" />
+    <None Include="wwwroot\vendor\ionicons\fonts\ionicons.svg" />
+    <None Include="wwwroot\vendor\ionicons\fonts\ionicons.ttf" />
+    <None Include="wwwroot\vendor\ionicons\fonts\ionicons.woff" />
+    <None Include="wwwroot\vendor\ionicons\fonts\ionicons.woff2" />
+    <None Include="wwwroot\vendor\jquery\jquery-migrate.min.js" />
+    <None Include="wwwroot\vendor\jquery\jquery.min.js" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\ajax-loader.gif" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\owl.carousel.css" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\owl.carousel.min.css" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\owl.theme.default.css" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\owl.theme.default.min.css" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\owl.theme.green.css" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\owl.theme.green.min.css" />
+    <None Include="wwwroot\vendor\owlcarousel\assets\owl.video.play.png" />
+    <None Include="wwwroot\vendor\owlcarousel\LICENSE" />
+    <None Include="wwwroot\vendor\owlcarousel\owl.carousel.js" />
+    <None Include="wwwroot\vendor\owlcarousel\owl.carousel.min.js" />
+    <None Include="wwwroot\vendor\php-email-form\validate.js" />
+    <None Include="wwwroot\vendor\popper\popper.min.js" />
+    <None Include="wwwroot\vendor\scrollreveal\scrollreveal.js" />
+    <None Include="wwwroot\vendor\scrollreveal\scrollreveal.min.js" />
+    <None Include="wwwroot\vendor\swiper\swiper-bundle.min.css" />
+    <None Include="wwwroot\vendor\swiper\swiper-bundle.min.js" />
+    <None Include="wwwroot\vendor\swiper\swiper-bundle.min.js.map" />
+  </ItemGroup>
+
 </Project>

@@ -5,9 +5,9 @@ namespace RealState_API.Model
     public class USUARIO_ROLES
     {
         [Key]
-        public long ID { get; set; }
-        public string NOMBRE { get; set; }
-        public string DESCRIPCION { get; set; }
+        public long id { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
     }
 
 }

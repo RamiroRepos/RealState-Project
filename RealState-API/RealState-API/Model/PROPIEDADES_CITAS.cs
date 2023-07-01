@@ -6,16 +6,16 @@ namespace RealState_API.Model
     public class PROPIEDADES_CITAS
     {
         [Key]
-        public long ID { get; set; }
-        public DateTime FECHA_HORA { get; set; }
-        public long ID_PROPIEDAD { get; set; }
-        public long ID_USUARIO { get; set; }
+        public long id { get; set; }
+        public DateTime fecha_hora { get; set; }
+        public long id_propiedad { get; set; }
+        public long id_usuario { get; set; }
 
-        [ForeignKey("ID_PROPIEDAD")]
-        public PROPIEDADES Propiedad { get; set; }
+        [ForeignKey("id_propiedad")]
+        public PROPIEDADES propiedad { get; set; }
 
-        [ForeignKey("ID_USUARIO")]
-        public USUARIOS Usuario { get; set; }
+        [ForeignKey("id_usuario")]
+        public USUARIOS usuario { get; set; }
     }
 
 }

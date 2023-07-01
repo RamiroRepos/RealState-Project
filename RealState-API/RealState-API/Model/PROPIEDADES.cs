@@ -6,26 +6,28 @@ namespace RealState_API.Model
     public class PROPIEDADES
     {
         [Key]
-        public long ID { get; set; }
-        public string NOMBRE { get; set; }
-        public string DESCRIPCION { get; set; }
-        public decimal PRECIO { get; set; }
-        public bool ESTADO { get; set; }
-        public long ID_TIPO_FK { get; set; }
-        public long ID_USUARIO_FK { get; set; }
-        public long ID_DETALLE_FK { get; set; }
-        public long ID_DIRECCION_FK { get; set; }
+        public long id { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public decimal precio { get; set; }
+        public bool estado { get; set; }
+        public long id_tipo_fk { get; set; }
+        public long id_usuario_fk { get; set; }
+        public long id_detalle_fk { get; set; }
+        public long id_direccion_fk { get; set; }
 
-        [ForeignKey("ID_TIPO_FK")]
-        public PROPIEDAD_TIPOS PropiedadTipo { get; set; }
+        [ForeignKey("id_tipo_fk")]
+        public PROPIEDAD_TIPOS propiedadTipo { get; set; }
 
-        [ForeignKey("ID_USUARIO_FK")]
-        public USUARIOS Usuario { get; set; }
+        [ForeignKey("id_usuario_fk")]
+        public USUARIOS usuario { get; set; }
 
-        [ForeignKey("ID_DETALLE_FK")]
-        public PROPIEDAD_DETALLES Detalle { get; set; }
+        [ForeignKey("id_detalle_fk")]
+        public PROPIEDAD_DETALLES detalle { get; set; }
 
-        [ForeignKey("ID_DIRECCION_FK")]
-        public PROPIEDAD_DIRECCIONES Direccion { get; set; }
+        [ForeignKey("id_direccion_fk")]
+        public PROPIEDAD_DIRECCIONES direccion { get; set; }
+        public List<PROPIEDAD_IMAGENES> imagenes { get; set; }
+
     }
 }

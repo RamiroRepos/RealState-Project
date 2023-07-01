@@ -5,10 +5,10 @@ namespace RealState_API.Model
     public class PROPIEDAD_DETALLES
     {
         [Key]
-        public long ID { get; set; }
-        public long CANTIDAD_BANNOS { get; set; }
-        public long CANTIDAD_CUARTOS { get; set; }
-        public long CANTIDAD_PARQUEO { get; set; }
-        public long CANTIDAD_METROS2 { get; set; }
+        public long id { get; set; }
+        public long cantidad_bannos { get; set; }
+        public long cantidad_cuartos { get; set; }
+        public long cantidad_parqueo { get; set; }
+        public long cantidad_metros2 { get; set; }
     }
 }
