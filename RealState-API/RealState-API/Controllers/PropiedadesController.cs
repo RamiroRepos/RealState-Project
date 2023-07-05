@@ -117,7 +117,7 @@ namespace RealState_API.Controllers
             propiedadExistente.direccion.id_pais_fk = propiedadNueva.direccion.id_pais_fk;
             propiedadExistente.direccion.id_provincia_fk = propiedadNueva.direccion.id_provincia_fk;
 
-            //OJO falta la parte de imagenes
+            //Se actualizan las imagenes
 
             int cantImgExistentes = propiedadExistente.imagenes.Count;
             int cantImgNuevas = propiedadNueva.imagenes.Count;
@@ -217,9 +217,28 @@ namespace RealState_API.Controllers
 
         [Route("PropiedadTipos")]
         [HttpGet]
-        public ActionResult<List<PROPIEDAD_TIPOS>> GetPropiedadTipos()
+        public ActionResult<List<PROPIEDAD_TIPOS>> PropiedadTipos()
         {
             return _context.PROPIEDAD_TIPOS.ToList();
         }
+
+        ////////////////////////////// Acciones de Paises //////////////////////////////
+
+        [Route("Paises")]
+        [HttpGet]
+        public ActionResult<List<PAISES>> Paises()
+        {
+            return _context.PAISES.ToList();
+        }
+
+        ////////////////////////////// Acciones de Provincias //////////////////////////////
+
+        [Route("Provincias")]
+        [HttpGet]
+        public ActionResult<List<PROVINCIAS>> Provincias()
+        {
+            return _context.PROVINCIAS.ToList();
+        }
+
     }
 }

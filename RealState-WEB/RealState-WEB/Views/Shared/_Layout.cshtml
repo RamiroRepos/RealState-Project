@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - REAL STATE</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RealState-WEB.styles.css" asp-append-version="true" />
 
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
 
     <!-- Vendor CSS Files -->
-    <link rel="stylesheet" href="~/vendor/animate.css/animate.min.css"/>
-    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/vendor/bootstrap-icons/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="~/vendor/animate.css/animate.min.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap-icons/bootstrap-icons.css" />
     <link rel="stylesheet" href="~/vendor/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="~/css/stylesAdmin.css" />
 
@@ -24,6 +23,7 @@
 
     <!-- Template Main CSS File -->
     <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
 </head>
 <body>
@@ -55,13 +55,13 @@
                             //IdRol = long.Parse(HttpContext.Current.Session["IdRol"].ToString()); if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
                         }
                     }
-                    @if (IdRol == 1)
+                    @if (true) // OJO se debe volver a validar el rol IdRol == 1
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-action="Usuarios" asp-route="ConsultarUsuarios">Usuarios</a>
-                                <a class="dropdown-item" asp-action="Propiedades" asp-route="Propiedades">Usuarios</a>
+                                <a class="dropdown-item" asp-controller="Propiedades" asp-action="ConsultarUsuarios">Usuarios</a>
+                                <a class="dropdown-item" asp-controller="Propiedades" asp-action="ConsultarPropiedades">Propiedades</a>
                             </div>
                         </li>
                     }
@@ -92,65 +92,62 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="">
+        <main role="main" class="pb-3 cuerpo">
             @RenderBody()
         </main>
     </div>
 
-    <section class="section-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="widget-a">
-                        <div class="w-header-a">
-                            <h3 class="w-title-a text-brand">Agencia de bienes raíces</h3>
-                        </div>
-                        <div class="w-footer-a">
-                            <ul class="list-unstyled">
-                                <li class="color-a">
-                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Hillary Madriz
-                                    <span class="color-text-a"><a href="mailto:hmadriz10439@ufide.ac.cr"><i class="bi bi-envelope"></i> hmadriz10439@ufide.ac.cr</a></span>
-                                </li>
-                                <li class="color-a">
-                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Michael Quirós Villalobos
-                                    <span class="color-text-a"><a href="mailto:mquiros10138@ufide.ac.cr"><i class="bi bi-envelope"></i> mquiros10138@ufide.ac.cr</a></span>
-                                </li>
-                                <li class="color-a">
-                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Wimmer Madrigal Miranda
-                                    <span class="color-text-a"><a href="mailto:wmadrigal70471@ufide.ac.cr"><i class="bi bi-envelope"></i> wmadrigal70471@ufide.ac.cr</a></span>
-                                </li>
-                                <li class="color-a">
-                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Luis Carlos Cascante Calderón
-                                    <span class="color-text-a"><a href="mailto:lcascante50329@ufide.ac.cr"><i class="bi bi-envelope"></i> lcascante50329@ufide.ac.cr</a></span>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <footer>
-        <div class="container">
-
+        <div class="">
             <div class="row">
                 <div class="col-md-12">
                     <nav class="nav-footer">
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <a asp-controller="Home" asp-action="Index">Inicio</a>
-                                <a>
                             </li>
                             <li class="list-inline-item">
                                 <a asp-controller="Propiedades" asp-action="Propiedades">Propiedades</a>
                             </li>
                         </ul>
                     </nav>
+                    <section class="section-footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="widget-a">
+                                        <div class="w-header-a">
+                                            <h3 class="w-title-a text-brand">Agencia de bienes raíces</h3>
+                                        </div>
+                                        <div class="w-footer-a">
+                                            <ul class="list-unstyled">
+                                                <li class="color-a">
+                                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Hillary Madriz
+                                                    <span class="color-text-a"><a href="mailto:hmadriz10439@ufide.ac.cr"><i class="bi bi-envelope"></i> hmadriz10439@ufide.ac.cr</a></span>
+                                                </li>
+                                                <li class="color-a">
+                                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Michael Quirós Villalobos
+                                                    <span class="color-text-a"><a href="mailto:mquiros10138@ufide.ac.cr"><i class="bi bi-envelope"></i> mquiros10138@ufide.ac.cr</a></span>
+                                                </li>
+                                                <li class="color-a">
+                                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Wimmer Madrigal Miranda
+                                                    <span class="color-text-a"><a href="mailto:wmadrigal70471@ufide.ac.cr"><i class="bi bi-envelope"></i> wmadrigal70471@ufide.ac.cr</a></span>
+                                                </li>
+                                                <li class="color-a">
+                                                    <i class="bi bi-chevron-right"></i><i class="bi bi-person"></i>Luis Carlos Cascante Calderón
+                                                    <span class="color-text-a"><a href="mailto:lcascante50329@ufide.ac.cr"><i class="bi bi-envelope"></i> lcascante50329@ufide.ac.cr</a></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                     <div class="copyright-footer">
                         <p class="copyright color-text-a">
-                            &copy; Copyright
+                            &copy; Derechos de autor
                             <span class="color-a">RealEstate</span> Todos los derechos reservados.
                         </p>
                     </div>
@@ -158,6 +155,7 @@
             </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

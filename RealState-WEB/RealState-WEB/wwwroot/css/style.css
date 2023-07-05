@@ -22,8 +22,8 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  color: #555555;
+    font-family: "Poppins", sans-serif;
+    color: #555555;
 }
 
 h1,
@@ -2162,8 +2162,7 @@ a:hover {
 # Footer
 --------------------------------------------------------------*/
 .section-footer {
-  padding-top: 60px;
-  margin-top: 60px;
+  padding-top: 20px;
   background: #f3f3f3;
 }
 
@@ -2181,11 +2180,7 @@ a:hover {
   margin-bottom: 1rem;
 }
 
-footer {
-  background: #f3f3f3;
-  text-align: center;
-  padding: 30px 0;
-}
+
 
 footer .copyright-footer {
   border-top: 1px solid #ddd;

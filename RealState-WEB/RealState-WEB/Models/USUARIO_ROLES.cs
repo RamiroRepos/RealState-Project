@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace RealState_WEB.Model
 {
@@ -6,8 +7,15 @@ namespace RealState_WEB.Model
     {
         [Key]
         public long id { get; set; }
+
+        [Required(ErrorMessage = "Favor ingrese el nombre")]
+        [DisplayName("Nombre")]
         public string nombre { get; set; }
+
+        [Required(ErrorMessage = "Favor ingrese la descripción")]
+        [DisplayName("Descripción")]
         public string descripcion { get; set; }
+
     }
 
 }

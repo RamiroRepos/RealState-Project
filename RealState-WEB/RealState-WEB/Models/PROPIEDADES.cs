@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RealState_WEB.Model
 {
@@ -7,10 +9,23 @@ namespace RealState_WEB.Model
     {
         [Key]
         public long id { get; set; }
+
+        [Required(ErrorMessage = "Favor ingrese el nombre de la propiedad")]
+        [DisplayName("Nombre")]
         public string nombre { get; set; }
+
+        [Required(ErrorMessage = "Favor ingrese la descripción de la propiedad")]
+        [DisplayName("Descripción")]
         public string descripcion { get; set; }
+
+        [Required(ErrorMessage = "Favor ingrese el precio de la propiedad")]
+        [DisplayName("Precio")]
         public decimal precio { get; set; }
+
+        [Required(ErrorMessage = "Favor ingrese el estado de la propiedad")]
+        [DisplayName("Estado")]
         public bool estado { get; set; }
+
         public long id_tipo_fk { get; set; }
         public long id_usuario_fk { get; set; }
         public long id_detalle_fk { get; set; }
