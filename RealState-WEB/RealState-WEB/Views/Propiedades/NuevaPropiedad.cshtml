@@ -1,0 +1,129 @@
+﻿@model RealState_WEB.Model.PROPIEDADES
+
+@{
+    ViewBag.Title = "NuevaPropiedad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="card-title">Nueva Propiedad</h2>
+<div class="row">
+    <div style="margin-top: 2%">
+        <div class="col-md-10 grid-margin stretch-card" style="margin-left: 8%">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Información</h5>
+                    @*<form asp-action="NuevaPropiedad" class="forms-sample" enctype="multipart/form-data>*@
+                    <form asp-action="NuevaPropiedad" class="forms-sample" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="nombre"></label>
+                                <input asp-for="nombre" type="text" class="form-control" />
+                                <span asp-validation-for="nombre"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="descripcion"></label>
+                                <input asp-for="descripcion" type="text" class="form-control" />
+                                <span asp-validation-for="descripcion"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="precio"></label>
+                                <input asp-for="precio" type="text" class="form-control" />
+                                <span asp-validation-for="precio"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="propiedadTipo.nombre"></label>
+                                <select asp-for="propiedadTipo.id" asp-items="Model.propiedadTipo.TiposListSelectList" class="form-control">
+                                    <option value="">Seleccione un tipo de propiedad</option>
+                                </select>
+                                <span asp-validation-for="propiedadTipo.nombre"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <h5 class="card-title">Detalles</h5>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="detalle.cantidad_cuartos"></label>
+                                <input asp-for="detalle.cantidad_cuartos" type="text" class="form-control" />
+                                <span asp-validation-for="detalle.cantidad_cuartos"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="detalle.cantidad_bannos"></label>
+                                <input asp-for="detalle.cantidad_bannos" type="text" class="form-control" />
+                                <span asp-validation-for="detalle.cantidad_bannos"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="detalle.cantidad_metros2"></label>
+                                <input asp-for="detalle.cantidad_metros2" type="text" class="form-control" />
+                                <span asp-validation-for="detalle.cantidad_metros2"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="detalle.cantidad_parqueo"></label>
+                                <input asp-for="detalle.cantidad_parqueo" type="text" class="form-control" />
+                                <span asp-validation-for="detalle.cantidad_parqueo"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <h5 class="card-title">Dirección</h5>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="direccion.direccion_exacta"></label>
+                                <input asp-for="direccion.direccion_exacta" type="text" class="form-control" />
+                                <span asp-validation-for="direccion.direccion_exacta"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="direccion.pais.nombre"></label>
+                                <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control">
+                                    <option value="">Seleccione el país</option>
+                                </select>
+                                <span asp-validation-for="direccion.pais.nombre"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="direccion.provincia.nombre"></label>
+                                <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control">
+                                    <option value="">Seleccione la provincia</option>
+                                </select>
+                                <span asp-validation-for="direccion.provincia.nombre"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="direccion.canton"></label>
+                                <input asp-for="direccion.canton" type="text" class="form-control" />
+                                <span asp-validation-for="direccion.canton"></span>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="direccion.distrito"></label>
+                                <input asp-for="direccion.distrito" type="text" class="form-control" />
+                                <span asp-validation-for="direccion.distrito"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <h5 class="card-title">Imágenes</h5>
+                        <div class="row">
+                            <div class="form-group col-4"></div>
+                            <div class="form-group col-md-4">
+                                <label asp-for="imagenes[0].imagen" class="form-label">Seleccione las imágenes de la propiedad</label>
+                                <label style="display:none; color:red" id="MaximoImg">* Máximo 6 imágenes</label>
+                                @*<input asp-for="imagenesIForm" class="form-control" multiple accept=".jpg,.jpeg,.png" type="file" id="inputImg" onchange="imagenesView();" required />*@
+                                <input name="imagenesIForm" class="form-control" multiple accept=".jpg,.jpeg,.png" type="file" id="inputImg" onchange="imagenesView();" required />
+                            </div>
+                            <div class="form-group col-3"></div>
+                        </div>
+                        <br />
+                        <div id="previewContainer" class="row"></div>
+                        <input type="submit" class="btn btn-primary mr-2" value="Agregar Propiedad">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

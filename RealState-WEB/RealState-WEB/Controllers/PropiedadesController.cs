@@ -42,7 +42,44 @@ namespace RealState_WEB.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> NuevaPropiedad()
+        {
+            try
+            {
+                PROPIEDADES nPropiedad = new PROPIEDADES();
+                nPropiedad.propiedadTipo = new PROPIEDAD_TIPOS();
+                nPropiedad.propiedadTipo.tiposList = await PropiedadTipos();
+                nPropiedad.direccion = new PROPIEDAD_DIRECCIONES();
+                nPropiedad.direccion.pais = new PAISES();
+                nPropiedad.direccion.pais.paisesList = await Paises();
+                nPropiedad.direccion.provincia = new PROVINCIAS();
+                nPropiedad.direccion.provincia.provinciaList = await Provincias();
+                return View(nPropiedad);
+            }
+            catch (Exception ex)
+            {
+                // OJO Falta guardar en la bitácora
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NuevaPropiedad(PROPIEDADES propiedad)
+        {
+            try
+            {
+
+                return RedirectToAction("ConsultarPropiedades");
+            }
+            catch (Exception ex)
+            {
+                // OJO Falta guardar en la bitácora
+                return RedirectToAction("Index");
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> ActualizarPropiedad(long id)
         {

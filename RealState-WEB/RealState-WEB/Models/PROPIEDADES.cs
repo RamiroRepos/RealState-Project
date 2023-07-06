@@ -10,8 +10,9 @@ namespace RealState_WEB.Model
         [Key]
         public long id { get; set; }
 
-        [Required(ErrorMessage = "Favor ingrese el nombre de la propiedad")]
+        
         [DisplayName("Nombre")]
+        [Required(ErrorMessage = "Favor ingrese el nombre de la propiedad")]
         public string nombre { get; set; }
 
         [Required(ErrorMessage = "Favor ingrese la descripción de la propiedad")]
@@ -43,5 +44,6 @@ namespace RealState_WEB.Model
         [ForeignKey("id_direccion_fk")]
         public PROPIEDAD_DIRECCIONES direccion { get; set; }
         public List<PROPIEDAD_IMAGENES> imagenes { get; set; }
+        public List<IFormFile> imagenesIForm { get; set; }
     }
 }

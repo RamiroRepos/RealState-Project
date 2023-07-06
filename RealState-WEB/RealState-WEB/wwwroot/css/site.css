@@ -35,3 +35,10 @@ footer {
     height: 320px;
     color: white;
 }
+
+.preview-img {
+    width: 150px;
+    height: auto;
+    margin-right: 10px;
+}
+
