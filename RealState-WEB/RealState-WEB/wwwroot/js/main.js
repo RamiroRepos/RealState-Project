@@ -160,93 +160,17 @@ function quitarImagen(containerId) {
     inputImg.files = newFileList.files;
 }
 
-function mostrarLabel() {
-    var inputImg = document.getElementById("inputImg"); // Obtener el input de imágenes
-    var previewContainer = document.getElementById("previewContainer"); // Obtener el contenedor de la vista previa
-    var files = inputImg.files;
-    var cantImg = inputImg.files.length;
+function quitarImagenEdit(imagenName) {
+    // Obtener el índice de la imagen en la lista imagenes
+    var index = model.imagenes.findIndex(function (imagen) {
+        return imagen.imagen === imagenName;
+    });
 
-    document.getElementById("MaximoImg").style.display = "none";
-
-    if (cantImg > 4) {
-        inputImg.value = '';
-        document.getElementById("MaximoImg").style.display = "block";
-        return;
-    }
-
-    // Incrementar el contador de imágenes
-    imagenCount += cantImg;
-
-    // Deshabilitar el selector si se alcanza el número máximo de imágenes permitidas
-    if (imagenCount >= 4) {
-        inputImg.disabled = true;
-    }
-
-    // Limpiar el contenedor
-    previewContainer.innerHTML = '';
-
-    // Obtener la lista de archivos seleccionados
-    var files = inputImg.files;
-
-    if (cantImg > 4) {
-        document.getElementById("inputImg").value = '';
-        document.getElementById("MaximoImg").style.display = "block";
-    } else {
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-
-            // Crear un elemento de imagen para la vista previa
-            var imgElement = document.createElement('img');
-            imgElement.classList.add('preview-img');
-
-            // Crear un objeto de lectura de archivos
-            var reader = new FileReader();
-
-            // Configurar el evento onload para mostrar la vista previa cuando se cargue el archivo
-            reader.onload = (function (img) {
-                return function (e) {
-                    img.src = e.target.result;
-                };
-            })(imgElement);
-
-            // Leer el archivo como una URL de datos
-            reader.readAsDataURL(file);
-
-            // Crear un identificador único para el contenedor individual
-            var containerId = 'imageContainer-' + i;
-
-            // Crear un contenedor individual para cada imagen
-            var imageContainer = document.createElement('div');
-            imageContainer.classList.add('image-container');
-            imageContainer.classList.add('col-4');
-            imageContainer.setAttribute('id', containerId);
-
-            // Agregar la imagen al contenedor individual
-            imageContainer.appendChild(imgElement);
-
-            // Crear un botón de eliminar para la imagen
-            var deleteButton = document.createElement('button');
-            deleteButton.classList.add('btn');
-            deleteButton.classList.add('btn-danger');
-            deleteButton.classList.add('delete-button');
-            deleteButton.textContent = 'Quitar';
-
-            // Agregar el evento onclick para eliminar el contenedor de la imagen
-            deleteButton.onclick = function () {
-                imagenCount--;
-                var containerToRemove = document.getElementById(containerId);
-                containerToRemove.remove();
-            };
-
-            // Agregar el botón de eliminar al contenedor individual
-            imageContainer.appendChild(deleteButton);
-
-            // Agregar el contenedor individual al contenedor de la vista previa
-            previewContainer.appendChild(imageContainer);
-        }
+    if (index !== -1) {
+        // Eliminar la imagen de la lista imagenes
+        model.imagenes.splice(index, 1);
     }
 }
-
 
 
 (function () {

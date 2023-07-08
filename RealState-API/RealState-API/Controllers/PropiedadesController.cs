@@ -74,8 +74,8 @@ namespace RealState_API.Controllers
 
         //Actualizar una propiedad
         [Route("ActualizarPropiedad")]
-        [HttpPut]
-        public ActionResult ActualizarPropiedad(long id, PROPIEDADES propiedadNueva) // OJO hay que ver si se una el mismo ID que traiga el objeto propiedad y quitar ese "long id"
+        [HttpPost]
+        public ActionResult ActualizarPropiedad(PROPIEDADES propiedadNueva) 
         {
             var propiedadExistente = _context.PROPIEDADES.Include(p => p.propiedadTipo)
                                                          .Include(p => p.usuario)
@@ -83,7 +83,7 @@ namespace RealState_API.Controllers
                                                          .Include(p => p.direccion)
                                                          .Include(p => p.direccion.pais)
                                                          .Include(p => p.direccion.provincia)
-                                                         .FirstOrDefault(p => p.id == id);
+                                                         .FirstOrDefault(p => p.id == propiedadNueva.id);
 
             if (propiedadExistente == null)
             {
@@ -111,7 +111,6 @@ namespace RealState_API.Controllers
 
             // Actualizar los valores de la tabla direccion
             propiedadExistente.direccion.direccion_exacta = propiedadNueva.direccion.direccion_exacta;
-            propiedadExistente.direccion.gmaps_link = propiedadNueva.direccion.gmaps_link;
             propiedadExistente.direccion.canton = propiedadNueva.direccion.canton;
             propiedadExistente.direccion.distrito = propiedadNueva.direccion.distrito;
             propiedadExistente.direccion.id_pais_fk = propiedadNueva.direccion.id_pais_fk;

@@ -13,31 +13,35 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Información</h5>
-                    <form asp-action="Editar" class="forms-sample">
+                    <form asp-action="ActualizarPropiedad" class="forms-sample">
                         <div asp-validation-summary="ModelOnly"></div>
                         @Html.HiddenFor(Model => Model.id)
+                        @Html.HiddenFor(Model => Model.usuario.id)
+                        @Html.HiddenFor(Model => Model.usuario.id)
+                        @Html.HiddenFor(Model => Model.usuario.id)
+                        @Html.HiddenFor(Model => Model.usuario.id)
                         @Html.HiddenFor(Model => Model.usuario.id)
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="nombre"></label>
-                                <input asp-for="nombre" type="text" class="form-control" />
+                                <input asp-for="nombre" type="text" class="form-control" required/>
                                 <span asp-validation-for="nombre"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="descripcion"></label>
-                                <input asp-for="descripcion" type="text" class="form-control" />
+                                <input asp-for="descripcion" type="text" class="form-control" required />
                                 <span asp-validation-for="descripcion"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="precio"></label>
-                                <input asp-for="precio" type="text" class="form-control" />
+                                <input asp-for="precio" type="text" class="form-control" required />
                                 <span asp-validation-for="precio"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="propiedadTipo.nombre"></label>
-                                <select asp-for="propiedadTipo.id" asp-items="Model.propiedadTipo.TiposListSelectList" class="form-control">
+                                <select asp-for="propiedadTipo.id" asp-items="Model.propiedadTipo.TiposListSelectList" class="form-control" required>
                                     <option value="">Seleccione un tipo de propiedad</option>
                                 </select>
                                 <span asp-validation-for="propiedadTipo.nombre"></span>
@@ -48,24 +52,24 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="detalle.cantidad_cuartos"></label>
-                                <input asp-for="detalle.cantidad_cuartos" type="text" class="form-control" />
+                                <input asp-for="detalle.cantidad_cuartos" type="text" class="form-control" required />
                                 <span asp-validation-for="detalle.cantidad_cuartos"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="detalle.cantidad_bannos"></label>
-                                <input asp-for="detalle.cantidad_bannos" type="text" class="form-control" />
+                                <input asp-for="detalle.cantidad_bannos" type="text" class="form-control" required />
                                 <span asp-validation-for="detalle.cantidad_bannos"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="detalle.cantidad_metros2"></label>
-                                <input asp-for="detalle.cantidad_metros2" type="text" class="form-control" />
+                                <input asp-for="detalle.cantidad_metros2" type="text" class="form-control" required />
                                 <span asp-validation-for="detalle.cantidad_metros2"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="detalle.cantidad_parqueo"></label>
-                                <input asp-for="detalle.cantidad_parqueo" type="text" class="form-control" />
+                                <input asp-for="detalle.cantidad_parqueo" type="text" class="form-control" required />
                                 <span asp-validation-for="detalle.cantidad_parqueo"></span>
                             </div>
                         </div>
@@ -74,12 +78,12 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="direccion.direccion_exacta"></label>
-                                <input asp-for="direccion.direccion_exacta" type="text" class="form-control" />
+                                <input asp-for="direccion.direccion_exacta" type="text" class="form-control" required />
                                 <span asp-validation-for="direccion.direccion_exacta"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="direccion.pais.nombre"></label>
-                                <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control">
+                                <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control" required>
                                     <option value="">Seleccione el país</option>
                                 </select>
                                 <span asp-validation-for="direccion.pais.nombre"></span>
@@ -88,14 +92,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="direccion.provincia.nombre"></label>
-                                <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control">
+                                <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control" required>
                                     <option value="">Seleccione la provincia</option>
                                 </select>
                                 <span asp-validation-for="direccion.provincia.nombre"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="direccion.canton"></label>
-                                <input asp-for="direccion.canton" type="text" class="form-control" />
+                                <input asp-for="direccion.canton" type="text" class="form-control" required />
                                 <span asp-validation-for="direccion.canton"></span>
                             </div>
 
@@ -103,119 +107,43 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="direccion.distrito"></label>
-                                <input asp-for="direccion.distrito" type="text" class="form-control" />
+                                <input asp-for="direccion.distrito" type="text" class="form-control" required />
                                 <span asp-validation-for="direccion.distrito"></span>
+                            </div>                        
+                            <div class="form-group col-md-6">
+                                <label asp-for="estado"></label>
+                                <div class="form-check">
+                                    <input asp-for="estado" type="checkbox" class="form-check-input" />
+                                    <label class="form-check-label" asp-for="estado">Activo</label>
+                                </div>
+                                <span asp-validation-for="estado"></span>
                             </div>
-                        </div>
+                        </div> 
+
                         <br>
                         <h5 class="card-title">Imágenes</h5>
+                        <div id="previewContainer" class="row">
+                            @{
+                                int contador = 0;
+                            }
+                            @foreach (var imagen in Model.imagenes)
+                            {
+                                <div class="image-container col-4" id="">
+                                    <img class="preview-img" src="@imagen.imagen" alt="@imagen.imagen" id="@imagen.imagen+'-id'" />
+                                    <button class="btn btn-danger delete-button" onclick="quitarImagenEdit('@imagen.imagen')">Quitar</button>
+                                    <input type="hidden" name="imagenes[@contador].imagen" value="@imagen.imagen" />
+                                </div>
+                                contador++;
+                            }
 
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                         <input type="submit" class="btn btn-primary mr-2" value="Actualizar">
 
                     </form>
-
-@*
-                        <div class="row">
-                            @if (@Model.imagenesPropiedad.ImgRuta1 != null)
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="@Model.imagenesPropiedad.ImgRuta1" alt="Imagen1" />
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="/img/Propiedades/noImage.png" alt="SinImagen" />
-                                </div>
-                            }
-
-                            @if (@Model.imagenesPropiedad.ImgRuta2 != null)
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="@Model.imagenesPropiedad.ImgRuta2" alt="Imagen2" />
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="/img/Propiedades/noImage.png" alt="SinImagen" />
-                                </div>
-                            }
-
-                            @if (@Model.imagenesPropiedad.ImgRuta3 != null)
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="@Model.imagenesPropiedad.ImgRuta3" alt="Imagen3" />
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="/img/Propiedades/noImage.png" alt="SinImagen" />
-                                </div>
-                            }
-
-                            @if (@Model.imagenesPropiedad.ImgRuta4 != null)
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="@Model.imagenesPropiedad.ImgRuta4" alt="Imagen4" />
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-3">
-                                    <img class="img-fluid" src="/img/Propiedades/noImage.png" alt="SinImagen" />
-                                </div>
-                            }
-                            <div class="col-12"></div>
-                        </div>
-*@
-                        <br />
-@*
-                        <div class="row">
-                            <div class="form-group col-3">
-                                @Html.TextBoxFor(m => m.imagenesPropiedad.IMG1, new
-                            {
-                            @class = "form-control",
-                            id = "inputImg",
-                            @accept = ".jpg,.jpeg,.png",
-                            @type = "file",
-                            @onchange = "mostrarLabel();"
-                            })
-                            </div>
-                            <div class="form-group col-3">
-                                @Html.TextBoxFor(m => m.imagenesPropiedad.IMG2, new
-                            {
-                            @class = "form-control",
-                            id = "inputImg",
-                            @accept = ".jpg,.jpeg,.png",
-                            @type = "file",
-                            @onchange = "mostrarLabel();"
-                            })
-                            </div>
-                            <div class="form-group col-3">
-                                @Html.TextBoxFor(m => m.imagenesPropiedad.IMG3, new
-                            {
-                            @class = "form-control",
-                            id = "inputImg",
-                            @accept = ".jpg,.jpeg,.png",
-                            @type = "file",
-                            @onchange = "mostrarLabel();"
-                            })
-                            </div>
-                            <div class="form-group col-3">
-                                @Html.TextBoxFor(m => m.imagenesPropiedad.IMG4, new
-                            {
-                            @class = "form-control",
-                            id = "inputImg",
-                            title = "Seleccionar imagen",
-                            @accept = ".jpg,.jpeg,.png",
-                            @type = "file",
-                            @onchange = "mostrarLabel();"
-                            })
-                            </div>
-                        </div>
-*@
                 </div>
             </div>
         </div>

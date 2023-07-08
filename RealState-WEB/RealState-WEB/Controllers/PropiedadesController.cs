@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using RealState_WEB.Model;
 using System.Text.Json;
 
@@ -7,6 +6,13 @@ namespace RealState_WEB.Controllers
 {
     public class PropiedadesController : Controller
     {
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public PropiedadesController(IWebHostEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Propiedades()
         {
@@ -70,6 +76,10 @@ namespace RealState_WEB.Controllers
         {
             try
             {
+                // Procesar las imágenes y asignar las rutas a la propiedad
+                propiedad = await ProcesarImagenes(propiedad);
+
+                // Guardar la propiedad en la base de datos
 
                 return RedirectToAction("ConsultarPropiedades");
             }
@@ -79,6 +89,41 @@ namespace RealState_WEB.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+
+        private async Task<PROPIEDADES> ProcesarImagenes(PROPIEDADES propiedad)
+        {
+            // Crear una lista para almacenar las rutas de las imágenes
+            List<string> rutasImagenes = new List<string>();
+
+            // Procesar cada imagen
+            foreach (var imagen in propiedad.imagenesIForm)
+            {
+                // Generar un nombre aleatorio único para la imagen
+                string nombreImagen = Guid.NewGuid().ToString() + Path.GetExtension(imagen.FileName);
+
+                // Ruta donde se guardará la imagen en el servidor
+                string rutaImagen = Path.Combine(_hostingEnvironment.WebRootPath, "img/Propiedades", nombreImagen);
+
+                // Guardar la imagen en la ruta especificada
+                using (var stream = new FileStream(rutaImagen, FileMode.Create))
+                {
+                    await imagen.CopyToAsync(stream);
+                }
+
+                // Agregar la ruta de la imagen a la lista
+                rutasImagenes.Add("/img/Propiedades/" + nombreImagen);
+            }
+
+            // Asignar las rutas de las imágenes a la propiedad
+            propiedad.imagenes = rutasImagenes.Select(ruta => new PROPIEDAD_IMAGENES { imagen = ruta }).ToList();
+
+            // Establecer el atributo imagenesIForm en null para evitar problemas al serializar a JSON
+            propiedad.imagenesIForm = null;
+
+            return propiedad;
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> ActualizarPropiedad(long id)
@@ -100,6 +145,35 @@ namespace RealState_WEB.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActualizarPropiedad(PROPIEDADES propiedadActualizada)
+        {
+            try
+            {
+                using var client = new HttpClient();
+                var apiUrl = "https://localhost:7273/api/Propiedades/ActualizarPropiedad";
+
+                JsonContent body = JsonContent.Create(propiedadActualizada);
+
+                var response = await client.PostAsync(apiUrl, body);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ConsultarPropiedades");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                // OJO Falta guardar en la bitácora
+                return RedirectToAction("Index");
+            }
+            
         }
 
 

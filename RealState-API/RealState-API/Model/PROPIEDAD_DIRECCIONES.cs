@@ -8,7 +8,6 @@ namespace RealState_API.Model
         [Key]
         public long id { get; set; }
         public string direccion_exacta { get; set; }
-        public string gmaps_link { get; set; }
         public long id_pais_fk { get; set; }
         public long id_provincia_fk { get; set; }
         public string canton { get; set; }

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<RealState_WEB.Model.USUARIOS>
+
+@{
+    ViewBag.Title = "Consultar Usuarios";
+}
+
+<div class="row">
+    @if (Model.Any())
+    {
+        <div style="margin-top: 2%">
+            <div class="col-md-10 grid-margin stretch-card" style="margin-left: 8%">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Lista de usuarios</h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="tablaUsuarios">
+                                <thead>
+                                    <tr>
+                                        <th>@Html.DisplayNameFor(model => model.id)</th>
+                                        <th>@Html.DisplayNameFor(model => model.nombre)</th>
+                                        <th>@Html.DisplayNameFor(model => model.apellidos)</th>
+                                        <th>@Html.DisplayNameFor(model => model.email)</th>
+                                        <th>@Html.DisplayNameFor(model => model.telefono)</th>
+                                        <th>@Html.DisplayNameFor(model => model.contrasenna)</th>
+                                        <th>@Html.DisplayNameFor(model => model.estado)</th>
+                                        <th>@Html.DisplayNameFor(model => model.rol.nombre)</th>
+                                        <th>@Html.DisplayNameFor(model => model.direccion.direccion_exacta)</th>
+                                        <th>Actualizar</th>
+                                        <th>Cambiar estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.id</td>
+                                            <td>@item.nombre</td>
+                                            <td>@item.apellidos</td>
+                                            <td>@item.email</td>
+                                            <td>@item.telefono</td>
+                                            <td>@item.contrasenna</td>
+                                            <td>@item.estado</td>
+                                            <td>@item.rol.nombre</td>
+                                            <td>@item.direccion.direccion_exacta</td>
+                                            <td><a asp-controller="Usuarios" asp-action="ActualizarUsuario" asp-route-id="@item.id" class="ti-reload">Actualizar</a></td>
+                                            @*<td><a asp-controller="Usuarios" asp-action="CambiarEstado" asp-route-id="@item.id" class="ti-reload">Cambiar Estado</a></td>*@
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div style="margin-top: 2%;">
+        <button class="btn btn-primary mr-2" style="width: auto; margin: 0 auto; color: white;">
+            <a asp-controller="Usuarios" asp-action="NuevoUsuario" style="color: inherit; text-decoration: none;">
+                Agregar Usuario
+            </a>
+        </button>
+    </div>
+</div>
+@*<!--Modal cambiar estado>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Cambiar Estado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Desea cambiar el estado actual del usuario?
+                <!--input type="hidden" id="idModalHidden">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="CambiarEstadoUsuario();">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="~/FuncionesJS/Usuarios.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#tablaUsuarios').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+*@

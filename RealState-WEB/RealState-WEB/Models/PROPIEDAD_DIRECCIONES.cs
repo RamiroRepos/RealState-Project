@@ -8,9 +8,6 @@ namespace RealState_WEB.Model
     {
         [Key]
         public long id { get; set; }
-        [Required(ErrorMessage = "Favor ingrese el link de google maps")]
-        [DisplayName("Link Google Maps")]
-        public string gmaps_link { get; set; }
 
         [Required(ErrorMessage = "Favor ingrese la dirección exacta")]
         [DisplayName("Dirección Exacta")]

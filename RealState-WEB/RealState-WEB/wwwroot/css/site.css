@@ -37,8 +37,18 @@ footer {
 }
 
 .preview-img {
-    width: 150px;
+    width: 100%;
     height: auto;
     margin-right: 10px;
 }
 
+.delete-button {
+    position: absolute;
+    transform: translate(-50%);
+    opacity: 1;
+}
+
+html {
+    margin: 0 !important;
+    padding: 0 !important;
+}
