@@ -48,7 +48,7 @@ namespace RealState_WEB.Controllers
         [HttpGet]
         public async Task<List<PAISES>> Paises()
         {
-            using var client = new HttpClient();
+            using var client = new HttpClient(); 
             var apiUrl = "https://localhost:7273/api/Propiedades/Paises/";
             var respuesta = await client.GetAsync(apiUrl);
 
