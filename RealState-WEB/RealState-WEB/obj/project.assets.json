@@ -9604,19 +9604,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\luis9\\.nuget\\packages\\": {}
+    "C:\\Users\\Michael\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\luis9\\OneDrive\\Documentos\\Programacion Avanzada WEB\\RealState-Project\\RealState-WEB\\RealState-WEB\\RealState-WEB.csproj",
+      "projectUniqueName": "C:\\Users\\Michael\\Desktop\\RealState-Project\\RealState-WEB\\RealState-WEB\\RealState-WEB.csproj",
       "projectName": "RealState-WEB",
-      "projectPath": "C:\\Users\\luis9\\OneDrive\\Documentos\\Programacion Avanzada WEB\\RealState-Project\\RealState-WEB\\RealState-WEB\\RealState-WEB.csproj",
-      "packagesPath": "C:\\Users\\luis9\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\luis9\\OneDrive\\Documentos\\Programacion Avanzada WEB\\RealState-Project\\RealState-WEB\\RealState-WEB\\obj\\",
+      "projectPath": "C:\\Users\\Michael\\Desktop\\RealState-Project\\RealState-WEB\\RealState-WEB\\RealState-WEB.csproj",
+      "packagesPath": "C:\\Users\\Michael\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Michael\\Desktop\\RealState-Project\\RealState-WEB\\RealState-WEB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\luis9\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Michael\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9624,6 +9624,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -9666,7 +9667,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Información usuario</h5>
-                    <form asp-controller="Usuarios" asp-action="ActualizarUsuario" method="post" class="forms-sample">
+                    <form id="formActualizarUsuario" asp-controller="Usuarios" asp-action="ActualizarUsuario" method="post" class="forms-sample">
                         <div asp-validation-summary="ModelOnly"></div>
                         @Html.HiddenFor(Model => Model.id)
                         <div class="row">
@@ -109,10 +109,30 @@
                             </div>
                         </div>
                         <br />
-                        <input type="submit" class="btn btn-primary mr-2" value="Actualizar">
+                        <button type="button" class="btn btn-primary mr-2" onclick="confirmarActualizar()">Actualizar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function confirmarActualizar() {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción actualizará los datos del usuario.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, actualizar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var form = document.getElementById('formActualizarUsuario');
+                form.submit();
+            }
+        });
+    }
+</script>
