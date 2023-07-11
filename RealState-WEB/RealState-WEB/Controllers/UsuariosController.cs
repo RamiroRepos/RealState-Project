@@ -62,6 +62,9 @@ namespace RealState_WEB.Controllers
 
                     if (response.IsSuccessStatusCode)
                     {
+                        // Mostrar Sweet Alert
+                        TempData["SweetAlertMessage"] = "El usuario se actualizó correctamente.";
+                        TempData["SweetAlertType"] = "success";
                         return RedirectToAction("ConsultarUsuarios");
                     }
                     else
@@ -157,6 +160,9 @@ namespace RealState_WEB.Controllers
                 var respuesta = await client.GetAsync(apiUrl);
                 if (respuesta.IsSuccessStatusCode)
                 {
+                    // Mostrar Sweet Alert
+                    TempData["SweetAlertMessage"] = "Se ha cambiado el estado correctamente";
+                    TempData["SweetAlertType"] = "success";
                     return RedirectToAction("ConsultarUsuarios");
                 }
                 else

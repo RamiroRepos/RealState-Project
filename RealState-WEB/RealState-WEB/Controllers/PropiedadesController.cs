@@ -161,6 +161,10 @@ namespace RealState_WEB.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    // Mostrar Sweet Alert
+                    TempData["SweetAlertMessage"] = "La propiedad se actualizó correctamente.";
+                    TempData["SweetAlertType"] = "success";
+
                     return RedirectToAction("ConsultarPropiedades");
                 }
                 else
@@ -173,8 +177,8 @@ namespace RealState_WEB.Controllers
                 // OJO Falta guardar en la bitácora
                 return RedirectToAction("Index");
             }
-            
         }
+
 
 
         [HttpGet]

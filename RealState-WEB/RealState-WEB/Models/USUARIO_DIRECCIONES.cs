@@ -15,8 +15,10 @@ namespace RealState_WEB.Model
         public long id_pais_fk { get; set; }
         public long id_provincia_fk { get; set; }
         [DisplayName("Cantón")]
+        [Required(ErrorMessage = "*Favor ingrese el cantón")]
         public string canton { get; set; }
         [DisplayName("Distrito")]
+        [Required(ErrorMessage = "*Favor ingrese la distrito")]
         public string distrito { get; set; }
         [ForeignKey("id_pais_fk")]
         public PAISES pais { get; set; }

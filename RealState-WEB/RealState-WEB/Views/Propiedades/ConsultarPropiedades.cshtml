@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Lista de propiedades</h4>
                         <div class="table-responsive">
-                            <table class="table table-hover" id="tablas">
+                            <table class="table table-hover" id="tablaPropiedades">
                                 <thead>
                                     <tr>
                                         <th>@Html.DisplayNameFor(model => model.id)</th>
@@ -22,7 +22,6 @@
                                         <th>@Html.DisplayNameFor(model => model.precio)</th>
                                         <th>@Html.DisplayNameFor(model => model.estado)</th>
                                         <th>@Html.DisplayNameFor(model => model.propiedadTipo.nombre)</th>
-                                        @*<th>@Html.DisplayNameFor(model => model.usuario.nombre)</th>*@
                                         <th>@Html.DisplayNameFor(model => model.direccion.pais.nombre)</th>
                                         <th>@Html.DisplayNameFor(model => model.direccion.provincia.nombre)</th>
                                         <th>@Html.DisplayNameFor(model => model.direccion.direccion_exacta)</th>
@@ -41,12 +40,11 @@
                                             <td>@item.precio</td>
                                             <td>@item.estado</td>
                                             <td>@item.propiedadTipo.nombre</td>
-                                            @*<td>@item.usuario.nombre</td>*@
                                             <td>@item.direccion.pais.nombre</td>
                                             <td>@item.direccion.provincia.nombre</td>
                                             <td>@item.direccion.direccion_exacta</td>
                                             <td><a asp-controller="Propiedades" asp-action="ActualizarPropiedad" asp-route-id="@item.id" class="ti-reload">Actualizar</a></td>
-                                            @*<td><a asp-controller="Propiedades" asp-action="CambiarEstado" asp-route-id="@item.id" class="ti-reload">Cambiar Estado</a></td>*@
+                                            <td><a asp-controller="Propiedades" asp-action="ConsultarPropiedades" asp-route-id="@item.id" class="ti-reload">Cambiar Estado</a></td>
                                         </tr>
                                     }
                                 </tbody>
@@ -66,36 +64,29 @@
     </div>
 </div>
 
-<!--Modal cambiar estado>
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Cambiar Estado</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Desea cambiar el estado actual del usuario?
-                <!--input type="hidden" id="idModalHidden">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="CambiarEstadoUsuario();">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="~/FuncionesJS/Usuarios.js"></script>
 
 <script>
     $(document).ready(function () {
-        $('#tablaUsuarios').DataTable({
+        $('#tablaPropiedades').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
         });
     });
-</script-->
+</script>
+
+@if (TempData["SweetAlertMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "@TempData["SweetAlertMessage"]",
+            icon: "@TempData["SweetAlertType"]",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+}
+
+
+

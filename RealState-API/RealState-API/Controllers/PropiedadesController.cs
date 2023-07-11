@@ -116,48 +116,39 @@ namespace RealState_API.Controllers
             propiedadExistente.direccion.id_pais_fk = propiedadNueva.direccion.id_pais_fk;
             propiedadExistente.direccion.id_provincia_fk = propiedadNueva.direccion.id_provincia_fk;
 
-            //Se actualizan las imagenes
-
+            // Se actualizan las imágenes
             int cantImgExistentes = propiedadExistente.imagenes.Count;
             int cantImgNuevas = propiedadNueva.imagenes.Count;
 
-            // Se actualizan y agregan imagenes
-            int i = 0;
-            while (i < cantImgNuevas || i < cantImgExistentes)
+            // Actualizar, eliminar o agregar imágenes
+            for (int i = 0; i < Math.Max(cantImgNuevas, cantImgExistentes); i++)
             {
-                if (i < cantImgNuevas)
+                if (i < cantImgExistentes)
                 {
-                    PROPIEDAD_IMAGENES imagenExistente = null;
-                    if (i < cantImgExistentes)
+                    PROPIEDAD_IMAGENES imagenExistente = propiedadExistente.imagenes[i];
+                    if (i < cantImgNuevas)
                     {
-                        imagenExistente = _context.PROPIEDAD_IMAGENES.FirstOrDefault(im => im.id == propiedadExistente.imagenes[i].id);
-                    }
-                    if (imagenExistente != null)
-                    {
-                        // Actualizar los campos necesarios
+                        // Actualizar las imágenes existentes
                         imagenExistente.imagen = propiedadNueva.imagenes[i].imagen;
                     }
                     else
                     {
-                        // Crear una nueva imagen
-                        var nuevaImagen = new PROPIEDAD_IMAGENES
-                        {
-                            imagen = propiedadNueva.imagenes[i].imagen,
-                            id_propiedad_fk = propiedadNueva.id // Asigna el ID de la propiedad correspondiente
-                        };
-                        // Agregar la nueva imagen al contexto
-                        _context.PROPIEDAD_IMAGENES.Add(nuevaImagen);
+                        // Eliminar imágenes existentes que sobran
+                        _context.PROPIEDAD_IMAGENES.Remove(imagenExistente);
                     }
                 }
-                else if (i >= cantImgNuevas && i < cantImgExistentes)
+                else
                 {
-                    // Eliminar imágenes existentes que sobran
-                    PROPIEDAD_IMAGENES imagenExistente = propiedadExistente.imagenes[i];
-                    _context.PROPIEDAD_IMAGENES.Remove(imagenExistente);
+                    // Agregar nuevas imágenes
+                    var nuevaImagen = new PROPIEDAD_IMAGENES
+                    {
+                        imagen = propiedadNueva.imagenes[i].imagen,
+                        id_propiedad_fk = propiedadNueva.id // Asigna el ID de la propiedad correspondiente
+                    };
+                    // Agregar la nueva imagen al contexto
+                    _context.PROPIEDAD_IMAGENES.Add(nuevaImagen);
                 }
-                i++;
             }
-
             // Guardar los cambios en la base de datos
             _context.SaveChanges();
 
