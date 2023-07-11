@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace RealState_WEB.Models
+namespace RealState_WEB.Model
 {
     public class PROPIEDAD_DETALLES
     {

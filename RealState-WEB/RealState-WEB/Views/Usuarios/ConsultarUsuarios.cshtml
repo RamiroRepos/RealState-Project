@@ -4,7 +4,7 @@
     ViewBag.Title = "Consultar Usuarios";
 }
 
-<div class="row">
+<div class="">
     @if (Model.Any())
     {
         <div style="margin-top: 2%">
@@ -39,7 +39,16 @@
                                             <td>@item.email</td>
                                             <td>@item.telefono</td>
                                             <td>@item.contrasenna</td>
-                                            <td>@item.estado</td>
+                                            <td>
+                                                @if (@item.estado)
+                                                {
+                                                    <text>Activo</text>
+                                                }
+                                                else
+                                                {
+                                                    <text>Inactivo</text>
+                                                }
+                                            </td>
                                             <td>@item.rol.nombre</td>
                                             <td>@item.direccion.direccion_exacta</td>
                                             <td><a asp-controller="Usuarios" asp-action="ActualizarUsuario" asp-route-id="@item.id" class="ti-reload">Actualizar</a></td>

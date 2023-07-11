@@ -7,16 +7,17 @@ namespace RealState_WEB.Model
     public class USUARIO_ROLES
     {
         [Key]
-        public long id { get; set; }
+        [Required(ErrorMessage = "*Favor seleccione el rol")]
+        public long? id { get; set; }
 
-        [Required(ErrorMessage = "Favor ingrese el nombre")]
-        [DisplayName("Nombre")]
+        [Required(ErrorMessage = "*Favor ingrese el nombre")]
+        [DisplayName("Rol")]
         public string nombre { get; set; }
 
-        [Required(ErrorMessage = "Favor ingrese la descripción")]
+        [Required(ErrorMessage = "*Favor ingrese la descripción")]
         [DisplayName("Descripción")]
         public string descripcion { get; set; }
-        public List<PAISES>? rolesList { get; set; }
+        public List<USUARIO_ROLES>? rolesList { get; set; }
         public List<SelectListItem>? RolesListSelectList
         {
             get
@@ -26,7 +27,7 @@ namespace RealState_WEB.Model
                     return rolesList.Select(t => new SelectListItem
                     {
                         Value = t.id.ToString(),
-                        Text = t.nombre
+                        Text = t.nombre + " - " + t.descripcion
                     }).ToList();
                 }
                 else

@@ -6,21 +6,21 @@
 
 }
 
-<div class="row">
+<div class="">
     <div style="margin-top: 2%">
         <h2 class="card-title">Actualizar Propiedad</h2>
         <div class="col-md-10 grid-margin stretch-card" style="margin-left: 8%">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Información</h5>
-                    <form asp-action="ActualizarPropiedad" class="forms-sample">
+                    <form asp-action="ActualizarPropiedad" method="post" class="forms-sample">
                         <div asp-validation-summary="ModelOnly"></div>
                         @Html.HiddenFor(Model => Model.id)
-                        @Html.HiddenFor(Model => Model.usuario.id)
-                        @Html.HiddenFor(Model => Model.usuario.id)
-                        @Html.HiddenFor(Model => Model.usuario.id)
-                        @Html.HiddenFor(Model => Model.usuario.id)
-                        @Html.HiddenFor(Model => Model.usuario.id)
+                        @Html.HiddenFor(Model => Model.id_detalle_fk)
+                        @Html.HiddenFor(Model => Model.id_direccion_fk)
+                        @Html.HiddenFor(Model => Model.id_tipo_fk)
+                        @Html.HiddenFor(Model => Model.id_tipo_fk)
+                        @Html.HiddenFor(Model => Model.id_usuario_fk)
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="nombre"></label>
@@ -135,7 +135,6 @@
                                 </div>
                                 contador++;
                             }
-
                         </div>
                         <br />
                         <br />

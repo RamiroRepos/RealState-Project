@@ -9,7 +9,7 @@ namespace RealState_WEB.Model
         [Key]
         public long id { get; set; }
 
-        [Required(ErrorMessage = "Favor ingrese la dirección exacta")]
+        [Required(ErrorMessage = "*Favor ingrese la dirección exacta")]
         [DisplayName("Dirección Exacta")]
         public string direccion_exacta { get; set; }
         public long id_pais_fk { get; set; }

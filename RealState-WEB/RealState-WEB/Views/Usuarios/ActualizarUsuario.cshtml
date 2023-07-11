@@ -5,95 +5,107 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
+<div class="">
     <div style="margin-top: 2%">
         <h2 class="card-title">Actualizar Usuario</h2>
         <div class="col-md-10 grid-margin stretch-card" style="margin-left: 8%">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Información</h5>
-                    <form asp-action="ActualizarUsuario" class="forms-sample">
+                    <h5 class="card-title">Información usuario</h5>
+                    <form asp-controller="Usuarios" asp-action="ActualizarUsuario" method="post" class="forms-sample">
                         <div asp-validation-summary="ModelOnly"></div>
                         @Html.HiddenFor(Model => Model.id)
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label asp-for="nombre"></label>
-                                <input asp-for="nombre" type="text" class="form-control" required />
-                                <span asp-validation-for="nombre"></span>
+                                <label asp-for="nombre" class="font-weight-bold"></label>
+                                <input asp-for="nombre" type="text" class="form-control" />
+                                <span asp-validation-for="nombre" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="apellidos"></label>
-                                <input asp-for="apellidos" type="text" class="form-control" required />
-                                <span asp-validation-for="apellidos"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label asp-for="email"></label>
-                                <input asp-for="email" type="email" class="form-control" required />
-                                <span asp-validation-for="email"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="telefono"></label>
-                                <input asp-for="telefono" type="tel" class="form-control" required />
-                                <span asp-validation-for="telefono"></span>
+                                <label asp-for="apellidos" class="font-weight-bold"></label>
+                                <input asp-for="apellidos" type="text" class="form-control" />
+                                <span asp-validation-for="apellidos" class="text-danger"></span>
                             </div>
                         </div>
+                        <br />
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label asp-for="contrasenna"></label>
-                                <input asp-for="contrasenna" type="password" class="form-control" required />
-                                <span asp-validation-for="contrasenna"></span>
+                                <label asp-for="email" class="font-weight-bold"></label>
+                                <input asp-for="email" type="email" class="form-control" />
+                                <span asp-validation-for="email" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="estado"></label>
+                                <label asp-for="telefono" class="font-weight-bold"></label>
+                                <input asp-for="telefono" type="tel" class="form-control" />
+                                <span asp-validation-for="telefono" class="text-danger"></span>
+                            </div>
+                        </div>
+                        @Html.HiddenFor(Model => Model.id_rol_fk)
+                        @Html.HiddenFor(Model => Model.id_direccion_fk)
+                        @Html.HiddenFor(Model => Model.contrasenna)
+                        <br />
+                        <h5 class="card-title">Administración usuario</h5>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="rol.nombre" class="font-weight-bold"></label>
+                                <select asp-for="rol.id" asp-items="Model.rol.RolesListSelectList" class="form-control">
+                                    <option value="">Seleccione un rol</option>
+                                </select>
+                                <span asp-validation-for="rol.id" class="text-danger" class="text-danger"></span>
+                            </div>
+                            @Html.HiddenFor(Model => Model.rol.nombre)
+                            @Html.HiddenFor(Model => Model.rol.descripcion)
+                            <div class="form-group col-md-6">
+                                <label asp-for="estado" class="font-weight-bold"></label>
                                 <div class="form-check">
                                     <input asp-for="estado" type="checkbox" class="form-check-input" />
                                     <label class="form-check-label" asp-for="estado">Activo</label>
                                 </div>
-                                <span asp-validation-for="estado"></span>
+                                <span asp-validation-for="estado" class="text-danger"></span>
                             </div>
                         </div>
+                        <br />
+                        <h5 class="card-title">Dirección</h5>
                         <div class="row">
+                            @Html.HiddenFor(Model => Model.direccion.id)
+                            @Html.HiddenFor(Model => Model.direccion.id_pais_fk)
+                            @Html.HiddenFor(Model => Model.direccion.id_provincia_fk)
                             <div class="form-group col-md-6">
-                                <label asp-for="rol.nombre"></label>
-                                <select asp-for="rol.id" asp-items="Model.rol.RolesListSelectList" class="form-control" required>
-                                    <option value="">Seleccione un rol</option>
-                                </select>
-                                <span asp-validation-for="rol.nombre"></span>
+                                <label asp-for="direccion.direccion_exacta" class="font-weight-bold"></label>
+                                <input asp-for="direccion.direccion_exacta" type="text" class="form-control" />
+                                <span asp-validation-for="direccion.direccion_exacta" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="direccion.direccion_exacta"></label>
-                                <input asp-for="direccion.direccion_exacta" type="text" class="form-control" required />
-                                <span asp-validation-for="direccion.direccion_exacta"></span>
+                                <label asp-for="direccion.pais.nombre" class="font-weight-bold"></label>
+                                <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control" >
+                                <option value="">Seleccione el país</option>
+                                </select>
+                                <span asp-validation-for="direccion.pais.id" class="text-danger"></span>
+                            </div>
+                            @Html.HiddenFor(Model => Model.direccion.pais.nombre)
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="direccion.provincia.nombre" class="font-weight-bold"></label>
+                                <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control" >
+                                <option value="">Seleccione la provincia</option>
+                                </select>
+                                <span asp-validation-for="direccion.provincia.id" class="text-danger"></span>
+                            </div>
+                            @Html.HiddenFor(Model => Model.direccion.provincia.nombre)
+                            <div class="form-group col-md-6">
+                                <label asp-for="direccion.canton" class="font-weight-bold"></label>
+                                <input asp-for="direccion.canton" type="text" class="form-control" />
+                                <span asp-validation-for="direccion.canton" class="text-danger"></span>
                             </div>
                         </div>
+                        <br />
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label asp-for="direccion.pais.nombre"></label>
-                                <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control" required>
-                                    <option value="">Seleccione el país</option>
-                                </select>
-                                <span asp-validation-for="direccion.pais.nombre"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="direccion.provincia.nombre"></label>
-                                <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control" required>
-                                    <option value="">Seleccione la provincia</option>
-                                </select>
-                                <span asp-validation-for="direccion.provincia.nombre"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label asp-for="direccion.canton"></label>
-                                <input asp-for="direccion.canton" type="text" class="form-control" required />
-                                <span asp-validation-for="direccion.canton"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="direccion.distrito"></label>
-                                <input asp-for="direccion.distrito" type="text" class="form-control" required />
-                                <span asp-validation-for="direccion.distrito"></span>
+                                <label asp-for="direccion.distrito" class="font-weight-bold"></label>
+                                <input asp-for="direccion.distrito" type="text" class="form-control" />
+                                <span asp-validation-for="direccion.distrito" class="text-danger"></span>
                             </div>
                         </div>
                         <br />
