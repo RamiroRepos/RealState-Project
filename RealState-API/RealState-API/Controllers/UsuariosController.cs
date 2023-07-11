@@ -18,6 +18,7 @@ namespace RealState_API.Controllers
 
         ////////////////////////////// Acciones de Usuarios //////////////////////////////
 
+        // Obtener todos los usuarios
         [Route("Usuarios")]
         [HttpGet]
         public ActionResult<List<USUARIOS>> Usuarios()
@@ -30,6 +31,7 @@ namespace RealState_API.Controllers
             return usuarios;
         }
 
+        // Obtiene 1 usuario
         [Route("Usuario/{id}")]
         [HttpGet]
         public ActionResult<USUARIOS> Usuario(long id)
@@ -50,6 +52,7 @@ namespace RealState_API.Controllers
             return usuario;
         }
 
+        // Crea un usuario
         [Route("Usuario")]
         [HttpPost]
         public ActionResult<USUARIOS> Usuario(USUARIOS usuarioNuevo)
@@ -70,6 +73,7 @@ namespace RealState_API.Controllers
             return null;
         }
 
+        // Actualiza un usuario
         [Route("ActualizarUsuario")]
         [HttpPost]
         public IActionResult ActualizarUsuario(USUARIOS usuario)
@@ -77,7 +81,12 @@ namespace RealState_API.Controllers
             try
             {
                 // Buscar el usuario existente en la base de datos
-                var usuarioExistente = _context.USUARIOS.FirstOrDefault(u => u.id == usuario.id);
+                var usuarioExistente = _context.USUARIOS
+                    .Include(u => u.rol)
+                    .Include(u => u.direccion)
+                    .Include(p => p.direccion.pais)
+                    .Include(p => p.direccion.provincia)
+                    .FirstOrDefault(u => u.id == usuario.id);
 
                 if (usuarioExistente != null)
                 {
@@ -117,8 +126,37 @@ namespace RealState_API.Controllers
             }
         }
 
+        // Actualiza el estado del usuario
+        [Route("CambiarEstado/{id}")]
+        [HttpGet]
+        public ActionResult<USUARIOS> CambiarEstado(long id)
+        {
+            // Buscar el usuario existente en la base de datos
+            var usuarioExistente = _context.USUARIOS.FirstOrDefault(u => u.id == id);
+
+            if (usuarioExistente == null)
+            {
+                return NotFound();
+            }
+
+            if (usuarioExistente.estado)
+            {
+                usuarioExistente.estado = false;
+            }
+            else
+            {
+                usuarioExistente.estado = true;
+            }
+
+            // Guardar los cambios en la base de datos
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
         ////////////////////////////// Acciones de Roles de Usuario //////////////////////////////
 
+        // Obtener todos los roles
         [Route("Roles")]
         [HttpGet]
         public ActionResult<List<USUARIO_ROLES>> Roles()

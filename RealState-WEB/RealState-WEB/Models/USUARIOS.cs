@@ -7,6 +7,7 @@ namespace RealState_WEB.Model
     public class USUARIOS
     {
         [Key]
+        [DisplayName("Id")]
         public long id { get; set; }
 
         [Required(ErrorMessage = "*Favor ingrese el nombre")]

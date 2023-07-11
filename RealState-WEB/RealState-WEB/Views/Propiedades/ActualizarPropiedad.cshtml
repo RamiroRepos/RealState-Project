@@ -16,11 +16,19 @@
                     <form asp-action="ActualizarPropiedad" method="post" class="forms-sample">
                         <div asp-validation-summary="ModelOnly"></div>
                         @Html.HiddenFor(Model => Model.id)
-                        @Html.HiddenFor(Model => Model.id_detalle_fk)
-                        @Html.HiddenFor(Model => Model.id_direccion_fk)
-                        @Html.HiddenFor(Model => Model.id_tipo_fk)
                         @Html.HiddenFor(Model => Model.id_tipo_fk)
                         @Html.HiddenFor(Model => Model.id_usuario_fk)
+                        @Html.HiddenFor(Model => Model.id_detalle_fk)
+                        @Html.HiddenFor(Model => Model.detalle.id)
+                        @Html.HiddenFor(Model => Model.id_tipo_fk)
+                        @Html.HiddenFor(Model => Model.id_direccion_fk)
+                        @Html.HiddenFor(Model => Model.direccion.id)
+                        @Html.HiddenFor(Model => Model.direccion.id_pais_fk)
+                        @Html.HiddenFor(Model => Model.direccion.pais.nombre)
+                        @Html.HiddenFor(Model => Model.direccion.id_provincia_fk)
+                        @Html.HiddenFor(Model => Model.direccion.provincia.nombre)
+                        @Html.HiddenFor(Model => Model.usuario)
+
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="nombre"></label>
@@ -47,6 +55,8 @@
                                 <span asp-validation-for="propiedadTipo.nombre"></span>
                             </div>
                         </div>
+                        @Html.HiddenFor(Model => Model.propiedadTipo.nombre)
+                        @Html.HiddenFor(Model => Model.propiedadTipo.descripcion)
                         <br />
                         <h5 class="card-title">Detalles</h5>
                         <div class="row">

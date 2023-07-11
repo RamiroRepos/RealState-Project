@@ -21,7 +21,6 @@
                                         <th>@Html.DisplayNameFor(model => model.apellidos)</th>
                                         <th>@Html.DisplayNameFor(model => model.email)</th>
                                         <th>@Html.DisplayNameFor(model => model.telefono)</th>
-                                        <th>@Html.DisplayNameFor(model => model.contrasenna)</th>
                                         <th>@Html.DisplayNameFor(model => model.estado)</th>
                                         <th>@Html.DisplayNameFor(model => model.rol.nombre)</th>
                                         <th>@Html.DisplayNameFor(model => model.direccion.direccion_exacta)</th>
@@ -38,7 +37,7 @@
                                             <td>@item.apellidos</td>
                                             <td>@item.email</td>
                                             <td>@item.telefono</td>
-                                            <td>@item.contrasenna</td>
+                                            
                                             <td>
                                                 @if (@item.estado)
                                                 {
@@ -52,7 +51,7 @@
                                             <td>@item.rol.nombre</td>
                                             <td>@item.direccion.direccion_exacta</td>
                                             <td><a asp-controller="Usuarios" asp-action="ActualizarUsuario" asp-route-id="@item.id" class="ti-reload">Actualizar</a></td>
-                                            @*<td><a asp-controller="Usuarios" asp-action="CambiarEstado" asp-route-id="@item.id" class="ti-reload">Cambiar Estado</a></td>*@
+                                            <td><a asp-controller="Usuarios" asp-action="CambiarEstado" asp-route-id="@item.id" class="ti-reload">Cambiar Estado</a></td>
                                         </tr>
                                     }
                                 </tbody>
@@ -71,7 +70,7 @@
         </button>
     </div>
 </div>
-@*<!--Modal cambiar estado>
+<!--Modal cambiar estado -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -83,7 +82,7 @@
             </div>
             <div class="modal-body">
                 ¿Desea cambiar el estado actual del usuario?
-                <!--input type="hidden" id="idModalHidden">
+                <!--input type="hidden" id="idModalHidden" -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="CambiarEstadoUsuario();">Aceptar</button>
@@ -93,7 +92,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="~/FuncionesJS/Usuarios.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -104,4 +102,3 @@
         });
     });
 </script>
-*@

@@ -145,7 +145,33 @@ namespace RealState_WEB.Controllers
                 return RedirectToAction("Index");
             }
         }
+        // Intercambia el estado del usuario,si es true (Activo) lo pasa a false (Inactivo)
 
+        [HttpGet]
+        public async Task<IActionResult> CambiarEstado(long id)
+        {
+            try
+            {
+                using var client = new HttpClient();
+                var apiUrl = "https://localhost:7273/api/Usuarios/CambiarEstado/" + id;
+                var respuesta = await client.GetAsync(apiUrl);
+                if (respuesta.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ConsultarUsuarios");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                // OJO Falta guardar en la bitácora
+                return RedirectToAction("Index");
+            }
+        }
+
+        //Consulta los roles
         [HttpGet]
         public async Task<List<USUARIO_ROLES>> Roles()
         {
@@ -165,7 +191,7 @@ namespace RealState_WEB.Controllers
                 return new List<USUARIO_ROLES>();
             }
         }
-
+        //Consulta los paises
         [HttpGet]
         public async Task<List<PAISES>> Paises()
         {
@@ -185,7 +211,7 @@ namespace RealState_WEB.Controllers
                 return new List<PAISES>();
             }
         }
-
+        //Consulta las provincias
         [HttpGet]
         public async Task<List<PROVINCIAS>> Provincias()
         {
