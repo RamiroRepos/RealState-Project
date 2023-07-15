@@ -30,7 +30,7 @@ namespace RealState_WEB.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> ConsultarPropiedades()
         {
@@ -90,46 +90,74 @@ namespace RealState_WEB.Controllers
             }
         }
 
-
         private async Task<PROPIEDADES> ProcesarImagenes(PROPIEDADES propiedad)
         {
             // Crear una lista para almacenar las rutas de las imágenes
             List<string> rutasImagenes = new List<string>();
 
-            // Procesar cada imagen
-            foreach (var imagen in propiedad.imagenesIForm)
+            // Verificar si la lista de imágenes existentes es nula y crearla si es necesario
+            if (propiedad.imagenes == null)
             {
-                // Generar un nombre aleatorio único para la imagen
-                string nombreImagen = Guid.NewGuid().ToString() + Path.GetExtension(imagen.FileName);
-
-                // Ruta donde se guardará la imagen en el servidor
-                string rutaImagen = Path.Combine(_hostingEnvironment.WebRootPath, "img/Propiedades", nombreImagen);
-
-                // Guardar la imagen en la ruta especificada
-                using (var stream = new FileStream(rutaImagen, FileMode.Create))
-                {
-                    await imagen.CopyToAsync(stream);
-                }
-
-                // Agregar la ruta de la imagen a la lista
-                rutasImagenes.Add("/img/Propiedades/" + nombreImagen);
+                propiedad.imagenes = new List<PROPIEDAD_IMAGENES>();
             }
 
-            // Asignar las rutas de las imágenes a la propiedad
-            propiedad.imagenes = rutasImagenes.Select(ruta => new PROPIEDAD_IMAGENES { imagen = ruta }).ToList();
+            // Borrar imágenes en el servidor según imagenesToDel
+            if (propiedad.imagenesToDel != null)
+            {
+                foreach (var imagenToDel in propiedad.imagenesToDel)
+                {
+                    if (imagenToDel.imagen != null)
+                    {
+                        // Obtener la ruta completa del archivo a eliminar
+                        string rutaCompleta = _hostingEnvironment.WebRootPath.ToString() + imagenToDel.imagen;
 
-            // Establecer el atributo imagenesIForm en null para evitar problemas al serializar a JSON
-            propiedad.imagenesIForm = null;
+                        // Borrar el archivo en la ruta especificada
+                        System.IO.File.Delete(rutaCompleta);
+
+                        // Eliminar la imagen de propiedad.imagenes
+                        propiedad.imagenes.RemoveAll(imagen => imagen.imagen == imagenToDel.imagen);
+                    }
+                }
+            }
+
+
+            // Procesar cada imagen
+            if (propiedad.imagenesIForm != null)
+            {
+                foreach (var imagen in propiedad.imagenesIForm)
+                {
+                    // Generar un nombre aleatorio único para la imagen
+                    string nombreImagen = Guid.NewGuid().ToString() + Path.GetExtension(imagen.FileName);
+
+                    // Ruta donde se guardará la imagen en el servidor
+                    string rutaImagen = Path.Combine(_hostingEnvironment.WebRootPath, "img/Propiedades", nombreImagen);
+
+                    // Guardar la imagen en la ruta especificada
+                    using (var stream = new FileStream(rutaImagen, FileMode.Create))
+                    {
+                        await imagen.CopyToAsync(stream);
+                    }
+
+                    // Agregar la ruta de la imagen a la lista
+                    rutasImagenes.Add("/img/Propiedades/" + nombreImagen);
+                }
+                // Añadir las rutas de las imágenes procesadas a la lista existente de imágenes
+                propiedad.imagenes.AddRange(rutasImagenes.Select(ruta => new PROPIEDAD_IMAGENES { imagen = ruta }));
+
+                // Establecer el atributo imagenesIForm en null para evitar problemas al serializar a JSON
+                propiedad.imagenesIForm = null;
+            }
 
             return propiedad;
         }
+
 
 
         [HttpGet]
         public async Task<IActionResult> ActualizarPropiedad(long id)
         {
             using var client = new HttpClient();
-            var apiUrl = "https://localhost:7273/api/Propiedades/Propiedad/"+id;
+            var apiUrl = "https://localhost:7273/api/Propiedades/Propiedad/" + id;
             var respuesta = await client.GetAsync(apiUrl);
             if (respuesta.IsSuccessStatusCode)
             {
@@ -139,6 +167,7 @@ namespace RealState_WEB.Controllers
                 propiedad.propiedadTipo.tiposList = await PropiedadTipos();
                 propiedad.direccion.pais.paisesList = await Paises();
                 propiedad.direccion.provincia.provinciaList = await Provincias();
+                propiedad.imagenesToDel = propiedad.imagenes;
                 return View(propiedad);
             }
             else
@@ -152,24 +181,38 @@ namespace RealState_WEB.Controllers
         {
             try
             {
-                using var client = new HttpClient();
-                var apiUrl = "https://localhost:7273/api/Propiedades/ActualizarPropiedad";
-
-                JsonContent body = JsonContent.Create(propiedadActualizada);
-
-                var response = await client.PostAsync(apiUrl, body);
-
-                if (response.IsSuccessStatusCode)
+                if (ModelState.IsValid)
                 {
-                    // Mostrar Sweet Alert
-                    TempData["SweetAlertMessage"] = "La propiedad se actualizó correctamente.";
-                    TempData["SweetAlertType"] = "success";
+                    // Procesar las imágenes y asignar las rutas a la propiedad
+                    propiedadActualizada = await ProcesarImagenes(propiedadActualizada);
 
-                    return RedirectToAction("ConsultarPropiedades");
+                    using var client = new HttpClient();
+                    var apiUrl = "https://localhost:7273/api/Propiedades/ActualizarPropiedad";
+
+                    JsonContent body = JsonContent.Create(propiedadActualizada);
+
+                    var response = await client.PostAsync(apiUrl, body);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Mostrar Sweet Alert
+                        TempData["SweetAlertMessage"] = "La propiedad se actualizó correctamente.";
+                        TempData["SweetAlertType"] = "success";
+
+                        return RedirectToAction("ConsultarPropiedades");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    propiedadActualizada.propiedadTipo.tiposList = await PropiedadTipos();
+                    propiedadActualizada.direccion.pais.paisesList = await Paises();
+                    propiedadActualizada.direccion.provincia.provinciaList = await Provincias();
+                    propiedadActualizada.imagenesToDel = propiedadActualizada.imagenes;
+                    return View(propiedadActualizada);
                 }
             }
             catch (Exception ex)

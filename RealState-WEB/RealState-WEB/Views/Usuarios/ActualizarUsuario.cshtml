@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Información usuario</h5>
                     <form id="formActualizarUsuario" asp-controller="Usuarios" asp-action="ActualizarUsuario" method="post" class="forms-sample">
-                        <div asp-validation-summary="ModelOnly"></div>
+                        <div asp-validation-summary="All"></div>
                         @Html.HiddenFor(Model => Model.id)
                         <div class="row">
                             <div class="form-group col-md-6">

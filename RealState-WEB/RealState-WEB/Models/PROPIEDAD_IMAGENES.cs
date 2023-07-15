@@ -8,11 +8,11 @@ namespace RealState_WEB.Model
     {
         [Key]
         public long id { get; set; }
-        public string imagen { get; set; }
+        public string? imagen { get; set; }
         public long id_propiedad_fk { get; set; }
         [ForeignKey("id_propiedad_fk")]
         [JsonIgnore]
-        public PROPIEDADES propiedad { get; set; }
+        public PROPIEDADES? propiedad { get; set; }
     }
 
 }

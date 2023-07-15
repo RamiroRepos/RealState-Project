@@ -13,19 +13,19 @@ namespace RealState_WEB.Model
         public long id { get; set; }
 
         [DisplayName("Nombre")]
-        [Required(ErrorMessage = "Favor ingrese el nombre de la propiedad")]
+        [Required(ErrorMessage = "*Favor ingrese el nombre de la propiedad")]
         public string? nombre { get; set; }
 
         [DisplayName("Descripción")]
-        [Required(ErrorMessage = "Favor ingrese la descripción de la propiedad")]
+        [Required(ErrorMessage = "*Favor ingrese la descripción de la propiedad")]
         public string? descripcion { get; set; }
 
         [DisplayName("Precio")]
-        [Required(ErrorMessage = "Favor ingrese el precio de la propiedad")]
+        [Required(ErrorMessage = "*Favor ingrese el precio de la propiedad")]
         public decimal precio { get; set; }
 
         [DisplayName("Estado")]
-        [Required(ErrorMessage = "Favor ingrese el estado de la propiedad")]
+        [Required(ErrorMessage = "*Favor ingrese el estado de la propiedad")]
         public bool estado { get; set; }
 
         [ForeignKey("id_tipo_fk")]

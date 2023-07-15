@@ -113,8 +113,8 @@ namespace RealState_API.Controllers
             propiedadExistente.direccion.direccion_exacta = propiedadNueva.direccion.direccion_exacta;
             propiedadExistente.direccion.canton = propiedadNueva.direccion.canton;
             propiedadExistente.direccion.distrito = propiedadNueva.direccion.distrito;
-            propiedadExistente.direccion.id_pais_fk = propiedadNueva.direccion.id_pais_fk;
-            propiedadExistente.direccion.id_provincia_fk = propiedadNueva.direccion.id_provincia_fk;
+            propiedadExistente.direccion.id_pais_fk = propiedadNueva.direccion.pais.id;
+            propiedadExistente.direccion.id_provincia_fk = propiedadNueva.direccion.provincia.id;
 
             // Se actualizan las imágenes
             int cantImgExistentes = propiedadExistente.imagenes.Count;

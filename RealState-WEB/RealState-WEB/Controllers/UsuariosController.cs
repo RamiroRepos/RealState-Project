@@ -58,7 +58,7 @@ namespace RealState_WEB.Controllers
 
                     JsonContent body = JsonContent.Create(usuarioActualizado);
 
-                    var response = await client.PostAsync(apiUrl, body);
+                    var response = await client.PutAsync(apiUrl, body);
 
                     if (response.IsSuccessStatusCode)
                     {

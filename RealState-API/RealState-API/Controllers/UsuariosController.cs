@@ -75,7 +75,7 @@ namespace RealState_API.Controllers
 
         // Actualiza un usuario
         [Route("ActualizarUsuario")]
-        [HttpPost]
+        [HttpPut]
         public IActionResult ActualizarUsuario(USUARIOS usuario)
         {
             try

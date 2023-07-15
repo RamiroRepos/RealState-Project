@@ -40,12 +40,13 @@ footer {
 .preview-img {
     width: 100%;
     height: auto;
-    margin-right: 10px;
+    margin-right: 15px;
+    margin-bottom: 20px
 }
 
 .delete-button {
     position: absolute;
-    transform: translate(-50%);
+    transform: translate(-50%, -50px);
     opacity: 1;
 }
 
