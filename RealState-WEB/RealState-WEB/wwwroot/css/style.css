@@ -35,6 +35,7 @@ h6 {
   color: black;
 }
 
+
 a {
   color: #000000;
   text-decoration: none;
@@ -135,8 +136,13 @@ a:hover {
   color: #000000;
 }
 
+.color-b-title {
+  color: #2eca6a;
+}
+
 .color-b {
   color: #2eca6a;
+  text-shadow: 1px 1px 2px rgb(0 0 0 / 69%);
 }
 
 .color-d {
@@ -1059,13 +1065,16 @@ a:hover {
   .intro .intro-title-top {
     font-size: 0.9rem;
     margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px black;
   }
 }
 
 @media (min-width: 992px) {
   .intro .intro-title-top {
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin-bottom: 2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
   }
 }
 
@@ -1079,18 +1088,21 @@ a:hover {
 @media (min-width: 576px) {
   .intro .intro-title {
     font-size: 3.5rem;
+    text-shadow: 1px 1px 2px rgb(0 0 0 / 69%);
   }
 }
 
 @media (min-width: 768px) {
   .intro .intro-title {
     font-size: 3.5rem;
+    text-shadow: 1px 1px 2px rgb(0 0 0 / 69%);
   }
 }
 
 @media (min-width: 992px) {
   .intro .intro-title {
     font-size: 4rem;
+    text-shadow: 1px 1px 2px rgb(0 0 0 / 69%);
   }
 }
 
@@ -2812,5 +2824,12 @@ input[type="submit"] {
 }
 /*--//responsive--*/
 
+/*CUSTOM*/
+
+.verdetalle {
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
 
 
