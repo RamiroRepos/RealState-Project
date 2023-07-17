@@ -44,11 +44,11 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a asp-controller="Home" asp-action="Index" class="nav-link active">Inicio</a>
+                        <a id="link-home" asp-controller="Home" asp-action="Index" class="nav-link active">Inicio</a>
                     </li>
 
                     <li class="nav-item">
-                        <a asp-controller="Propiedades" asp-action="Propiedades" class="nav-link ">Propiedades</a>
+                        <a id="link-propiedades" asp-controller="Propiedades" asp-action="Propiedades" class="nav-link">Propiedades</a>
                     </li>
                     <!--Dropdown para las opciones de administrador-->
                     @{
@@ -61,10 +61,10 @@
                     @if (true) // OJO se debe volver a validar el rol IdRol == 1
                     {
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
+                            <a id="link-usuarios"  class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="ConsultarUsuarios">Usuarios</a>
-                                <a class="dropdown-item" asp-controller="Propiedades" asp-action="ConsultarPropiedades">Propiedades</a>
+                                <a  class="dropdown-item" asp-controller="Usuarios" asp-action="ConsultarUsuarios">Usuarios</a>
+                                <a  class="dropdown-item" asp-controller="Propiedades" asp-action="ConsultarPropiedades">Propiedades</a>
                             </div>
                         </li>
                     }
@@ -72,7 +72,7 @@
                     @if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
                     {
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                            <a id="link-propiedades" class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Usuarios" asp-action="MiPerfil">Mi Perfil</a>
                                 <a class="dropdown-item" asp-controller="Usuarios" asp-action="MisCitas">Mis Citas </a>
@@ -177,15 +177,41 @@
     <script src="~/js/jquery.dataTables.js"></script>
     <script src="~/js/dataTables.select.min.js"></script>
     <script src="~/js/dataTables.bootstrap4.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    
     <script>
+        //$(document).ready(function () {
+        //    $('#tablas').DataTable({
+        //        "language": {
+        //            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+        //        }
+        //    });
+        //});
+
+        //$(document).ready(function () {
+        //    // Obtén el nombre del controlador y acción actual de la URL
+        //    var currentController = "@(ViewContext.RouteData.Values["controller"] as string)";
+        //    var currentAction = "@(ViewContext.RouteData.Values["action"] as string)";
+
+        //    // Agrega la clase 'active' al enlace correspondiente al tab seleccionado
+        //    $('#link-' + currentController.toLowerCase()).addClass('active');
+        //});
+
         $(document).ready(function () {
-            $('#tablas').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
-                }
-            });
+            // Obtén el nombre del controlador y acción actual de la URL
+            var currentController = "@(ViewContext.RouteData.Values["controller"] as string)";
+            var currentAction = "@(ViewContext.RouteData.Values["action"] as string)";
+
+            // Obtén todos los elementos de enlace del menú
+            var menuLinks = $('.navbar-nav').find('a');
+
+            // Desactiva todos los enlaces del menú
+            menuLinks.removeClass('active');
+
+            // Activa el enlace correspondiente al tab seleccionado
+            $('#link-' + currentController.toLowerCase()).addClass('active');
         });
     </script>
+
 </body>
 </html>
