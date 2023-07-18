@@ -1,106 +1,118 @@
 ﻿@model IEnumerable<RealState_WEB.Model.USUARIOS>
 
 @{
-    ViewBag.Title = "Consultar Usuarios";
+	ViewBag.Title = "Consultar Usuarios";
 }
 
 <div class="">
-    @if (Model.Any())
-    {
-        <div style="margin-top: 2%">
-            <div class="col-md-10 grid-margin stretch-card" style="margin-left: 8%">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Lista de usuarios</h4>
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="tablaUsuarios">
-                                <thead>
-                                    <tr>
-                                        <th>@Html.DisplayNameFor(model => model.id)</th>
-                                        <th>@Html.DisplayNameFor(model => model.nombre)</th>
-                                        <th>@Html.DisplayNameFor(model => model.apellidos)</th>
-                                        <th>@Html.DisplayNameFor(model => model.email)</th>
-                                        <th>@Html.DisplayNameFor(model => model.estado)</th>
-                                        <th>@Html.DisplayNameFor(model => model.rol.nombre)</th>
-                                        <th>@Html.DisplayNameFor(model => model.direccion.direccion_exacta)</th>
-                                        <th>Actualizar</th>
-                                        <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>@item.id</td>
-                                            <td>@item.nombre</td>
-                                            <td>@item.apellidos</td>
-                                            <td>@item.email</td>
-                                            <td>
-                                                @if (@item.estado)
-                                                {
-                                                    <text>Activo</text>
-                                                }
-                                                else
-                                                {
-                                                    <text>Inactivo</text>
-                                                }
-                                            </td>
-                                            <td>@item.rol.nombre</td>
-                                            <td>@item.direccion.direccion_exacta</td>
-                                            <td><a asp-controller="Usuarios" asp-action="ActualizarUsuario" asp-route-id="@item.id" class="ti-reload">Actualizar</a></td>
-                                            <td><a href="javascript:void(0)" onclick="confirmarCambiarEstado('@item.id')" class="ti-reload">Cambiar Estado</a></td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
+	@if (Model.Any())
+	{
+		<div style="margin-top: 2%">
+			<div class="col-md-10 grid-margin stretch-card" style="margin-left: 8%">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Lista de usuarios</h4>
+						<div class="table-responsive">
+							<table class="table table-hover" id="tablaUsuarios">
+								<thead>
+									<tr>
+										<th>@Html.DisplayNameFor(model => model.id)</th>
+										<th>@Html.DisplayNameFor(model => model.nombre)</th>
+										<th>@Html.DisplayNameFor(model => model.apellidos)</th>
+										<th>@Html.DisplayNameFor(model => model.email)</th>
+										<th>@Html.DisplayNameFor(model => model.estado)</th>
+										<th>@Html.DisplayNameFor(model => model.rol.nombre)</th>
+										<th>@Html.DisplayNameFor(model => model.direccion.direccion_exacta)</th>
+										<th>Actualizar</th>
+										<th>Estado</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>@item.id</td>
+											<td>@item.nombre</td>
+											<td>@item.apellidos</td>
+											<td>@item.email</td>
+											<td>
+												@if (@item.estado)
+												{
+													<text>Activo</text>
+												}
+												else
+												{
+													<text>Inactivo</text>
+												}
+											</td>
+											<td>@item.rol.nombre</td>
+											<td>@item.direccion.direccion_exacta</td>
+											<td><a asp-controller="Usuarios" asp-action="ActualizarUsuario" asp-route-id="@item.id"><i class="bi bi-pencil"></i></a></td>
+											<td>
+												<label class="switch">
+													@if (item.estado)
+													{
+														<input type="checkbox" checked onchange="confirmarCambiarEstado('@item.id')">
+													}
+													else
+													{
+														<input type="checkbox" onchange="confirmarCambiarEstado('@item.id')">
+													}
+													<span class="slider round"></span>
+												</label>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $('#tablaUsuarios').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-            }
-        });
-    });
+	$(document).ready(function () {
+		$('#tablaUsuarios').DataTable({
+			"language": {
+				"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+			}
+		});
+	});
 </script>
 
 <script>
-    function confirmarCambiarEstado(id) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: 'Esta acción cambiará el estado del usuario.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, cambiar estado',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Redireccionar a la acción "CambiarEstado" con el ID del usuario
-                window.location.href = '@Url.Action("CambiarEstado", "Usuarios")' + '/' + id;
-            }
-        });
-    }
+	function confirmarCambiarEstado(id) {
+		Swal.fire({
+			title: '¿Estás seguro?',
+			text: 'Esta acción cambiará el estado del usuario.',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Sí, cambiar estado',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// Redireccionar a la acción "CambiarEstado" con el ID del usuario
+				window.location.href = '@Url.Action("CambiarEstado", "Usuarios")' + '/' + id;
+			}
+		});
+	}
 </script>
 
 @if (TempData["SweetAlertMessage"] != null)
 {
-    <script>
-        Swal.fire({
-            title: "@TempData["SweetAlertMessage"]",
-            icon: "@TempData["SweetAlertType"]",
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Aceptar'
-        });
-    </script>
+	<script>
+		Swal.fire({
+			title: "@TempData["SweetAlertMessage"]",
+			icon: "@TempData["SweetAlertType"]",
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: 'Aceptar'
+		});
+	</script>
 }

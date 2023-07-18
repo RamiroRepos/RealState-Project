@@ -230,5 +230,34 @@ namespace RealState_API.Controllers
             return _context.PROVINCIAS.ToList();
         }
 
+        /// HMR
+        // Actualiza el estado del usuario
+        [Route("CambiarEstado/{id}")]
+        [HttpGet]
+        public ActionResult<PROPIEDADES> CambiarEstado(long id)
+        {
+            // Buscar la propiedad existente en la base de datos
+            var propiedadExistente = _context.PROPIEDADES.FirstOrDefault(u => u.id == id);
+
+            if (propiedadExistente == null)
+            {
+                return NotFound();
+            }
+
+            if (propiedadExistente.estado)
+            {
+                propiedadExistente.estado = false;
+            }
+            else
+            {
+                propiedadExistente.estado = true;
+            }
+
+            // Guardar los cambios en la base de datos
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
     }
 }

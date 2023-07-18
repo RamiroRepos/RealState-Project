@@ -283,5 +283,34 @@ namespace RealState_WEB.Controllers
                 return new List<PROVINCIAS>();
             }
         }
+
+        // Intercambia el estado del usuario,si es true (Activo) lo pasa a false (Inactivo)
+
+        [HttpGet]
+        public async Task<IActionResult> CambiarEstado(long id)
+        {
+            try
+            {
+                using var client = new HttpClient();
+                var apiUrl = "https://localhost:7273/api/Propiedades/CambiarEstado/" + id;
+                var respuesta = await client.GetAsync(apiUrl);
+                if (respuesta.IsSuccessStatusCode)
+                {
+                    // Mostrar Sweet Alert
+                    TempData["SweetAlertMessage"] = "Se ha cambiado el estado correctamente";
+                    TempData["SweetAlertType"] = "success";
+                    return RedirectToAction("ConsultarPropiedades");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                // OJO Falta guardar en la bitácora
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
