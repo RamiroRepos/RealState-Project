@@ -28,7 +28,7 @@
                                             <br> @item.descripcion
                                         </h1>
                                         <p class="intro-subtitle intro-price">
-                                            <a class="verdetalle" asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-asp-route="@item.id">Ver detalles</a>
+                                            <a class="verdetalle" asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-route-ID="@item.id">Ver detalles</a>
                                         </p>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                                     <div class="card-overlay-a-content">
                                         <div class="card-header-a">
                                             <h2 class="card-title-a">
-                                                <a href="property-single.html">
+                                                <a asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-route-ID="@item.id">
                                                     @item.direccion.pais.nombre
                                                     <br /> @item.direccion.provincia.nombre
                                                 </a>
@@ -169,7 +169,6 @@
                                             </div>
                                             <a class="verdetalle" asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-asp-route="@item.id">
                                                 Ver detalles
-                                                Click aqui para ver
                                                 <span class="bi bi-chevron-right"></span>
                                             </a>
                                         </div>
