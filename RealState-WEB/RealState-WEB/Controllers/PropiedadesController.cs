@@ -23,7 +23,11 @@ namespace RealState_WEB.Controllers
             {
                 var propiedadesJson = await respuesta.Content.ReadAsStringAsync();
                 var propiedadesList = JsonSerializer.Deserialize<List<PROPIEDADES>>(propiedadesJson);
-                return View(propiedadesList);
+
+                // Filtrar las propiedades donde el estado es true
+                var propiedadesFiltradas = propiedadesList.Where(p => p.estado == true).ToList();
+
+                return View(propiedadesFiltradas);
             }
             else
             {
