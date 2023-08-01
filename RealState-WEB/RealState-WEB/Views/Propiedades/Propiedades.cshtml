@@ -59,13 +59,13 @@
                                         <span class="price-a">
 
                                             @{
-                                                if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
                                                 {
                                                     <span>Precio | ₡@item.precio.ToString("#,##0.00")</span>
                                                 }
                                                 else
                                                 {
-                                                    <span>Precio | ₡ </span> <span>Ingresar</span>
+                                                    <span>Precio | ₡ </span> <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                 }
                                             }
                                         </span>
@@ -81,13 +81,13 @@
                                             <h4 class="card-info-title">Metros</h4>
                                             <span>
                                                 @{
-                                                    if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                    if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
                                                     {
                                                         @item.detalle.cantidad_metros2
                                                     }
                                                     else
                                                     {
-                                                        <span>Ingresar</span>
+                                                        <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                     }
                                                 }
                                             </span>
@@ -96,13 +96,13 @@
                                             <h4 class="card-info-title">Cuartos</h4>
                                             <span>
                                                 @{
-                                                    if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                    if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
                                                     {
                                                         @item.detalle.cantidad_cuartos
                                                     }
                                                     else
                                                     {
-                                                        <span>Ingresar</span>
+                                                        <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                     }
                                                 }
                                             </span>
@@ -117,7 +117,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <span>Ingresar</span>
+                                                        <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                     }
                                                 }
                                             </span>
@@ -132,7 +132,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <span>Ingresar</span>
+                                                    <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                 }
                                             }
                                         </li>

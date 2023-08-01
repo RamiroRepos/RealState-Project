@@ -156,18 +156,18 @@
                                             <div class="price-box d-flex">
                                                 <span class="price-a">
                                                     @{
-                                                        if (ViewContext.HttpContext.Session.GetInt32("_id") != 0) 
+                                                        if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                         {
                                                             <span>Precio | ₡@item.precio.ToString("#,##0.00")</span>
                                                         }
                                                         else
                                                         {
-                                                            <span>Precio | ₡ </span> <span>Ingresar</span>
+                                                            <span>Precio | ₡ </span> <a asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                         }
                                                     }
                                                 </span>
                                             </div>
-                                            <a class="verdetalle" asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-asp-route="@item.id">
+                                            <a class="verdetalle" asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-route-ID="@item.id">
                                                 Ver detalles
                                                 <span class="bi bi-chevron-right"></span>
                                             </a>
@@ -178,13 +178,13 @@
                                                     <h4 class="card-info-title">Metros</h4>
                                                     <span>
                                                         @{
-                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                             {
                                                                 @item.detalle.cantidad_metros2
                                                             }
                                                             else
                                                             {
-                                                                <span>Ingresar</span>
+                                                                <a asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                             }
                                                         }
                                                     </span>
@@ -193,13 +193,13 @@
                                                     <h4 class="card-info-title">Cuartos</h4>
                                                     <span>
                                                         @{
-                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                             {
                                                                 @item.detalle.cantidad_cuartos
                                                             }
                                                             else
                                                             {
-                                                                <span>Ingresar</span>
+                                                                <a asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                             }
                                                         }
                                                     </span>
@@ -208,13 +208,13 @@
                                                     <h4 class="card-info-title">Baños</h4>
                                                     <span>
                                                         @{
-                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                             {
                                                                 @item.detalle.cantidad_bannos
                                                             }
                                                             else
                                                             {
-                                                                <span>Ingresar</span>
+                                                                <a asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                             }
                                                         }
                                                     </span>
@@ -223,13 +223,13 @@
                                                     <h4 class="card-info-title">Parqueos</h4>
                                                     <span>
                                                         @{
-                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0) 
+                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                             {
                                                                 @item.detalle.cantidad_parqueo
                                                             }
                                                             else
                                                             {
-                                                                <span>Ingresar</span>
+                                                                <a asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
                                                             }
                                                         }
                                                     </span>

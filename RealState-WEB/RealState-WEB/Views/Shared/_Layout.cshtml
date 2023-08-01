@@ -69,7 +69,7 @@
                         </li>
                     }
                     <!--Dropdown para las opciones de Usuario-->
-                    @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                    @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                     {
                         <li class="nav-item dropdown">
                             <a id="link-propiedades" class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
@@ -80,7 +80,7 @@
                         </li>
                     }
                     <li class="nav-item">
-                        @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                        @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                         {
                             <a class="nav-link" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesión</a>
                         }

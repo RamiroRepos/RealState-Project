@@ -86,7 +86,6 @@ namespace RealState_WEB.Controllers
             }
             catch (Exception ex)
             {
-                // OJO Falta guardar en la bitácora
                 return RedirectToAction("Index");
             }
         }
@@ -105,7 +104,6 @@ namespace RealState_WEB.Controllers
             }
             catch (Exception ex)
             {
-                // OJO Falta guardar en la bitácora
                 return RedirectToAction("Index");
             }
         }
@@ -237,7 +235,6 @@ namespace RealState_WEB.Controllers
             }
             catch (Exception ex)
             {
-                // OJO Falta guardar en la bitácora
                 return RedirectToAction("Index");
             }
         }
@@ -328,7 +325,6 @@ namespace RealState_WEB.Controllers
             }
             catch (Exception ex)
             {
-                // OJO Falta guardar en la bitácora
                 return RedirectToAction("Index");
             }
         }
