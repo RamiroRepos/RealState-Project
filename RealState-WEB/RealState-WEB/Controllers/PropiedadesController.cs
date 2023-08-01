@@ -50,6 +50,26 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        //[Filtros.FiltroLoginIActionFilter]
+        public async Task<IActionResult> MostrarPropiedad(long id)
+        {
+            using var client = new HttpClient();
+            var apiUrl = "https://localhost:7273/api/Propiedades/Propiedad/" + id;
+            var respuesta = await client.GetAsync(apiUrl);
+            if (respuesta.IsSuccessStatusCode)
+            {
+                var propiedadJson = await respuesta.Content.ReadAsStringAsync();
+                var propiedad = JsonSerializer.Deserialize<PROPIEDADES>(propiedadJson);
+
+                return View(propiedad);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> NuevaPropiedad()
         {
             try

@@ -1,0 +1,73 @@
+﻿@model RealState_WEB.Model.USUARIOS
+
+@{
+    ViewBag.Title = "Mi Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-md-10 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Actualizar Usuarios</h4>
+                <br />
+                <form id="formActualizarUsuario" asp-controller="Usuarios" asp-action="ActualizarUsuario" method="post" class="forms-sample">
+                    @Html.HiddenFor(Model => Model.estado)
+                    @Html.HiddenFor(Model => Model.id)
+                    @Html.HiddenFor(Model => Model.id_rol_fk)
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="nombre"></label>
+                            <input asp-for="nombre" type="text" class="form-control" required />
+                            <span asp-validation-for="nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="apellidos"></label>
+                            <input asp-for="apellidos" type="text" class="form-control" required />
+                            <span asp-validation-for="apellidos" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="email"></label>
+                            <input asp-for="email" type="text" class="form-control" required />
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="telefono"></label>
+                            <input asp-for="telefono" type="text" class="form-control" required />
+                            <span asp-validation-for="telefono" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="direccion.pais.nombre"></label>
+                            <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control" required>
+                                <option value="">Seleccione el país</option>
+                            </select>
+                            <span asp-validation-for="direccion.pais.id" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="direccion.provincia.nombre"></label>
+                            <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control" required>
+                                <option value="">Seleccione la provincia</option>
+                            </select>
+                            <span asp-validation-for="direccion.provincia.id" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="direccion.direccion_exacta"></label>
+                            <input asp-for="direccion.direccion_exacta" type="text" class="form-control" required />
+                            <span asp-validation-for="direccion.direccion_exacta" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <input type="button" class="btn btn-primary mr-2" value="Editar información" onclick="EditarUsuario();">
+                    <input type="submit" class="btn btn-primary mr-2" value="Actualizar" style="display:none">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

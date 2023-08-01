@@ -154,6 +154,46 @@ namespace RealState_API.Controllers
             return Ok();
         }
 
+        /*
+        [Route("ValidarUsuario/{email}/{pass}")]
+        [HttpGet]
+        public ActionResult<USUARIOS> ValidarUsuario(String email , String pass)
+        {
+            var valUsuario = _context.USUARIOS
+                .FirstOrDefault(p => p.email == email && p.contrasenna == pass);
+
+            if (valUsuario == null)
+            {
+                return NotFound();
+            }
+
+            return valUsuario;
+        }*/
+
+        [Route("ValidarUsuario")]
+        [HttpGet]
+        public ActionResult<USUARIOS> ValidarUsuario([FromQuery] string email, [FromQuery] string pass)
+        {
+            var valUsuario = _context.USUARIOS.FirstOrDefault(p => p.email == email);
+
+            if (valUsuario == null)
+            {
+                return NotFound();
+            }
+
+            // Aquí se realiza la validación de la contraseña
+            if (valUsuario.contrasenna != pass)
+            {
+                // La contraseña no coincide, puedes retornar un código de error 401 (Unauthorized)
+                return Unauthorized();
+            }
+
+            // Si el usuario y la contraseña son válidos, puedes retornar el objeto USUARIOS
+            return valUsuario;
+        }
+
+
+
         ////////////////////////////// Acciones de Roles de Usuario //////////////////////////////
 
         // Obtener todos los roles

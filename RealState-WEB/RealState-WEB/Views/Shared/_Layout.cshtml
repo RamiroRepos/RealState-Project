@@ -33,7 +33,7 @@
 
     <!-- Switchery -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css" />
-    
+
 
 </head>
 <body>
@@ -58,28 +58,21 @@
                         <a id="link-propiedades" asp-controller="Propiedades" asp-action="Propiedades" class="nav-link">Propiedades</a>
                     </li>
                     <!--Dropdown para las opciones de administrador-->
-                    @{
-                        long IdRol = 2;
-                        if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
-                        {
-                            //IdRol = long.Parse(HttpContext.Current.Session["IdRol"].ToString()); if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
-                        }
-                    }
-                    @if (true) // OJO se debe volver a validar el rol IdRol == 1
+                    @if (ViewContext.HttpContext.Session.GetInt32("_idRol") == 2)
                     {
                         <li class="nav-item dropdown">
-                            <a id="link-usuarios"  class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
+                            <a id="link-usuarios" class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
                             <div class="dropdown-menu">
-                                <a  class="dropdown-item" asp-controller="Usuarios" asp-action="ConsultarUsuarios">Usuarios</a>
-                                <a  class="dropdown-item" asp-controller="Propiedades" asp-action="ConsultarPropiedades">Propiedades</a>
+                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="ConsultarUsuarios">Usuarios</a>
+                                <a class="dropdown-item" asp-controller="Propiedades" asp-action="ConsultarPropiedades">Propiedades</a>
                             </div>
                         </li>
                     }
                     <!--Dropdown para las opciones de Usuario-->
-                    @if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                    @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
                     {
                         <li class="nav-item dropdown">
-                            <a id="link-propiedades" class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                            <a id="link-propiedades" class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Usuarios" asp-action="MiPerfil">Mi Perfil</a>
                                 <a class="dropdown-item" asp-controller="Usuarios" asp-action="MisCitas">Mis Citas </a>
@@ -87,15 +80,13 @@
                         </li>
                     }
                     <li class="nav-item">
-                        @{
-                            if (true) // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
-                            {
-                                <a class="nav-link" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesión</a>
-                            }
-                            else
-                            {
-                                <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion">Ingresar</a>
-                            }
+                        @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                        {
+                            <a class="nav-link" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesión</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion">Ingresar</a>
                         }
                     </li>
                 </ul>
@@ -188,23 +179,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
 
     <script>
-        //$(document).ready(function () {
-        //    $('#tablas').DataTable({
-        //        "language": {
-        //            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
-        //        }
-        //    });
-        //});
-
-        //$(document).ready(function () {
-        //    // Obtén el nombre del controlador y acción actual de la URL
-        //    var currentController = "@(ViewContext.RouteData.Values["controller"] as string)";
-        //    var currentAction = "@(ViewContext.RouteData.Values["action"] as string)";
-
-        //    // Agrega la clase 'active' al enlace correspondiente al tab seleccionado
-        //    $('#link-' + currentController.toLowerCase()).addClass('active');
-        //});
-
         $(document).ready(function () {
             // Obtén el nombre del controlador y acción actual de la URL
             var currentController = "@(ViewContext.RouteData.Values["controller"] as string)";

@@ -1,0 +1,30 @@
+﻿@model RealState_WEB.Model.USUARIOS
+
+@{
+    ViewBag.Title = "Mi Perfil";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="main-w3l">
+    <div class="w3layouts-main">
+        <h4 style="color:white">Iniciar Sesión</h4>
+        <form id="formActualizarUsuario" asp-controller="Home" asp-action="IniciarSesion" method="post" class="forms-sample">
+            <input asp-for="email" placeholder="Correo electrónico" type="text" class="form-control" required />
+            <span asp-validation-for="email" class="text-danger"></span>
+            <br />
+            <input asp-for="contrasenna" placeholder="Contraseña" type="text" class="form-control" required />
+            <span asp-validation-for="contrasenna" class="text-danger"></span>
+            <input class="btn btn-success col-5" id="btnRegistrar" type="submit" value="Ingresar" name="Login">
+        </form>
+        <br />
+        
+
+        <p class="underline"><a asp-controller="Home" asp-action="RecuperarContrasenna">Olvidé la contraseña</a></p>
+        <p>¿No tienes una cuenta?<a asp-controller="Home" asp-action="RegistrarUsuario">Registrarme</a></p>
+        <br />
+        <br />
+        <a asp-controller="Home" asp-action="Index">
+            <input class="btn btn-secondary" id="btnRegistrara" type="submit" value="Continuar sin iniciar sesión" name="Logina">
+        </a>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+﻿@model RealState_WEB.Model.PROPIEDADES
+
+@{
+    ViewBag.Title = "MostrarPropiedad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">@Model.nombre</h1>
+                    <span class="color-text-a">@Model.direccion.pais.nombre, @Model.direccion.provincia.nombre</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Propiedades" asp-action="Propiedades">Propiedades</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @Model.nombre
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<div id="property-carousel" class="swiper">
+    <div class="swiper-wrapper">
+        @foreach (var imagen in Model.imagenes)
+        {
+                    <div class="carousel-item-b swiper-slide">
+                        <div class="card-box-a card-shadow">
+                            <div class="img-box-a">
+                                <img src="@imagen.imagen" alt="" class="img-a img-fluid" style="height: 300px; object-fit: scale-down;">
+                            </div>
+                        </div>
+                    </div>
+        }
+    </div>
+</div>
+<div class="propery-carousel-pagination carousel-pagination"></div>
+<br />
+<section class="property-single nav-arrow-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row justify-content-between">
+                    <div class="col-md-5 col-lg-4">
+                        <div class="property-price d-flex justify-content-center foo">
+                            <div class="card-header-c d-flex">
+                                <div class="card-title-c align-self-center">
+                                    <h5 class="title-c">Precio</h5>
+                                    <h5 class="title-c">₡@Model.precio.ToString("#,##0.00")</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="property-summary">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="title-box-d section-t4">
+                                        <h3 class="title-d">Detalles</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="summary-list">
+                                <ul class="list">
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Propiedad ID:</strong>
+                                        <span>@Model.id</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Ubicación:</strong>
+                                        <span>@Model.direccion.pais.nombre, @Model.direccion.provincia.nombre</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Tipo Propiedad:</strong>
+                                        <span>@Model.propiedadTipo.nombre</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Status:</strong>
+                                        <span>@Model.estado</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Área:</strong>
+                                        <span>
+                                            @Model.detalle.cantidad_metros2 m
+                                            <sup>2</sup>
+                                        </span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Cuartos:</strong>
+                                        <span>@Model.detalle.cantidad_cuartos</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Baños:</strong>
+                                        <span>@Model.detalle.cantidad_bannos</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <strong>Garage:</strong>
+                                        <span>@Model.detalle.cantidad_parqueo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-lg-7 section-md-t3">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="title-box-d">
+                                    <h3 class="title-d">Descripción</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="property-description">
+                            <p class="description color-text-a">
+                                @Model.descripcion
+                            </p>
+                        </div>
+                        <div class="row section-t3">
+                            <div class="col-sm-12">
+                                <div class="title-box-d">
+                                    <h3 class="title-d">Agendar una cita</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

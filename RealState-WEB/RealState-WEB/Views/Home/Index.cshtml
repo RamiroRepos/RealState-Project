@@ -156,7 +156,7 @@
                                             <div class="price-box d-flex">
                                                 <span class="price-a">
                                                     @{
-                                                        if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                        if (ViewContext.HttpContext.Session.GetInt32("_id") != 0) 
                                                         {
                                                             <span>Precio | ₡@item.precio.ToString("#,##0.00")</span>
                                                         }
@@ -178,7 +178,7 @@
                                                     <h4 class="card-info-title">Metros</h4>
                                                     <span>
                                                         @{
-                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
                                                             {
                                                                 @item.detalle.cantidad_metros2
                                                             }
@@ -193,7 +193,7 @@
                                                     <h4 class="card-info-title">Cuartos</h4>
                                                     <span>
                                                         @{
-                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
                                                             {
                                                                 @item.detalle.cantidad_cuartos
                                                             }
@@ -223,7 +223,7 @@
                                                     <h4 class="card-info-title">Parqueos</h4>
                                                     <span>
                                                         @{
-                                                            if (true) // // OJO falta aqui poner la validacion de Session HttpContext.Current.Session.Count > 0
+                                                            if (ViewContext.HttpContext.Session.GetInt32("_id") != 0) 
                                                             {
                                                                 @item.detalle.cantidad_parqueo
                                                             }

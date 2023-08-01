@@ -7,6 +7,28 @@ namespace RealState_WEB.Controllers
     public class UsuariosController : Controller
     {
         [HttpGet]
+        //[Filtros.FiltroLoginIActionFilter]
+        public async Task<IActionResult> MiPerfil()
+        {
+            using var client = new HttpClient();
+            
+            var idUsuario = HttpContext.Session.GetInt32("_id");
+
+            var apiUrl = "https://localhost:7273/api/Usuarios/Usuario/" + idUsuario;
+            var respuesta = await client.GetAsync(apiUrl);
+            if (respuesta.IsSuccessStatusCode)
+            {
+                var UsuariosJson = await respuesta.Content.ReadAsStringAsync();
+                var UsuariosList = JsonSerializer.Deserialize<List<USUARIOS>>(UsuariosJson);
+                return View(UsuariosList);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ConsultarUsuarios()
         {
             using var client = new HttpClient();
