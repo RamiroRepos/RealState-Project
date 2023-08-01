@@ -52,6 +52,7 @@ namespace RealState_WEB.Model
         public List<PROPIEDAD_IMAGENES>? imagenesToDel { get; set; }
 
         [JsonIgnore]
+        [Required(ErrorMessage = "*Favor ingrese las imagenes")]
         public List<IFormFile>? imagenesIForm { get; set; }
     }
 }

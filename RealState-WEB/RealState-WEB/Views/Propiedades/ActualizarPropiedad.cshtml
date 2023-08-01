@@ -14,8 +14,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Información</h5>
                     <form id="formActualizarPropiedad" asp-controller="Propiedades" asp-action="ActualizarPropiedad" method="post" class="forms-sample" enctype="multipart/form-data">
-
-                        <div asp-validation-summary="All"></div>
                         @Html.HiddenFor(Model => Model.id)
                         @Html.HiddenFor(Model => Model.id_tipo_fk)
                         @Html.HiddenFor(Model => Model.id_usuario_fk)
@@ -29,7 +27,6 @@
                         @Html.HiddenFor(Model => Model.direccion.id_provincia_fk)
                         @Html.HiddenFor(Model => Model.direccion.provincia.nombre)
                         @Html.HiddenFor(Model => Model.usuario)
-
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label asp-for="nombre"></label>
@@ -54,7 +51,7 @@
                                 <select asp-for="propiedadTipo.id" asp-items="Model.propiedadTipo.TiposListSelectList" class="form-control" required>
                                     <option value="">Seleccione un tipo de propiedad</option>
                                 </select>
-                                <span asp-validation-for="propiedadTipo.nombre" class="text-danger"></span>
+                                <span asp-validation-for="propiedadTipo.id" class="text-danger"></span>
                             </div>
                         </div>
                         @Html.HiddenFor(Model => Model.propiedadTipo.nombre)
@@ -99,7 +96,7 @@
                                 <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control" required>
                                     <option value="">Seleccione el país</option>
                                 </select>
-                                <span asp-validation-for="direccion.pais.nombre" class="text-danger"></span>
+                                <span asp-validation-for="direccion.pais.id" class="text-danger"></span>
                             </div>
                         </div>
                         <br />
@@ -109,7 +106,7 @@
                                 <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control" required>
                                     <option value="">Seleccione la provincia</option>
                                 </select>
-                                <span asp-validation-for="direccion.provincia.nombre" class="text-danger"></span>
+                                <span asp-validation-for="direccion.provincia.id" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="direccion.canton"></label>
@@ -138,51 +135,54 @@
                         <br>
                         <h5 class="card-title">Imágenes</h5>
                         <div id="previewContainerEdit" class="row">
-                                @{
-                                    int contador = 0;
-                                }
-                                @foreach (var imagen in Model.imagenes)
-                                {
+                            @{
+                                int contador = 0;
+                            }
+                            @foreach (var imagen in Model.imagenes)
+                            {
                                 <div class="image-container col-4" id="@imagen.imagen">
                                     <img class="preview-img" src="@imagen.imagen" alt="@imagen.imagen" id="@imagen.imagen" />
                                     <button class="btn btn-danger delete-button" type="button" onclick="quitarImagenEdit('@imagen.imagen', event)">Quitar</button>
                                     <input type="hidden" name="imagenes[@contador].imagen" value="@imagen.imagen" />
                                 </div>
-                                    contador++;
-                                }
+                                contador++;
+                            }
                         </div>
+                        <input type="hidden" value="@Model.imagenes.Count()" id="ContadorImagenes" />
+                        <div>
                             @if (Model.imagenes.Count < 6)
                             {
-                            <div id="previewContainer" class="row"></div>
-                            <div class="row" id="SelectorImagenes">
-                                <div class="form-group col-4"></div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="imagenes[0].imagen" class="form-label">Seleccione las imágenes de la propiedad</label>
-                                    <label style="display:none; color:red" id="MaximoImg">* Máximo 6 imágenes</label>
-                                    <input name="imagenesIForm" class="form-control" multiple accept=".jpg,.jpeg,.png" type="file" id="inputImg" onchange="imagenesView();" required />
+                                <div id="previewContainer" class="row"></div>
+                                <div class="row" id="SelectorImagenes">
+                                    <div class="form-group col-4"></div>
+                                    <div class="form-group col-md-4">
+                                        <label asp-for="imagenes[0].imagen" class="form-label">Seleccione las imágenes de la propiedad</label>
+                                        <label style="display:none; color:red" id="MaximoImg">* Máximo 6 imágenes</label>
+                                        <input name="imagenesIForm" class="form-control" multiple accept=".jpg,.jpeg,.png" type="file" id="inputImg" onchange="imagenesView();"/>
+                                        <span asp-validation-for="imagenesIForm" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-3"></div>
                                 </div>
-                                <div class="form-group col-3"></div>
-                            </div>
                             }
+                        </div>
                         <div id="imagenesToDelContainer">
-                                @{
-                                    if (Model.imagenesToDel != null)
+                            @{
+                                if (Model.imagenesToDel != null)
+                                {
+                                    int contadorToDel = 0;
+                                    foreach (var imagenToDel in Model.imagenesToDel)
                                     {
-                                        int contadorToDel = 0;
-                                        foreach (var imagenToDel in Model.imagenesToDel)
-                                        {
                                         <input type="hidden" name="imagenesToDel[@contadorToDel].imagen" value="" id="del@(imagenToDel.imagen)" />
-                                            contadorToDel++;
-                                        }
+                                        contadorToDel++;
                                     }
                                 }
-                            </>
-
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <button type="button" class="btn btn-primary mr-2" onclick="confirmarActualizar()">Actualizar</button>
+                            }
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <button type="button" class="btn btn-primary mr-2" onclick="confirmarActualizar()">Actualizar</button>
                     </form>
                 </div>
             </div>

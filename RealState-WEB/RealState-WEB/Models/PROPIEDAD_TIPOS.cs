@@ -7,8 +7,9 @@ namespace RealState_WEB.Model
     public class PROPIEDAD_TIPOS
     {
         [Key]
-        public long id { get; set; }
-
+        [Required(ErrorMessage = "*Favor seleccione el tipo de propiedad")]
+        public long? id { get; set; }
+        
         [DisplayName("Tipo Propiedad")]
         public string nombre { get; set; }
 

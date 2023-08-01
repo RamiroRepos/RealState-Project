@@ -43,17 +43,19 @@ function ValidarConfirmacionContrasenna() {
 var imagenCount = 0;
 
 // Mostrar mensaje de máximo 6
-
 function imagenesView() {
     var inputImg = document.getElementById("inputImg"); // Obtener el input de imágenes
     var imagenes = inputImg.files; // Obtener la lista de archivos seleccionados
     var cantImg = inputImg.files.length;
+    // Obtener el contador de imágenes
+    var contadorImagenes = document.getElementById('ContadorImagenes').value;
 
     document.getElementById("MaximoImg").style.display = "none";
 
-    if (cantImg > 6) {
+    if (cantImg > (6 - contadorImagenes)) {
         inputImg.value = '';
         document.getElementById("MaximoImg").style.display = "block";
+        previewContainer.innerHTML = ''; // Limpiar el contenedor
         return;
     }
 
@@ -154,7 +156,6 @@ function quitarImagenEdit(imagenId, event) {
     // Obtener el input por su ID
     var inputImagenToDel = document.getElementById('del' + imagenId);
 
-
     // Establecer el valor del input con el id "del+@imagenToDel.imagen"
     if (inputImagenToDel) {
         inputImagenToDel.value = imagenId;
@@ -164,49 +165,11 @@ function quitarImagenEdit(imagenId, event) {
     if (divImagen) {
         divImagen.style.display = 'none';
     }
+    
+    // Obtener el contador de imágenes
+    var contadorImagenes = document.getElementById('ContadorImagenes');
+    
+    // Restar 1 al contador de imágenes
+    contadorImagenes.value = parseInt(contadorImagenes.value) - 1;
 }
 
-
-
-//// Función para quitar una imagen
-//function quitarImagenEdit(imagen, event) {
-//    event.preventDefault();
-
-//    // Obtener el nombre de la imagen a partir de la ruta
-//    var imagenNombre = imagen.substring(imagen.lastIndexOf('/') + 1);
-
-//    // Obtener el índice de la imagen en el arreglo de imágenes
-//    var imagenIndex = obtenerIndiceImagen(imagenNombre);
-
-//    // Verificar si la imagen existe en el arreglo de imágenes
-//    if (imagenIndex !== -1) {
-//        // Obtener la imagen del arreglo de imágenes
-//        var imagen = Model.imagenes[imagenIndex];
-
-//        // Remover la imagen del arreglo de imágenes
-//        Model.imagenes.splice(imagenIndex, 1);
-
-//        // Agregar la imagen al arreglo de imágenes a eliminar
-//        if (!Model.imagenesToDel) {
-//            Model.imagenesToDel = [];
-//        }
-//        Model.imagenesToDel.push(imagen);
-
-//        // Realizar cualquier otra lógica necesaria
-
-//        // Actualizar la vista o realizar otras acciones necesarias
-//    }
-//}
-
-//// Función para obtener el índice de una imagen en el arreglo de imágenes
-//function obtenerIndiceImagen(imagenNombre) {
-//    var imagenes = Model.imagenes;
-//    if (imagenes && imagenes.length > 0) {
-//        for (var i = 0; i < imagenes.length; i++) {
-//            if (imagenes[i].imagen === imagenNombre) {
-//                return i;
-//            }
-//        }
-//    }
-//    return -1;
-//}
