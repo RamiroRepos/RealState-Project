@@ -33,18 +33,21 @@
     </div>
 </section>
 <br />
-<div id="property-carousel" class="swiper">
-    <div class="swiper-wrapper">
-        @foreach (var imagen in Model.imagenes)
-        {
-                    <div class="carousel-item-b swiper-slide">
-                        <div class="card-box-a card-shadow">
-                            <div class="img-box-a">
-                                <img src="@imagen.imagen" alt="" class="img-a img-fluid" style="height: 300px; object-fit: scale-down;">
+<div class="container">
+
+    <div id="property-carousel" class="swiper">
+        <div class="swiper-wrapper">
+            @foreach (var imagen in Model.imagenes)
+            {
+                        <div class="carousel-item-b swiper-slide">
+                            <div class="card-box-a">
+                                <div class="img-box-a">
+                                    <img src="@imagen.imagen" alt="" class="img-a img-fluid" style="height: 300px; object-fit: scale-down;">
+                                </div>
                             </div>
                         </div>
-                    </div>
-        }
+            }
+        </div>
     </div>
 </div>
 <div class="propery-carousel-pagination carousel-pagination"></div>
