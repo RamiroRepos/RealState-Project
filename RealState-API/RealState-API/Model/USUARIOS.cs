@@ -21,6 +21,12 @@ namespace RealState_API.Model
 
         [ForeignKey("id_direccion_fk")]
         public USUARIO_DIRECCIONES direccion { get; set; }
+        [NotMapped]
+        public int CodigoValidarSistema { get; set; }
+        [NotMapped]
+        public int CodigoValidarUsuario { get; set; }
+        [NotMapped]
+        public bool CodigoValidado { get; set; }
     }
 
 }

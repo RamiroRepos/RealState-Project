@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace RealState_WEB.Model
 {
@@ -26,9 +27,13 @@ namespace RealState_WEB.Model
         [DisplayName("Teléfono")]
         public string telefono { get; set; }
 
-        [Required(ErrorMessage = "*Favor ingrese la contraseña")]
+        [Required(ErrorMessage = "*Favor ingrese la contraseña1")]
         [DisplayName("Contraseña")]
         public string contrasenna { get; set; }
+        [DisplayName("Confirmar Contraseña")]
+        [Compare("contrasenna", ErrorMessage = "Las contraseñas no coinciden.")]
+        [BindNever]
+        public string? confirmarContrasenna { get; set; }
         [Required(ErrorMessage = "*Favor ingrese el estado del usuario")]
         [DisplayName("Estado")]
         public bool estado { get; set; }
@@ -40,6 +45,12 @@ namespace RealState_WEB.Model
 
         [ForeignKey("id_direccion_fk")]
         public USUARIO_DIRECCIONES direccion { get; set; }
+        [NotMapped]
+        public int CodigoValidarSistema { get; set; }
+        [NotMapped]
+        public int CodigoValidarUsuario { get; set; }
+        [NotMapped]
+        public bool CodigoValidado { get; set; }
     }
 
 }

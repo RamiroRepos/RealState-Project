@@ -99,10 +99,67 @@ namespace RealState_WEB.Controllers
             }
         }
 
-
-        public IActionResult Privacy()
+        [HttpGet]
+        public ActionResult RecuperarContrasenna()
         {
-            return View();
+            try
+            {
+                USUARIOS usuario = new USUARIOS();
+                return View(usuario);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RecuperarContrasenna(USUARIOS entidad)
+        {
+            try
+            {
+                if (entidad.CodigoValidarUsuario == null && entidad.contrasenna == null)
+                {
+                    Random random = new Random();
+                    entidad.CodigoValidarSistema = random.Next(100000, 999999);
+                    string Asunto = "Recuperar Contraseña";
+                    string Body = "Hola,<br/>"
+                    + "Le hemos enviado este correo electrónico en respuesta a su solicitud de restablecer su contraseña.<br/>"
+                    + "Por favor digite el siguiente código en el espacio que se solicita para continuar con el restablecimiento:<br/>"
+                    + entidad.CodigoValidarSistema;
+                    //EnviarCorreo(respuesta.email, Asunto, Body);
+                }
+                else if (entidad.CodigoValidarUsuario != null && entidad.CodigoValidarSistema != 0)
+                {
+                    if (entidad.CodigoValidarUsuario == entidad.CodigoValidarSistema)
+                    {
+                        entidad.CodigoValidado = true;
+                        return View(entidad);
+                    }
+                    ViewBag.mensaje = "Código de verificación incorrecto";
+                }
+                else if (entidad.contrasenna != null)
+                {
+                    using var client = new HttpClient();
+                    string email = entidad.email;
+                    string pass = entidad.contrasenna;
+                    var apiUrl = $"https://localhost:7273/api/Usuarios/RestablecerContrasenna?email={email}&pass={pass}";
+
+                    var respuesta = await client.GetAsync(apiUrl);
+
+                    if (respuesta.IsSuccessStatusCode)
+                    {
+                        var UsuarioJson = await respuesta.Content.ReadAsStringAsync();
+                        var Usuario = JsonSerializer.Deserialize<USUARIOS>(UsuarioJson);
+                        return RedirectToAction("IniciarSesion");
+                    }
+                }
+                return View(entidad);
+            }
+            catch (Exception ex)
+            {
+                return View("Iniciar Sesion");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

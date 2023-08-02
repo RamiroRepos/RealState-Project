@@ -1,0 +1,40 @@
+﻿@model RealState_WEB.Model.USUARIOS
+
+@{
+    ViewBag.Title = "Recuperar Contraseña";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="main-w3l">
+    <div class="w3layouts-main">
+        <h4 style="color:white">Recuperar Contraseña</h4>
+        <form id="formRecuperarContrasenna" asp-controller="Home" asp-action="RecuperarContrasenna" method="post" class="forms-sample">
+            @if (Model.CodigoValidarSistema != 0)
+            {
+                @Html.HiddenFor(Model => Model.CodigoValidarSistema)
+            }
+            <input asp-for="email" placeholder="Correo electrónico" type="text" class="form-control" required />
+            <span asp-validation-for="email" class="text-danger"></span>
+            @if (Model.CodigoValidarSistema != 0 && Model.CodigoValidado == false)
+            {
+                <label style="color: white">Se ha enviado un correo con un código de validación</label>
+                <input asp-for="CodigoValidarUsuario" placeholder="Código validación" type="text" class="form-control" required />
+                <span asp-validation-for="CodigoValidarUsuario" class="text-danger"></span>
+            }
+            @if (Model.CodigoValidado)
+            {
+                <input asp-for="contrasenna" placeholder="Contraseña" type="text" class="form-control" required />
+                <span asp-validation-for="contrasenna" class="text-danger"></span>
+                <br />
+                <input asp-for="confirmarContrasenna" placeholder="Confirmar Contraseña" type="password" class="form-control" required />
+                <span asp-validation-for="confirmarContrasenna" class="text-danger"></span>
+            }
+            <input class="btn btn-success col-12" id="btnRestablecerContra" type="submit" value="Restablecer contraseña" name="Login">
+        </form>
+        <br />
+        <br />
+        <a asp-controller="home" asp-action="IniciarSesion">
+            <input class="btn btn-secondary" id="btnVolver" type="button" value="Iniciar Sesión" name="btnVolver">
+        </a>
+    </div>
+</div>
+
