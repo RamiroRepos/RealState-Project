@@ -171,5 +171,8 @@ function quitarImagenEdit(imagenId, event) {
     
     // Restar 1 al contador de imágenes
     contadorImagenes.value = parseInt(contadorImagenes.value) - 1;
+
+    //document.getElementById("SelectorImagenes").style.display = "block";
+    $("#SelectorImagenes").show();
 }
 

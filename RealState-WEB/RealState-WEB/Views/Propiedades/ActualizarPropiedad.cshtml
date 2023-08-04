@@ -157,8 +157,20 @@
                                     <div class="form-group col-md-4">
                                         <label asp-for="imagenes[0].imagen" class="form-label">Seleccione las imágenes de la propiedad</label>
                                         <label style="display:none; color:red" id="MaximoImg">* Máximo 6 imágenes</label>
-                                        <input name="imagenesIForm" class="form-control" multiple accept=".jpg,.jpeg,.png" type="file" id="inputImg" onchange="imagenesView();"/>
-                                        <span asp-validation-for="imagenesIForm" class="text-danger"></span>
+                                        <input name="imagenesIForm" class="form-control" multiple accept=".jpg,.jpeg,.png" type="file" id="inputImg" onchange="imagenesView();" />
+                                    </div>
+                                    <div class="form-group col-3"></div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="previewContainer" class="row"></div>
+                                <div class="row" id="SelectorImagenes" style="display: none">
+                                    <div class="form-group col-4"></div>
+                                    <div class="form-group col-md-4">
+                                        <label asp-for="imagenes[0].imagen" class="form-label">Seleccione las imágenes de la propiedad</label>
+                                        <label style="display:none; color:red" id="MaximoImg">* Máximo 6 imágenes</label>
+                                        <input name="imagenesIForm" class="form-control" multiple accept=".jpg,.jpeg,.png" type="file" id="inputImg" onchange="imagenesView();" />
                                     </div>
                                     <div class="form-group col-3"></div>
                                 </div>
@@ -208,4 +220,15 @@
     }
 </script>
 
+@if (TempData["SweetAlertMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "@TempData["SweetAlertMessage"]",
+            icon: "@TempData["SweetAlertType"]",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+}
 

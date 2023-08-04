@@ -203,7 +203,20 @@ namespace RealState_WEB.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                int countDelete = 0;
+                if (propiedadActualizada.imagenesToDel != null)
+                {
+                    foreach (var imagen in propiedadActualizada.imagenesToDel)
+                    {
+                        if (imagen.imagen != null)
+                        {
+                            countDelete++;
+                        }
+                    }
+                }
+
+
+                if (ModelState.IsValid && (propiedadActualizada.imagenes.Count > countDelete || propiedadActualizada.imagenesIForm != null))
                 {
                     // Procesar las imágenes y asignar las rutas a la propiedad
                     propiedadActualizada = await ProcesarImagenes(propiedadActualizada);
@@ -233,7 +246,9 @@ namespace RealState_WEB.Controllers
                     propiedadActualizada.propiedadTipo.tiposList = await PropiedadTipos();
                     propiedadActualizada.direccion.pais.paisesList = await Paises();
                     propiedadActualizada.direccion.provincia.provinciaList = await Provincias();
-                    propiedadActualizada.imagenesToDel = propiedadActualizada.imagenes;
+                    propiedadActualizada.imagenesToDel = null;
+                    TempData["SweetAlertMessage"] = "La propiedad debe tener imagenes";
+                    TempData["SweetAlertType"] = "warning";
                     return View(propiedadActualizada);
                 }
             }

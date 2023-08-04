@@ -31,8 +31,6 @@ namespace RealState_WEB.Model
         [DisplayName("Contraseña")]
         public string contrasenna { get; set; }
         [DisplayName("Confirmar Contraseña")]
-        [Compare("contrasenna", ErrorMessage = "Las contraseñas no coinciden.")]
-        [BindNever]
         public string? confirmarContrasenna { get; set; }
         [Required(ErrorMessage = "*Favor ingrese el estado del usuario")]
         [DisplayName("Estado")]

@@ -100,6 +100,8 @@
 			if (result.isConfirmed) {
 				// Redireccionar a la acción "CambiarEstado" con el ID del usuario
 				window.location.href = '@Url.Action("CambiarEstado", "Usuarios")' + '/' + id;
+			}else{
+				window.location.href = '@Url.Action("ConsultarUsuarios", "Usuarios")';
 			}
 		});
 	}

@@ -18,9 +18,9 @@ namespace RealState_WEB.Controllers
             var respuesta = await client.GetAsync(apiUrl);
             if (respuesta.IsSuccessStatusCode)
             {
-                var UsuariosJson = await respuesta.Content.ReadAsStringAsync();
-                var UsuariosList = JsonSerializer.Deserialize<List<USUARIOS>>(UsuariosJson);
-                return View(UsuariosList);
+                var UsuarioJson = await respuesta.Content.ReadAsStringAsync();
+                var Usuario = JsonSerializer.Deserialize<USUARIOS>(UsuarioJson);
+                return View(Usuario);
             }
             else
             {
@@ -60,6 +60,7 @@ namespace RealState_WEB.Controllers
                 usuario.rol.rolesList = await Roles();
                 usuario.direccion.pais.paisesList = await Paises();
                 usuario.direccion.provincia.provinciaList = await Provincias();
+                usuario.confirmarContrasenna = usuario.contrasenna;
                 return View(usuario);
             }
             else
@@ -73,6 +74,7 @@ namespace RealState_WEB.Controllers
         {
             try
             {
+               
                 if (ModelState.IsValid)
                 {
                     using var client = new HttpClient();

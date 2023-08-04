@@ -1,4 +1,5 @@
-﻿using RealState_WEB.Models;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using RealState_WEB.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -52,7 +53,6 @@ namespace RealState_WEB.Model
         public List<PROPIEDAD_IMAGENES>? imagenesToDel { get; set; }
 
         [JsonIgnore]
-        [Required(ErrorMessage = "*Favor ingrese las imagenes")]
         public List<IFormFile>? imagenesIForm { get; set; }
     }
 }

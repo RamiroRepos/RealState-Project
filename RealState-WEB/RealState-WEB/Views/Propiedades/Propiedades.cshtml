@@ -59,13 +59,13 @@
                                         <span class="price-a">
 
                                             @{
-                                                if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                                                if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                 {
                                                     <span>Precio | ₡@item.precio.ToString("#,##0.00")</span>
                                                 }
                                                 else
                                                 {
-                                                    <span>Precio | ₡ </span> <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
+                                                    <span>Precio | ₡ </span> <a asp-controller="Home" asp-action="IniciarSesion" class="verdetalle"><span>Ingresar</span></a>
                                                 }
                                             }
                                         </span>
@@ -81,13 +81,13 @@
                                             <h4 class="card-info-title">Metros</h4>
                                             <span>
                                                 @{
-                                                    if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                                                    if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                     {
                                                         @item.detalle.cantidad_metros2
                                                     }
                                                     else
                                                     {
-                                                        <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
+                                                        <a asp-controller="Home" asp-action="IniciarSesion" class="verdetalle"><span>Ingresar</span></a>
                                                     }
                                                 }
                                             </span>
@@ -96,13 +96,13 @@
                                             <h4 class="card-info-title">Cuartos</h4>
                                             <span>
                                                 @{
-                                                    if (ViewContext.HttpContext.Session.GetInt32("_id") != 0)
+                                                    if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                     {
                                                         @item.detalle.cantidad_cuartos
                                                     }
                                                     else
                                                     {
-                                                        <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
+                                                        <a asp-controller="Home" asp-action="IniciarSesion" class="verdetalle"><span>Ingresar</span></a>
                                                     }
                                                 }
                                             </span>
@@ -111,13 +111,13 @@
                                             <h4 class="card-info-title">Baños</h4>
                                             <span>
                                                 @{
-                                                    if (true)
+                                                    if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                     {
                                                         @item.detalle.cantidad_bannos
                                                     }
                                                     else
                                                     {
-                                                        <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
+                                                        <a asp-controller="Home" asp-action="IniciarSesion" class="verdetalle"><span>Ingresar</span></a>
                                                     }
                                                 }
                                             </span>
@@ -126,13 +126,13 @@
                                         <li>
                                             <h4 class="card-info-title">Parqueos</h4>
                                             @{
-                                                if (true)
+                                                if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                                                 {
                                                     <span>@item.detalle.cantidad_parqueo</span>
                                                 }
                                                 else
                                                 {
-                                                    <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion"><span>Ingresar</span></a>
+                                                    <a asp-controller="Home" asp-action="IniciarSesion" class="verdetalle"><span>Ingresar</span></a>
                                                 }
                                             }
                                         </li>
