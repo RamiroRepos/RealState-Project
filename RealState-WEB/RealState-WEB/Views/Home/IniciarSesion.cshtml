@@ -29,3 +29,16 @@
         </a>
     </div>
 </div>
+
+@if (TempData["SweetAlertMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "@TempData["SweetAlertMessage"]",
+            icon: "@TempData["SweetAlertType"]",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+}
+

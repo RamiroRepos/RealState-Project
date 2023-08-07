@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RealState_WEB.Filtros;
 using RealState_WEB.Model;
 using System.Text.Json;
 
@@ -36,6 +37,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> ConsultarPropiedades()
         {
             using var client = new HttpClient();
@@ -54,7 +56,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
-        //[Filtros.FiltroLoginIActionFilter]
+        [FiltroLogin]
         public async Task<IActionResult> MostrarPropiedad(long id)
         {
             using var client = new HttpClient();
@@ -74,6 +76,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> NuevaPropiedad()
         {
             try
@@ -95,6 +98,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpPost]
+        [FiltroAdmin]
         public async Task<IActionResult> NuevaPropiedad(PROPIEDADES propiedad)
         {
             try
@@ -176,6 +180,7 @@ namespace RealState_WEB.Controllers
 
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> ActualizarPropiedad(long id)
         {
             using var client = new HttpClient();
@@ -199,6 +204,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpPost]
+        [FiltroAdmin]
         public async Task<IActionResult> ActualizarPropiedad(PROPIEDADES propiedadActualizada)
         {
             try
@@ -261,6 +267,7 @@ namespace RealState_WEB.Controllers
 
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<List<PROPIEDAD_TIPOS>> PropiedadTipos()
         {
             using var client = new HttpClient();
@@ -281,6 +288,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<List<PAISES>> Paises()
         {
             using var client = new HttpClient();
@@ -301,6 +309,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<List<PROVINCIAS>> Provincias()
         {
             using var client = new HttpClient();
@@ -323,6 +332,7 @@ namespace RealState_WEB.Controllers
         // Intercambia el estado del usuario,si es true (Activo) lo pasa a false (Inactivo)
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> CambiarEstado(long id)
         {
             try

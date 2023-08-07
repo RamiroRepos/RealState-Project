@@ -75,7 +75,7 @@
                             <a id="link-propiedades" class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Usuarios" asp-action="MiPerfil">Mi Perfil</a>
-                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="MisCitas">Mis Citas </a>
+                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="MisCitas">Mis Citas</a>
                             </div>
                         </li>
                     }
@@ -86,9 +86,17 @@
                         }
                         else
                         {
-                            <a class="nav-link " asp-controller="Home" asp-action="IniciarSesion">Ingresar</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="IniciarSesion">Ingresar</a>
                         }
                     </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link ml-auto">¡Bienvenido, @ViewContext.HttpContext.Session.GetString("_nombre")!</span>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

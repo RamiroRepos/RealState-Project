@@ -159,7 +159,7 @@ namespace RealState_API.Controllers
         [HttpGet]
         public ActionResult<USUARIOS> ValidarUsuario([FromQuery] string email, [FromQuery] string pass)
         {
-            var valUsuario = _context.USUARIOS.FirstOrDefault(p => p.email == email);
+            var valUsuario = _context.USUARIOS.FirstOrDefault(p => p.email == email && p.estado == true);
 
             if (valUsuario == null)
             {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RealState_WEB.Filtros;
 using RealState_WEB.Model;
 using System.Text.Json;
 
@@ -7,7 +8,7 @@ namespace RealState_WEB.Controllers
     public class UsuariosController : Controller
     {
         [HttpGet]
-        //[Filtros.FiltroLoginIActionFilter]
+        [FiltroLogin]
         public async Task<IActionResult> MiPerfil()
         {
             using var client = new HttpClient();
@@ -29,6 +30,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> ConsultarUsuarios()
         {
             using var client = new HttpClient();
@@ -47,6 +49,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> ActualizarUsuario(long id)
         {
             using var client = new HttpClient();
@@ -70,6 +73,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpPost]
+        [FiltroAdmin]
         public async Task<IActionResult> ActualizarUsuario(USUARIOS usuarioActualizado)
         {
             try
@@ -112,6 +116,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> NuevoUsuario()
         {
             try
@@ -133,6 +138,7 @@ namespace RealState_WEB.Controllers
         }
 
         [HttpPost]
+        [FiltroAdmin]
         public async Task<IActionResult> NuevoUsuario(USUARIOS nuevoUsuario)
         {
             try
@@ -172,6 +178,7 @@ namespace RealState_WEB.Controllers
         // Intercambia el estado del usuario,si es true (Activo) lo pasa a false (Inactivo)
 
         [HttpGet]
+        [FiltroAdmin]
         public async Task<IActionResult> CambiarEstado(long id)
         {
             try
@@ -199,6 +206,7 @@ namespace RealState_WEB.Controllers
 
         //Consulta los roles
         [HttpGet]
+        [FiltroAdmin]
         public async Task<List<USUARIO_ROLES>> Roles()
         {
             using var client = new HttpClient();
@@ -219,6 +227,7 @@ namespace RealState_WEB.Controllers
         }
         //Consulta los paises
         [HttpGet]
+        [FiltroAdmin]
         public async Task<List<PAISES>> Paises()
         {
             using var client = new HttpClient();
@@ -239,6 +248,7 @@ namespace RealState_WEB.Controllers
         }
         //Consulta las provincias
         [HttpGet]
+        [FiltroAdmin]
         public async Task<List<PROVINCIAS>> Provincias()
         {
             using var client = new HttpClient();

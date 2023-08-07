@@ -3,11 +3,18 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace RealState_WEB.Filtros
 {
-    public class FiltroLoginIActionFilter : Attribute 
+    public class FiltroAdminAttribute : ActionFilterAttribute
     {
-        public void OnActionExecuted(ActionExecutedContext context)
+        public override void OnResultExecuting(ResultExecutingContext context)
         {
-            if (context.HttpContext.Session.GetInt32("_id") == null)
+            var idRodl = context.HttpContext.Session.GetInt32("_idRol");
+
+            if (idRodl == null)
+            {
+                idRodl = 0;
+            }
+
+            if (idRodl != 2)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
@@ -15,11 +22,6 @@ namespace RealState_WEB.Filtros
                     { "action", "Index" }
                 });
             }
-        }
-
-        public void OnActionExecuting(ActionExecutingContext context)
-        {
-            
         }
     }
 }

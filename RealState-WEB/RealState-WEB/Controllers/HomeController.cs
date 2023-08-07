@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RealState_WEB.Model;
 using RealState_WEB.Models;
 using System.Diagnostics;
+using System.Net;
 using System.Text.Json;
 
 namespace RealState_WEB.Controllers
@@ -72,10 +73,14 @@ namespace RealState_WEB.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                else
+                else if (respuesta.StatusCode == HttpStatusCode.NotFound)
                 {
+                    // El usuario no fue encontrado, puedes mostrar un mensaje de error o redirigir a una página de error
+                    TempData["SweetAlertMessage"] = "Error al iniciar sesión";
+                    TempData["SweetAlertType"] = "error";
                     return View();
                 }
+                return View();
             }
             catch (Exception ex)
             {
