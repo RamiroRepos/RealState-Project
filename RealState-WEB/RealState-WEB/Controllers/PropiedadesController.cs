@@ -66,8 +66,10 @@ namespace RealState_WEB.Controllers
             {
                 var propiedadJson = await respuesta.Content.ReadAsStringAsync();
                 var propiedad = JsonSerializer.Deserialize<PROPIEDADES>(propiedadJson);
+                PROPIEDADES_CITAS citas = new PROPIEDADES_CITAS();
+                citas.propiedad = propiedad;
 
-                return View(propiedad);
+                return View(citas);
             }
             else
             {

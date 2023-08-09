@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RealState_API.Model
 {
@@ -12,7 +13,8 @@ namespace RealState_API.Model
         public long id_usuario { get; set; }
 
         [ForeignKey("id_propiedad")]
-        public PROPIEDADES propiedad { get; set; }
+        [JsonIgnore]
+        public PROPIEDADES? propiedad { get; set; }
 
         [ForeignKey("id_usuario")]
         public USUARIOS usuario { get; set; }

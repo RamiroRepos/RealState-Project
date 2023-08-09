@@ -7,7 +7,8 @@ namespace RealState_WEB.Model
     {
         [Key]
         public long id { get; set; }
-        public DateTime fecha_hora { get; set; }
+        public DateTime fecha_hora { get; set; } /*= DateTime.Now.AddDays(3);*/
+        public string hora { get; set; }
         public long id_propiedad { get; set; }
         public long id_usuario { get; set; }
 

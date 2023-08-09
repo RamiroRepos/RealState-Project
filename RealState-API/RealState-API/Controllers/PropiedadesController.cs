@@ -75,7 +75,7 @@ namespace RealState_API.Controllers
         //Actualizar una propiedad
         [Route("ActualizarPropiedad")]
         [HttpPost]
-        public ActionResult ActualizarPropiedad(PROPIEDADES propiedadNueva) 
+        public ActionResult ActualizarPropiedad(PROPIEDADES propiedadNueva)
         {
             var propiedadExistente = _context.PROPIEDADES.Include(p => p.propiedadTipo)
                                                          .Include(p => p.usuario)
@@ -259,5 +259,29 @@ namespace RealState_API.Controllers
             return Ok();
         }
 
+        ////////////////////////////// Acciones de Provincias //////////////////////////////
+
+        [Route("AgendarCita")]
+        [HttpGet]
+        public ActionResult<PROPIEDADES_CITAS> AgendarCita([FromQuery] long prop, [FromQuery] long usr, [FromQuery] DateTime dt)
+        {
+            try
+            {
+                PROPIEDADES_CITAS cita = new PROPIEDADES_CITAS();
+                cita.id_propiedad = prop;
+                cita.id_usuario = usr;
+                cita.fecha_hora = dt;
+                _context.PROPIEDADES_CITAS.Add(cita);
+
+                // Guardar los cambios en la base de datos
+                _context.SaveChanges();
+
+                return Ok(cita);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al agendar la ciat: {ex.Message}");
+            }
+        }
     }
 }
