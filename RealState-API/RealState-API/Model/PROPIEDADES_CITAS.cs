@@ -13,7 +13,6 @@ namespace RealState_API.Model
         public long id_usuario { get; set; }
 
         [ForeignKey("id_propiedad")]
-        [JsonIgnore]
         public PROPIEDADES? propiedad { get; set; }
 
         [ForeignKey("id_usuario")]

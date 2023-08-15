@@ -1,0 +1,82 @@
+﻿@model IEnumerable<RealState_WEB.Model.PROPIEDADES_CITAS>
+@{
+    ViewBag.Title = "MisCitas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-1 grid-margin stretch-card"></div>
+    <div style="margin-top: 2%"></div>
+    <div class="col-md-10 grid-margin stretch-card" style="margin-left: 8%">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Usuarios</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="tablaCitas">
+                        <thead>
+                            <tr>
+                                <th hidden>Id</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Propiedad</th>
+                                <th hidden>Usuario</th>
+                                <th>Cancelar Cita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td hidden>@item.id</td>
+                                    <td>@item.fecha_hora.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.fecha_hora.ToString("hh:mm tt")</td>
+                                    <td><a asp-controller="Propiedades" asp-action="MostrarPropiedad" asp-route-id="@item.id_propiedad">@item.propiedad.nombre</a></td>
+                                    <td hidden>@item.id_usuario</td>
+                                    <td>
+                                        <a asp-controller="Citas" asp-action="CancelarCita" asp-route-id="@item.id"
+                                           class="btn btn-danger btn-sm" onclick="return confirmarCancelarCita(@item.id, 0,'MisCitas')">
+                                            <i class="bi bi-x-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#tablaCitas').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            }
+        });
+    });
+
+    function confirmarCancelarCita(id, idPropiedad, vistaOrigen) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción cancelará la cita.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cancelar cita',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '@Url.Action("CancelarCita", "Citas")' + '/' + id
+                    + '?idPropiedad=' + idPropiedad
+                    + '&vistaOrigen=' + vistaOrigen; 
+            }
+        });
+
+        return false;
+    }
+</script>

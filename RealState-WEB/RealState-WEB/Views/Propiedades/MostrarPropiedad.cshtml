@@ -136,37 +136,52 @@
                             </div>
                         </div>
                         <div class="amenities-list color-text-a">
-
-                            <form asp-controller="Citas" asp-action="AgendarCita">
+                            @if (Model.id_usuario == 0)
+                            {
+                                <form asp-controller="Citas" asp-action="AgendarCita">
+                                    <div class="amenities-list color-text-a" style="text-align:center">
+                                        <label for="fecha">Fecha:</label>
+                                        <div class="form-group col-md-6 offset-md-3">
+                                            <input asp-for="fecha_hora" type="date" class="form-control" min="@DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")">
+                                            <span asp-validation-for="fecha_hora" class="text-danger"></span>
+                                        </div>
+                                        <br />
+                                        <label for="hora">Hora:</label>
+                                        <div class="form-group col-md-6 offset-md-3">
+                                            <select asp-for="hora" class="form-control form-control-md">
+                                                <option value="">Selecciona una hora</option>
+                                                <option value="08:00">08:00 am</option>
+                                                <option value="10:00">10:00 am</option>
+                                                <option value="12:00">12:00 md</option>
+                                                <option value="14:00">14:00 pm</option>
+                                            </select>
+                                            <span asp-validation-for="hora" class="text-danger"></span>
+                                        </div>
+                                        <input asp-for="id_propiedad" type="hidden" value="@Model.propiedad.id" />
+                                        <br />
+                                        <button type="submit" class="btn btn-primary">Agendar Cita</button>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
                                 <div class="amenities-list color-text-a" style="text-align:center">
-                                    <label for="fecha">Fecha:</label>
-                                    <div class="form-group col-md-6 offset-md-3">
-                                        <input asp-for="fecha_hora" type="date" class="form-control" min="@DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")">
-                                        <span asp-validation-for="fecha_hora" class="text-danger"></span>
-                                    </div>
-                                    <br />
-                                    <label for="hora">Hora:</label>
-                                    <div class="form-group col-md-6 offset-md-3">
-                                        <select asp-for="hora"  class="form-control form-control-md">
-                                            <option value="">Selecciona una hora</option>
-                                            <option value="08:00">08:00 am</option>
-                                            <option value="10:00">10:00 am</option>
-                                            <option value="12:00">12:00 md</option>
-                                            <option value="14:00">14:00 pm</option>
-                                        </select>
-                                        <span asp-validation-for="hora" class="text-danger"></span>
-                                    </div>
-                                    <input asp-for="id_propiedad" type="hidden" value="@Model.propiedad.id"/>
-                                    <br />
-                                    <button type="submit" class="btn btn-primary">Agendar Cita</button>
-                                </div>
+                                    <h5>Ya tienes una cita Agendada:</h5>
+                                    <p>Fecha: @Model.fecha_hora.ToString("dd/MM/yyyy")</p>
+                                    <p>Hora: @Model.fecha_hora.ToString("hh:mm tt")</p>
 
+                                    <a asp-controller="Citas" asp-action="CancelarCita" asp-route-id="@Model.id"
+                                       data-vista-origen="MisCitas" class="btn btn-danger"
+                                       onclick="return confirmarCancelarCita(@Model.id, @Model.id_propiedad, 'MostrarPropiedad')">
+                                        Cancelar Cita
+                                    </a>
+                                </div>
+                                <br />
+                                <a asp-controller="Citas" asp-action="MisCitas">
+                                    <input type="button" class="btn btn-secondary" id="btnCitas" value="Ver mis citas">
+                                </a>
                                 @if (TempData["SweetAlertMessage"] != null)
                                 {
-                                    <br />
-                                    <a asp-controller="Usuarios" asp-action="MisCitas">
-                                        <input type="button" class="btn btn-secondary" id="btnCitas" value="Ver mis citas">
-                                    </a>
                                     <script>
                                         Swal.fire({
                                             title: "@TempData["SweetAlertMessage"]",
@@ -176,7 +191,7 @@
                                         });
                                     </script>
                                 }
-                            </form>
+                            }
                         </div>
                     </div>
                 </div>
@@ -191,4 +206,27 @@
             $("#modalContent").load("@Url.Action("AgendarCita", "Citas")");
         });
     });
+
+    function confirmarCancelarCita(id, idPropiedad, vistaOrigen) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción cancelará la cita.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cancelar cita',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Agrega el valor de vistaOrigen y idPropiedad a la URL de redirección
+                window.location.href = '@Url.Action("CancelarCita", "Citas")' + '/' + id
+                    + '?idPropiedad=' + idPropiedad
+                    + '&vistaOrigen=' + vistaOrigen;
+            }
+        });
+
+        return false;
+    }
 </script>
+

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Framework;
 using RealState_WEB.Filtros;
 using RealState_WEB.Model;
 using System.Text.Json;
@@ -62,20 +63,48 @@ namespace RealState_WEB.Controllers
             using var client = new HttpClient();
             var apiUrl = "https://localhost:7273/api/Propiedades/Propiedad/" + id;
             var respuesta = await client.GetAsync(apiUrl);
+
             if (respuesta.IsSuccessStatusCode)
             {
                 var propiedadJson = await respuesta.Content.ReadAsStringAsync();
                 var propiedad = JsonSerializer.Deserialize<PROPIEDADES>(propiedadJson);
-                PROPIEDADES_CITAS citas = new PROPIEDADES_CITAS();
-                citas.propiedad = propiedad;
 
-                return View(citas);
+                long idUsuario = 0;
+                var idUsuarioSession = HttpContext.Session.GetInt32("_id");
+                if (idUsuarioSession != null)
+                {
+                    idUsuario = (long)idUsuarioSession;
+                }
+
+                // Realiza la llamada al método ConsultarCita y espera su resultado
+                var consultaCitaUrl = $"https://localhost:7273/api/Citas/ConsultarCita?usr={idUsuario}&prop={id}";
+                var consultaCitaRespuesta = await client.GetAsync(consultaCitaUrl);
+
+                if (consultaCitaRespuesta.IsSuccessStatusCode)
+                {
+                    var citaJson = await consultaCitaRespuesta.Content.ReadAsStringAsync();
+                    var cita = JsonSerializer.Deserialize<PROPIEDADES_CITAS>(citaJson);
+
+                    // Asigna la propiedad a la cita antes de pasarla a la vista
+                    cita.propiedad = propiedad;
+
+                    return View(cita);
+                }
+                else
+                {
+                    // Si no hay cita, crea una instancia de PROPIEDADES_CITAS con la propiedad
+                    PROPIEDADES_CITAS citas = new PROPIEDADES_CITAS();
+                    citas.propiedad = propiedad;
+                    return View(citas);
+                }
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
         }
+
+
 
         [HttpGet]
         [FiltroAdmin]

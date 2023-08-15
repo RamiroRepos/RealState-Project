@@ -75,7 +75,8 @@ namespace RealState_WEB.Controllers
                 }
                 else if (respuesta.StatusCode == HttpStatusCode.NotFound)
                 {
-                    // El usuario no fue encontrado, puedes mostrar un mensaje de error o redirigir a una página de error
+                    // El usuario no fue encontrado, puedes
+                    // un mensaje de error o redirigir a una página de error
                     TempData["SweetAlertMessage"] = "Error al iniciar sesión";
                     TempData["SweetAlertType"] = "error";
                     return View();

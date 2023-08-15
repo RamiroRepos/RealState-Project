@@ -1,0 +1,25 @@
+Login:
+	Login
+	Reset - No
+	Registro  - No
+	Variables sesión
+		- Rol admin
+		- Rol user
+		- Inicio Sesion
+User:
+	Index
+	Propiedades
+	Propiedad
+		Agendar Cita - No
+	Mi Perfil
+		- Vista - Si
+		- Editar info - No	
+	Mis Citas - No
+Admin
+	Users
+	Propiedades
+	Citas - No
+	Filtros
+	
+	
+Validad usuario activo
