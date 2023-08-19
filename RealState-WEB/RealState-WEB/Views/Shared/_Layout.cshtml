@@ -61,33 +61,18 @@
                         <a id="link-propiedades" asp-controller="Propiedades" asp-action="Propiedades" class="nav-link">Propiedades</a>
                     </li>
                     <!--Dropdown para las opciones de administrador-->
-                    @if (ViewContext.HttpContext.Session.GetInt32("_idRol") == 2)
+                    @if (ViewContext.HttpContext.Session.GetInt32("_idRol") == 1)
                     {
                         <li class="nav-item dropdown">
-                            <a id="link-usuarios" class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
+                            <a id="link-usuarios" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrativo</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Usuarios" asp-action="ConsultarUsuarios">Usuarios</a>
                                 <a class="dropdown-item" asp-controller="Propiedades" asp-action="ConsultarPropiedades">Propiedades</a>
                             </div>
                         </li>
                     }
-                    <!--Dropdown para las opciones de Usuario-->
-                    @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
-                    {
-                        <li class="nav-item dropdown">
-                            <a id="link-propiedades" class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="MiPerfil">Mi Perfil</a>
-                                <a class="dropdown-item" asp-controller="Citas" asp-action="MisCitas">Mis Citas</a>
-                            </div>
-                        </li>
-                    }
                     <li class="nav-item">
-                        @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
-                        {
-                            <a class="nav-link" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesión</a>
-                        }
-                        else
+                        @if (ViewContext.HttpContext.Session.GetInt32("_id") == 0 || ViewContext.HttpContext.Session.GetInt32("_id") == null)
                         {
                             <a class="nav-link" asp-controller="Home" asp-action="IniciarSesion">Ingresar</a>
                         }
@@ -96,8 +81,13 @@
                 <ul class="navbar-nav ml-auto">
                     @if (ViewContext.HttpContext.Session.GetInt32("_id") != 0 && ViewContext.HttpContext.Session.GetInt32("_id") != null)
                     {
-                        <li class="nav-item">
-                            <span class="nav-link ml-auto">¡Bienvenido, @ViewContext.HttpContext.Session.GetString("_nombre")!</span>
+                        <li class="nav-item dropdown">
+                            <a id="link-propiedades" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">¡Bienvenido, @ViewContext.HttpContext.Session.GetString("_nombre")!</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="MiPerfil">Mi Perfil</a>
+                                <a class="dropdown-item" asp-controller="Citas" asp-action="MisCitas">Mis Citas</a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesión</a>
+                            </div>
                         </li>
                     }
                 </ul>

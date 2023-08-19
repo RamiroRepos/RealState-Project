@@ -10,7 +10,7 @@ namespace RealState_WEB.Model
         [Required(ErrorMessage = "*Favor seleccione el país")]
         public long? id { get; set; }
         [DisplayName("País")]
-        public string nombre { get; set; }
+        public string? nombre { get; set; }
         public List<PAISES>? paisesList { get; set; }
         public List<SelectListItem>? PaisesListSelectList
         {

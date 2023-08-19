@@ -1,0 +1,100 @@
+﻿@model RealState_WEB.Model.USUARIOS
+
+@{
+    ViewData["Title"] = "Registrar Usuario";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="main-w3l">
+    <div class="w3layouts-main">
+        <h4 style="color:white">Registrar Cuenta</h4>
+        <form asp-controller="Home" asp-action="RegistrarUsuario" method="post" class="main-w3l">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input asp-for="nombre" class="form-control form-control-md" type="text" placeholder="Ingrese su nombre"/>
+                    <span asp-validation-for="nombre" class="text-danger" style="width:100%"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <input asp-for="apellidos" class="form-control form-control-md" type="text" placeholder="Ingrese sus apellidos"/>
+                    <span asp-validation-for="apellidos" class="text-danger" style="width:100%"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input asp-for="telefono" class="form-control form-control-md" type="text" placeholder="Ingrese su telefono"/>
+                    <span asp-validation-for="telefono" class="text-danger" style="width:100%"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <input asp-for="email" class="form-control form-control-md" type="email" placeholder="Correo electrónico"onblur="BuscarCorreo();" />
+                    <span asp-validation-for="email" class="text-danger" style="width:100%"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input asp-for="contrasenna" class="form-control form-control-md" type="password" placeholder="Contraseña"onblur="ValidarConfirmacionContrasenna();" />
+                    <span asp-validation-for="contrasenna" class="text-danger" style="width:100%"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <input asp-for="confirmarContrasenna" class="form-control form-control-md" type="password" placeholder="Confirme su Contraseña"onblur="ValidarConfirmacionContrasenna();" />
+                    <span asp-validation-for="confirmarContrasenna" class="text-danger" style="width:100%"></span>
+
+                </div>
+            </div>
+            <br />
+            <h5 class="card-title" style="color:white">Dirección</h5>
+            <br />
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input asp-for="direccion.direccion_exacta" class="form-control form-control-md" type="text" placeholder="Dirección exacta"/>
+                    <span asp-validation-for="direccion.direccion_exacta" class="text-danger" style="width:100%"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <select asp-for="direccion.pais.id" asp-items="Model.direccion.pais.PaisesListSelectList" class="form-control form-control-md">
+                        <option value="">Seleccione el país</option>
+                    </select>
+                    <span asp-validation-for="direccion.pais.id" class="text-danger" style="width:100%"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <select asp-for="direccion.provincia.id" asp-items="Model.direccion.provincia.ProvinciaListSelectList" class="form-control">
+                        <option value="">Seleccione la provincia</option>
+                    </select>
+                    <span asp-validation-for="direccion.provincia.id" class="text-danger" style="width:100%"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <input asp-for="direccion.canton" class="form-control form-control-md" type="text" placeholder="Cantón"/>
+                    <span asp-validation-for="direccion.canton" class="text-danger" style="width:100%"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input asp-for="direccion.distrito" class="form-control form-control-md" type="text" placeholder="Distrito"/>
+                    <span asp-validation-for="direccion.distrito" class="text-danger" style="width:100%"></span>
+                </div>
+            </div>
+            <br />
+            <input class="btn btn-success" id="btnRegistrar" type="submit" value="Registrar" name="Login" />
+        </form>
+        <br />
+        <br />
+        <a asp-controller="Home" asp-action="IniciarSesion">
+            <input class="btn btn-secondary" id="btnVolver" type="submit" value="Iniciar Sesión" name="btnVolver" />
+        </a>
+    </div>
+</div>
+@if (TempData["SweetAlertMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "@TempData["SweetAlertMessage"]",
+            icon: "@TempData["SweetAlertType"]",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+}

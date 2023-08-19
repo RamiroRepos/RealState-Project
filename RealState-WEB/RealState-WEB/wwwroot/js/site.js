@@ -176,3 +176,10 @@ function quitarImagenEdit(imagenId, event) {
     $("#SelectorImagenes").show();
 }
 
+function EditarUsuario() {
+    $("input[type='text']").removeAttr("disabled");
+    $("select").removeAttr("disabled");
+    $("input[type='submit']").show();
+    $("input[type='submit']").show();
+    $("input[type='button']").hide();
+}

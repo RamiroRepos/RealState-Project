@@ -184,12 +184,14 @@ namespace RealState_API.Controllers
 
         [Route("NuevaPropiedad")]
         [HttpPost]
-        public ActionResult<PROPIEDADES> CreatePropiedad(PROPIEDADES propiedad) //OJO falta lo de imagenes
+        public ActionResult<PROPIEDADES> CreatePropiedad(PROPIEDADES propiedad)
         {
             try
             {
-                //propiedad.propiedadTipo = _context.PROPIEDAD_TIPOS.FirstOrDefault(pt => pt.id == propiedad.id_tipo_fk);
-                // Agregar la nueva propiedad al contexto
+                propiedad.propiedadTipo = null;
+                propiedad.direccion.pais = null;
+                propiedad.direccion.provincia= null;
+
                 _context.PROPIEDADES.Add(propiedad);
 
                 // Guardar los cambios en la base de datos

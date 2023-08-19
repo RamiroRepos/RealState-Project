@@ -21,6 +21,9 @@ namespace RealState_WEB.Controllers
             {
                 var UsuarioJson = await respuesta.Content.ReadAsStringAsync();
                 var Usuario = JsonSerializer.Deserialize<USUARIOS>(UsuarioJson);
+                Usuario.rol.rolesList = await Roles();
+                Usuario.direccion.pais.paisesList = await Paises();
+                Usuario.direccion.provincia.provinciaList = await Provincias();
                 return View(Usuario);
             }
             else
@@ -102,6 +105,10 @@ namespace RealState_WEB.Controllers
                 }
                 else
                 {
+                    if (usuarioActualizado.rol == null)
+                    {
+                        usuarioActualizado.rol = new USUARIO_ROLES();
+                    }
                     usuarioActualizado.rol.rolesList = await Roles();
                     usuarioActualizado.direccion.pais.paisesList = await Paises();
                     usuarioActualizado.direccion.provincia.provinciaList = await Provincias();

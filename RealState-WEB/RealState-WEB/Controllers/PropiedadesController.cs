@@ -134,12 +134,51 @@ namespace RealState_WEB.Controllers
         {
             try
             {
-                // Procesar las imágenes y asignar las rutas a la propiedad
-                propiedad = await ProcesarImagenes(propiedad);
 
-                // Guardar la propiedad en la base de datos
+                if (ModelState.IsValid && (propiedad.imagenesIForm != null))
+                {
+                    propiedad.id_detalle_fk = 0;
+                    propiedad.id_direccion_fk = 0;
+                    propiedad.id_tipo_fk = propiedad.propiedadTipo.id;
+                    propiedad.id_usuario_fk = HttpContext.Session.GetInt32("_id");
+                    propiedad.propiedadTipo.nombre = "";
+                    propiedad.propiedadTipo.descripcion = "";
+                    propiedad.direccion.id_pais_fk = (long) propiedad.direccion.pais.id;
+                    propiedad.direccion.pais.nombre = "";
+                    propiedad.direccion.id_provincia_fk = (long) propiedad.direccion.provincia.id;
+                    propiedad.direccion.provincia.nombre = "";
+                    propiedad.estado = true;
 
-                return RedirectToAction("ConsultarPropiedades");
+                    // Procesar las imágenes y asignar las rutas a la propiedad
+                    propiedad = await ProcesarImagenes(propiedad);
+
+                    using var client = new HttpClient();
+                    var apiUrl = "https://localhost:7273/api/Propiedades/NuevaPropiedad/";
+                    JsonContent body = JsonContent.Create(propiedad);
+                    var response = await client.PostAsync(apiUrl, body);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var propiedadJson = await response.Content.ReadAsStringAsync();
+                        TempData["SweetAlertMessage"] = "Propiedad registrada correctamente";
+                        TempData["SweetAlertType"] = "success";
+                        return RedirectToAction("ConsultarPropiedades");
+                    }
+                    propiedad.propiedadTipo.tiposList = await PropiedadTipos();
+                    propiedad.direccion.pais.paisesList = await Paises();
+                    propiedad.direccion.provincia.provinciaList = await Provincias();
+                    TempData["SweetAlertMessage"] = "Error al registrar la propiedad, favor contactar al administrador";
+                    TempData["SweetAlertType"] = "error";
+                    return View(propiedad);
+                }
+                propiedad.propiedadTipo.tiposList = await PropiedadTipos();
+                propiedad.direccion.pais.paisesList = await Paises();
+                propiedad.direccion.provincia.provinciaList = await Provincias();
+                if((propiedad.imagenesIForm == null))
+                {
+                    TempData["SweetAlertMessage"] = "La propiedad debe tener imagenes";
+                    TempData["SweetAlertType"] = "warning";
+                }
+                return View(propiedad);
             }
             catch (Exception ex)
             {

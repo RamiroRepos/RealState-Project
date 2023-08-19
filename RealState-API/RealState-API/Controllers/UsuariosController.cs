@@ -54,25 +54,35 @@ namespace RealState_API.Controllers
         }
 
         // Crea un usuario
-        [Route("Usuario")]
+        // Crea un usuario
+        [Route("NuevoUsuario")]
         [HttpPost]
         public ActionResult<USUARIOS> Usuario(USUARIOS usuarioNuevo)
         {
-            //var usuario = _context.USUARIOS
-            //    .Include(u => u.rol)
-            //    .Include(u => u.direccion)
-            //    .Include(p => p.direccion.pais)
-            //    .Include(p => p.direccion.provincia)
-            //    .FirstOrDefault(p => p.id == id);
+            try
+            {
+                // Verificar si ya existe un usuario con el mismo correo electrónico
+                var existingUser = _context.USUARIOS.FirstOrDefault(u => u.email == usuarioNuevo.email);
+                if (existingUser != null)
+                {
+                    return BadRequest("Ya existe un usuario con este correo electrónico.");
+                }
+                usuarioNuevo.direccion.pais = null;
+                usuarioNuevo.direccion.provincia = null;
+                usuarioNuevo.rol = null;
+                _context.USUARIOS.Add(usuarioNuevo);
 
+                // Guardar los cambios en la base de datos
+                _context.SaveChanges();
 
-            //if (usuario == null)
-            //{
-            //    return NotFound();
-            //}
-
-            return null;
+                return Ok(usuarioNuevo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al crear el usuario: {ex.Message}");
+            }
         }
+
 
         // Actualiza un usuario
         [Route("ActualizarUsuario")]
@@ -176,65 +186,30 @@ namespace RealState_API.Controllers
             // Si el usuario y la contraseña son válidos, puedes retornar el objeto USUARIOS
             return valUsuario;
         }
-        
+
         [Route("RestablecerContrasenna")]
         [HttpGet]
-        public ActionResult<USUARIOS> RestablecerContrasenna([FromQuery] string email, [FromQuery] string? pass)
+        public async Task<IActionResult> RestablecerContrasenna([FromQuery] string email, [FromQuery] string? pass)
         {
-            if (pass == null)
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass))
             {
-                var respuesta = _context.USUARIOS.FirstOrDefault(p => p.email == email);
-                if (respuesta != null)
-                {
-                    Random random = new Random();
-                    respuesta.CodigoValidarSistema = random.Next(100000, 999999);
-                    string Asunto = "Recuperar Contraseña";
-                    string Body = "Hola,<br/>"
-                    + "Le hemos enviado este correo electrónico en respuesta a su solicitud de restablecer su contraseña.<br/>"
-                    + "Por favor digite el siguiente código en el espacio que se solicita para continuar con el restablecimiento:<br/>"
-                    + respuesta.CodigoValidarSistema;
-                    //EnviarCorreo(respuesta.email, Asunto, Body);
-                    return respuesta;
-                }
-
+                return BadRequest("Los parámetros proporcionados no son válidos.");
             }
-            else
+
+            var usuario = await _context.USUARIOS.FirstOrDefaultAsync(u => u.email == email);
+            if (usuario == null)
             {
-                var usuario = _context.USUARIOS.FirstOrDefault(p => p.email == email);
-
-                if (usuario != null)
-                {
-                    usuario.contrasenna = pass;
-                    _context.SaveChanges();
-                    return usuario;
-                }
+                return NotFound("No se encontró un usuario con el correo electrónico proporcionado.");
             }
-            return NotFound();
 
+            usuario.contrasenna = pass; 
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Contraseña cambiada exitosamente.");
         }
-/*
-        public void EnviarCorreo(string Destinatario, string Asunto, string Body)
-        {
-            string correoSMTP = "lcascante50329@ufide.ac.cr";
-            string claveSMTP = "8BEZ_RRAC";
 
-            MailMessage msg = new MailMessage();
-            msg.To.Add(new MailAddress(Destinatario, "User"));
-            msg.From = new MailAddress(correoSMTP, "Admin");
-            msg.Subject = Asunto;
-            msg.Body = Body;
-            msg.IsBodyHtml = true;
 
-            SmtpClient client = new SmtpClient();
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential(correoSMTP, claveSMTP);
-            client.Port = 587;
-            client.Host = "smtp.office365.com";
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.EnableSsl = true;
-            client.Send(msg);
-        }
-        */
         ////////////////////////////// Acciones de Roles de Usuario //////////////////////////////
 
         // Obtener todos los roles

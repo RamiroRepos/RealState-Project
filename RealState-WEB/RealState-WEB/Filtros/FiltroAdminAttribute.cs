@@ -14,7 +14,7 @@ namespace RealState_WEB.Filtros
                 idRodl = 0;
             }
 
-            if (idRodl != 2)
+            if (idRodl != 1)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {

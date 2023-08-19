@@ -11,10 +11,10 @@ namespace RealState_WEB.Model
         public long? id { get; set; }
         
         [DisplayName("Tipo Propiedad")]
-        public string nombre { get; set; }
+        public string? nombre { get; set; }
 
         [DisplayName("Descripción")]
-        public string descripcion { get; set; }
+        public string? descripcion { get; set; }
 
         public List<PROPIEDAD_TIPOS>? tiposList { get; set; }
         public List<SelectListItem> TiposListSelectList

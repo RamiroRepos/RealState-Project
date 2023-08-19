@@ -27,7 +27,7 @@ namespace RealState_WEB.Model
         [DisplayName("Teléfono")]
         public string telefono { get; set; }
 
-        [Required(ErrorMessage = "*Favor ingrese la contraseña1")]
+        [Required(ErrorMessage = "*Favor ingrese la contraseña")]
         [DisplayName("Contraseña")]
         public string contrasenna { get; set; }
         [DisplayName("Confirmar Contraseña")]
@@ -35,11 +35,11 @@ namespace RealState_WEB.Model
         [Required(ErrorMessage = "*Favor ingrese el estado del usuario")]
         [DisplayName("Estado")]
         public bool estado { get; set; }
-        public long id_rol_fk { get; set; }
-        public long id_direccion_fk { get; set; }
+        public long id_rol_fk { get; set; } = 0;
+        public long id_direccion_fk { get; set; } = 0;
 
         [ForeignKey("id_rol_fk")]
-        public USUARIO_ROLES rol { get; set; }
+        public USUARIO_ROLES? rol { get; set; }
 
         [ForeignKey("id_direccion_fk")]
         public USUARIO_DIRECCIONES direccion { get; set; }

@@ -13,6 +13,7 @@
                 @Html.HiddenFor(Model => Model.CodigoValidarSistema)
             }
             <input asp-for="email" placeholder="Correo electrónico" type="text" class="form-control" required />
+            
             <span asp-validation-for="email" class="text-danger"></span>
             @if (Model.CodigoValidarSistema != 0 && Model.CodigoValidado == false)
             {
@@ -28,6 +29,7 @@
                 <input asp-for="confirmarContrasenna" placeholder="Confirmar Contraseña" type="password" class="form-control" required />
                 <span asp-validation-for="confirmarContrasenna" class="text-danger"></span>
             }
+            <br />
             <input class="btn btn-success col-12" id="btnRestablecerContra" type="submit" value="Restablecer contraseña" name="Login">
         </form>
         <br />

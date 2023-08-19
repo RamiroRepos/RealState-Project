@@ -12,11 +12,11 @@ namespace RealState_WEB.Model
 
         [Required(ErrorMessage = "*Favor ingrese el nombre")]
         [DisplayName("Rol")]
-        public string nombre { get; set; }
+        public string? nombre { get; set; }
 
         [Required(ErrorMessage = "*Favor ingrese la descripción")]
         [DisplayName("Descripción")]
-        public string descripcion { get; set; }
+        public string? descripcion { get; set; }
         public List<USUARIO_ROLES>? rolesList { get; set; }
         public List<SelectListItem>? RolesListSelectList
         {

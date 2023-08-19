@@ -10,7 +10,7 @@ namespace RealState_WEB.Model
         [Required(ErrorMessage = "*Favor seleccione la provincia")]
         public long? id { get; set; }
         [DisplayName("Provincia")]
-        public string nombre { get; set; }
+        public string? nombre { get; set; }
         public List<PROVINCIAS>? provinciaList { get; set; }
         public List<SelectListItem>? ProvinciaListSelectList
         {
