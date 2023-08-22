@@ -1,0 +1,55 @@
+Login:
+	Login
+	Reset User
+		- Ver correos
+	Registro User.
+		- Form
+	Variables sesión
+		
+		- Rol admin
+		- Rol user
+		- Cerrar sesion
+	Inicio Sesion
+		- Filtros Luisk
+User:
+	Index
+		- Ver slider principal
+		- Info de servicios
+		- Slider ultimo
+		- Rol sin inicio sesion
+	Propiedades
+		- Rol sin inicio sesion
+		- Ver listado
+	Propiedad
+		- Ver 
+		-Agendar Cita
+			- Cancelarla
+	Mi Perfil
+		- Ver
+	Mis Citas
+		- Cancelar 
+Admin
+	Users
+		- Disable
+		- Editar
+	Propiedades
+		- Disable
+		- Editar
+		- Agregar
+
+
+	Prueba Filtro
+	https://localhost:7277/Usuarios/ConsultarUsuarios
+	https://localhost:7277/Propiedades/ConsultarPropiedades
+	https://localhost:7277/Citas/MisCitas
+	https://localhost:7277/Propiedades/MostrarPropiedad/2
+	
+	Integrantes
+	Hillary Madriz
+	Michael Quiros
+	Wimmer madrigal 
+	Luis Cascante
+	
+	Sistema:
+	Sistema web de ventas de propiedades
+	

@@ -219,9 +219,15 @@ namespace RealState_WEB.Controllers
             {
                 usuario.id_rol_fk = 2;
                 usuario.estado = true;
-                usuario.direccion.id_pais_fk = (long)usuario.direccion.pais.id;
+                if (usuario.direccion.pais.id != null)
+                {
+                    usuario.direccion.id_pais_fk = (long)usuario.direccion.pais.id;
+                }
                 usuario.direccion.pais.nombre = "";
-                usuario.direccion.id_provincia_fk = (long)usuario.direccion.provincia.id;
+                if (usuario.direccion.provincia.id != null)
+                {
+                    usuario.direccion.id_provincia_fk = (long)usuario.direccion.provincia.id;
+                }
                 usuario.direccion.provincia.nombre = "";
                 usuario.rol = new USUARIO_ROLES();
                 usuario.rol.id = 2;

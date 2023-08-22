@@ -19,7 +19,7 @@ namespace RealState_WEB.Filtros
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
                     { "controller", "Home" },
-                    { "action", "Index" }
+                    { "action", "IniciarSesion" }
                 });
             }
         }
